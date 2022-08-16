@@ -5,22 +5,94 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { FormControl, TextField } from "@mui/material";
 import { Button } from "@mui/material";
-
+import PropTypes from 'prop-types';
 import { Timer } from '../../shared/components/Timer'
-
+import Box from '@mui/material/Box';
 import { Container } from "./styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import axios from 'axios'
 
 
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box >
+            <div>{children}</div>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
 
 function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`, 
     };
   }
+
+  const columns = [
+    {
+      id: "column1",
+      title: "Column 1",
+      rows: [
+        {
+          id: "children1",
+          name: "John",
+          age: "21"
+        },
+        {
+          id: "children2",
+          name: "Alex",
+          age: "33"
+        }
+      ]
+    },
+    {
+      id: "column2",
+      title: "Column 2",
+      rows: [
+        {
+          id: "children3",
+          name: "Michael",
+          age: "29"
+        },
+        {
+          id: "children4",
+          name: "Carl",
+          age: "26"
+        }
+      ]
+    }
+  ];
+
+  const renderCard = row => (
+    <RowWrapper>
+      <InfoWrapper>
+        <Label>Name:</Label>
+        <Value>{row.name}</Value>
+      </InfoWrapper>
+      <InfoWrapper>
+        <Label>Age:</Label>
+        <Value>{row.age}</Value>
+      </InfoWrapper>
+    </RowWrapper>
+  );
 
 export const Etapa1 = (props) => {
 
@@ -33,11 +105,11 @@ export const Etapa1 = (props) => {
 
 
     const handleChange = (event, newValue) => {
-      setValue(newValue);
+        setValue(newValue);
     };
 
-    const handleChangeInside = (event, newValue) => {
-        setValueInside(newValue);
+    const handleChangeInside = (event, newValueInside) => {
+        setValueInside(newValueInside);
       };
 
    
@@ -72,6 +144,7 @@ export const Etapa1 = (props) => {
 
     }, [timeClock, isActive])
 
+    
 
     return(
         <Container>
@@ -105,7 +178,7 @@ export const Etapa1 = (props) => {
                     
                     
 
-                    <div className="border formacao-equipe" hidden={value !== 0} >
+                    <TabPanel value={value} index={0} className="border formacao-equipe" >
 
             
                         <div className="info-etapa-text">
@@ -138,13 +211,13 @@ export const Etapa1 = (props) => {
                                 <br />
 
                                 <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Definição de informações da equipe" {...a11yProps(5)} />
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a11yProps(6)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Definição de informações da equipe" {...a11yProps(0)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a11yProps(1)} />
 
                                 </Tabs>
 
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border">
                                    
 
                                     <h4 className="text-title-inside">
@@ -163,9 +236,9 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                                 
-                                <div className="atv-container border" hidden={valueInside !== 1}>
+                                <TabPanel value={valueInside} index={1} className="atv-container border" >
 
                                     <h4 className="text-title-inside">
                                         Aproximação de participantes e formação de equipe
@@ -181,7 +254,7 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
 
 
                                 <br />
@@ -216,12 +289,12 @@ export const Etapa1 = (props) => {
                                 <br />
 
                                 <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Definição de informações da equipe" {...a11yProps(7)} />
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a11yProps(8)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Canvas de Aquecimento" {...a11yProps(0)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Apresentação Canvas de Aquecimento" {...a11yProps(1)} />
 
                                 </Tabs>
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -239,10 +312,10 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                               
 
-                                <div className="atv-container border" hidden={valueInside !== 1}>
+                                <TabPanel value={valueInside} index={1} className="atv-container border">
                                
 
                                     <h4 className="text-title-inside">
@@ -259,7 +332,7 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                             
                             </div>
                             </AccordionDetails>
@@ -376,9 +449,9 @@ export const Etapa1 = (props) => {
                             <button className="btn-proxAtv" onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                         </div>
 
-                    </div>
+                    </TabPanel>
 
-                    <div className="border mapeamento-problema" hidden={value !== 1}>
+                    <TabPanel value={value} index={1} className="border mapeamento-problema">
 
 
                         <div className="info-etapa-text">
@@ -410,10 +483,10 @@ export const Etapa1 = (props) => {
                                 <br />
 
                                 <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Primeira Pesquisa" {...a11yProps(7)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Primeira Pesquisa" {...a11yProps(0)} />
                                 </Tabs>
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -431,7 +504,7 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                               
                             </div>
                             </AccordionDetails>
@@ -447,11 +520,11 @@ export const Etapa1 = (props) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Primeira Discussão" {...a11yProps(7)} />
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Votação nos temas" {...a11yProps(8)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Primeira Discussão" {...a11yProps(0)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Votação nos temas" {...a11yProps(1)} />
                                 </Tabs>
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -470,9 +543,9 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
 
-                                <div className="atv-container border" hidden={valueInside !== 1}>
+                                <TabPanel value={valueInside} index={1} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -491,7 +564,7 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                             </AccordionDetails>
                         </Accordion>
                         
@@ -508,10 +581,10 @@ export const Etapa1 = (props) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Segunda Pesquisa" {...a11yProps(7)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Segunda Pesquisa" {...a11yProps(0)} />
                                 </Tabs>
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -529,7 +602,7 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
 
                             </AccordionDetails>
                         </Accordion>
@@ -546,11 +619,11 @@ export const Etapa1 = (props) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Segunda Discussão" {...a11yProps(7)} />
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Votação nas Soluções" {...a11yProps(8)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Segunda Discussão" {...a11yProps(0)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Votação nas Soluções" {...a11yProps(1)} />
                                 </Tabs>
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -570,9 +643,9 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
 
-                                <div className="atv-container border" hidden={valueInside !== 1}>
+                                <TabPanel value={valueInside} index={1} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -593,7 +666,7 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                             </AccordionDetails>
                         </Accordion>
 
@@ -601,9 +674,9 @@ export const Etapa1 = (props) => {
                             <button className="btn-proxAtv" onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                         </div>
 
-                    </div>
+                    </TabPanel>
 
-                    <div className="border mentoria" hidden={value !== 2}>
+                    <TabPanel value={value} index={2} className="border mentoria">
                         
                         <div className="info-etapa-text">
 
@@ -628,12 +701,12 @@ export const Etapa1 = (props) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Apresentação para o mentor" {...a11yProps(7)} />
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Retorno da Equipe" {...a11yProps(8)} />
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Apresentação para a turma" {...a11yProps(9)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Apresentação para o mentor" {...a11yProps(0)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Retorno da Equipe" {...a11yProps(1)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Apresentação para a turma" {...a11yProps(2)} />
                                 </Tabs>
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border" >
                                 
 
                                     <h4 className="text-title-inside">
@@ -653,9 +726,9 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
 
-                                <div className="atv-container border" hidden={valueInside !== 1}>
+                                <TabPanel value={valueInside} index={1} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -674,10 +747,9 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
-
-                                
-                                <div className="atv-container border" hidden={valueInside !== 2}>
+                                </TabPanel>
+                            
+                                <TabPanel value={valueInside} index={2} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -696,7 +768,7 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                             </AccordionDetails>
                         </Accordion>
 
@@ -705,9 +777,9 @@ export const Etapa1 = (props) => {
                         </div>
                     
 
-                    </div>
+                    </TabPanel>
 
-                    <div className="border validacao-problema" hidden={value !== 3}>
+                    <TabPanel value={value} index={3} className="border validacao-problema">
 
                         <div className="info-etapa-text">
 
@@ -730,11 +802,11 @@ export const Etapa1 = (props) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Validação do problema" {...a11yProps(7)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Validação do problema" {...a11yProps(0)} />
                                     
                                 </Tabs>
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -753,7 +825,7 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                             </AccordionDetails>
                         </Accordion>
                         
@@ -770,11 +842,11 @@ export const Etapa1 = (props) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Discussão sobre a Validação do problema" {...a11yProps(7)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Discussão sobre a Validação do problema" {...a11yProps(0)} />
                                     
                                 </Tabs>
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -793,7 +865,7 @@ export const Etapa1 = (props) => {
                                         </div>
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                             </AccordionDetails>
                         </Accordion>
 
@@ -802,9 +874,9 @@ export const Etapa1 = (props) => {
                         </div>
                     
 
-                    </div>
+                    </TabPanel>
 
-                    <div className="border revisao-processo" hidden={value !== 4}>
+                    <TabPanel value={value} index={4} className="border revisao-processo">
 
                         <div className="info-etapa-text">
 
@@ -829,11 +901,11 @@ export const Etapa1 = (props) => {
                             </AccordionSummary>
                             <AccordionDetails>
                             <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Retrospectiva" {...a11yProps(7)} />
+                                    <Tab wrapped fullWidth className="text-title tab-etapas" label="Retrospectiva" {...a11yProps(0)} />
                                     
                                 </Tabs>
 
-                                <div className="atv-container border" hidden={valueInside !== 0}>
+                                <TabPanel value={valueInside} index={0} className="atv-container border">
                                 
 
                                     <h4 className="text-title-inside">
@@ -852,13 +924,18 @@ export const Etapa1 = (props) => {
                                             <p>Antes de inciar a atividade lembrem-se que vocês têm <b>5 minutos</b> para finalizar a mesma.</p> 
                                             <button className="btn-atv" onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
                                         </div>
+
+                                        <br />
+                                        <br />
+                                        
+                                     
                                         
                                     </div>
-                                </div>
+                                </TabPanel>
                             </AccordionDetails>
                         </Accordion>
 
-                    </div>
+                    </TabPanel>
 
 
 

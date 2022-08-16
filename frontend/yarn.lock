@@ -8347,12 +8347,7 @@
   dependencies:
     "regenerate" "^1.4.0"
 
-"regenerate@^1.4.0":
-  "integrity" "sha512-1G6jJVDWrt0rK99kBjvEtziZNCICAuvIPkSiUFIQxVP06RCVpq3dmDo2oi6ABpYaDYaTRr67BEhL8r1wgEZZKg=="
-  "resolved" "https://registry.npmjs.org/regenerate/-/regenerate-1.4.0.tgz"
-  "version" "1.4.0"
-
-"regenerate@^1.4.2":
+"regenerate@^1.4.0", "regenerate@^1.4.2":
   "integrity" "sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A=="
   "resolved" "https://registry.npmjs.org/regenerate/-/regenerate-1.4.2.tgz"
   "version" "1.4.2"
@@ -9491,11 +9486,6 @@
   "integrity" "sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w=="
   "resolved" "https://registry.npmjs.org/type-fest/-/type-fest-0.21.3.tgz"
   "version" "0.21.3"
-
-"type-fest@>=0.17.0 <3.0.0":
-  "integrity" "sha512-pRS+/yrW5TjPPHNOvxhbNZexr2bS63WjrMU8a+VzEBhUi9Tz1pZeD+vQz3ut0svZ46P+SRqMEPnJmk2XnvNzTw=="
-  "resolved" "https://registry.npmjs.org/type-fest/-/type-fest-2.18.0.tgz"
-  "version" "2.18.0"
 
 "type-is@~1.6.18":
   "integrity" "sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g=="
