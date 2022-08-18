@@ -80,6 +80,7 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+
     }
 
     .tab-box .Mui-selected {
@@ -122,6 +123,10 @@ export const Container = styled.div`
         padding: 50px;
     }
 
+    .metodos-avaliacao {
+        padding: 50px;
+    }
+
     .seConhecem {
        margin-top: 5px;
        
@@ -143,25 +148,23 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: flex-end;
-
-        margin: 25px 0;
-
-        position: fixed;
-        z-index: 10;
-        margin-left: 63.5%;
+       
+        margin-right: 5px;
+        
     }
 
     .content-timer {
         background-color: #2BCCDE;
         border: 3px solid #0EA7B9;
-        width: 250px;
-        height: 100px;
+        width: 170px;
+        height: 65px;
 
         display: flex;
         align-items: center;
         justify-content: center;
 
         border-radius: 15px;
+        margin-bottom: 10px;
     }
 
     .info-naoSeConhecem {
@@ -202,17 +205,42 @@ export const Container = styled.div`
         width: 150px;
         height: 25px;
         border-radius: 15px;
-        border: 1px solid #f39601;
-        background-color: #f39601;
+        border: 1px solid green;
+        background-color: green;
         color: #FFFFFF;
         font-weight: bold;
         font-size: 14px;
         cursor: pointer;
+
+        margin-right: 5px;
     }
 
     .btn-atv:hover {
         background-color: #FFFFFF;
-        color: #f39601;
+        color: green;
+    }
+
+    .selected {
+        background-color: gray;
+        color: #FFFFFF;
+        border: 1px solid gray;
+        cursor: auto;
+    }
+
+    .selected:hover {
+        background-color: gray;
+        color: #FFFFFF;
+        border: 1px solid gray;
+    }
+
+    .btn-pause {
+        border: 1px solid red;
+        background-color: red;
+    }
+
+    .btn-pause:hover {
+        background-color: #FFFFFF;
+        color: red;
     }
 
     .btn-Box {
@@ -280,6 +308,12 @@ export const Container = styled.div`
         }
     }
 
+    @media screen and (max-width: 1024px){
+        .tab-etapas {
+            padding: 5px;
+        }
+    }
+
     @media screen and (max-width: 975px){
         
         .tab-etapas {
@@ -313,6 +347,10 @@ export const Container = styled.div`
         
         .content-page {
             margin: 32px;
+        }
+
+        .timer-box {
+            justify-content: center;
         }
 
         .tab-box {
@@ -349,6 +387,10 @@ export const Container = styled.div`
         .revisao-processo {
             padding: 40px;
         }
+
+        .metodos-avaliacao {
+            padding: 40px;
+        }
     }
 
     @media screen and (max-width: 375px){
@@ -370,6 +412,10 @@ export const Container = styled.div`
         }
 
         .revisao-processo {
+            padding: 30px;
+        }
+
+        .metodos-avaliacao {
             padding: 30px;
         }
     }
@@ -406,6 +452,10 @@ export const Container = styled.div`
 
        .revisao-processo {
            padding: 25px;
+       }
+
+       .metodos-avaliacao {
+            padding: 25px;
        }
    }
 

@@ -18,6 +18,7 @@ export function Timer(props) {
 
         if(props.minutes !== 0) {
             setTime(props.minutes * 60)
+            // props.setTimeClockPause(props.minutes * 60)
         }
 
 
