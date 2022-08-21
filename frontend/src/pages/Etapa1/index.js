@@ -1,67 +1,25 @@
 import React, { useEffect, useState } from "react";
 
+import { TabPanel } from '../../shared/components/TabPanel'
+import { TabPanelInside } from '../../shared/components/TabPanelInside'
+import { Timer } from '../../shared/components/Timer'
+
+import BoardSprint from './components/BoardSprint'
+
 import { Tabs, Tab} from '@mui/material';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { FormControl, TextField } from "@mui/material";
 import { Button } from "@mui/material";
-import PropTypes from 'prop-types';
-import { Timer } from '../../shared/components/Timer'
-import Box from '@mui/material/Box';
 
-import { Container } from "./styles";
+
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
-import BoardSprint from './components/BoardSprint'
-
-
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box >
-            <div>{children}</div>
-          </Box>
-        )}
-      </div>
-    );
-}
-
-function TabPanelInside(props) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}-inside`}
-        aria-labelledby={`simple-tab-${index}-inside`}
-        {...other}
-      >
-        {value === index && (
-          <Box >
-            <div>{children}</div>
-          </Box>
-        )}
-      </div>
-    );
-  }
-  
-  TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-  };
+import { Container } from "./styles";
 
 function a11yProps(index) {
     return {
@@ -78,18 +36,44 @@ function a22yProps(index) {
 }
 
   
-
 export const Etapa1 = (props) => {
-
     const [value, setValue] = useState(0);
     const [valueInside, setValueInside] = useState(0);
-    const [seConhecem, setSeConhecem] = useState(false)
+
+    const [seConhecem, setSeConhecem] = useState(JSON.parse(localStorage.getItem('seConhecem')) ? JSON.parse(localStorage.getItem('seConhecem')) : false)
 
     const [timeClock, setTimeClock] = useState(0)
-    const [timeClockPause, setTimeClockPause] = useState(0)
     const [isActive, setIsActive] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
 
+    const [hasFinised, setHasFinised] = useState(false);
+
+    const [expanded, setExpanded] = useState(false);
+
+    const [isOpenAccordion, setOpenAccordion] = useState(false)
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const [isFinished, setIsFinished] = useState(false)
+
+    const boxInitial = JSON.parse(localStorage.getItem('boxState'))
+
+    const [boxState, setBoxState] = useState(boxInitial ? boxInitial :{
+        separacaoEquipe: false,
+        aquecimentoEquipe: false,
+        definicaoPapeis: false,
+        primeiraPesquisa: false,
+        definicaoProblema: false,
+        segundaPesquisa: false,
+        definicaoEquipeProblema: false,
+        mentoria: false,
+        pesquisaRapida: false,
+        discussaoValidacao: false,
+        retrospectiva: false
+    })
+
+    const [etapaFinalizada, setEtapaFinalizada] = useState(false)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -97,49 +81,67 @@ export const Etapa1 = (props) => {
 
     const handleChangeInside = (event, newValue) => {
         setValueInside(newValue);
-      };
-
-   
-    const [expanded, setExpanded] = React.useState(false);
+    };
 
     const handleOpenBox = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
         setValueInside(isExpanded ? valueInside : 0);
+        setOpenAccordion(isExpanded ? false : true)
     };
 
     const handleSeConhecem = (e) => {
         if(e.target.id === 'sim') {
-            setSeConhecem(!seConhecem)
-            return
-        } 
-        setSeConhecem(false)
+            setSeConhecem(true)
+        } else {
+            setSeConhecem(false)
+        }
     }
 
+    const handlePopoverOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handlePopoverClose = () => {
+        setAnchorEl(null);
+    };
 
     const startCountdown = () => {
         setIsActive(true);
     }
 
-    const handlePauseTimer = () => {
-        setIsActive(!isActive)
-        setTimeClockPause(timeClock)
-        setIsPaused(!isPaused)
-    }
+    const [timeStop, setTimeStop] = useState(timeClock)
 
-    const handleStartTime = (time) => {
-        if(isPaused) {
-            setTimeClockPause(timeClock)
-        } else {
-            setTimeClock(time)
+    const startNewChallenge = () => {
+        
+        if(Notification.permission == 'granted'){
+            new Notification("Tempo para realizar a atividade finalizado ", {
+                body: `:) Já é possível iniciar as próximas atividades.`
+            });
         }
     }
+    
+    const handleFinalizar = (boxName) => {
+        setBoxState({
+            ...boxState,
+            [boxName]: !boxState[boxName]
+        })
+    }
+
+    const handleFinalizarEtapas = (e) => {
+        e.preventDefault()
+        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
+    }
+
 
     useEffect(() => {
+        localStorage.setItem('seConhecem', JSON.stringify(seConhecem))
+    }, [seConhecem])
 
-        console.log('opa', timeClock)
-        console.log('opa', isPaused)
-        console.log('value inside', valueInside)
-        console.log('value ', value)
+    useEffect(() => {
+        localStorage.setItem('boxState', JSON.stringify(boxState))
+    }, [boxState])
+
+    useEffect(() => {
 
         if(timeClock !== 0) {
             startCountdown()
@@ -151,7 +153,36 @@ export const Etapa1 = (props) => {
 
     }, [timeClock, isActive, isPaused])
 
-    
+    useEffect(() => {
+
+        if(hasFinised) {
+            startNewChallenge()
+            setIsFinished(false)
+        }
+    }, [hasFinised])
+
+    useEffect(() => {
+        Notification.requestPermission();
+    }, []);
+
+    useEffect(() => {
+
+        var count = 0
+
+        for(var elem in boxState) {
+            if(boxState[elem]) {
+                count++
+            }
+        }
+
+        if(count === Object.keys(boxState).length) {
+            setEtapaFinalizada(true)
+        } else {
+            setEtapaFinalizada(false)
+        }
+        console.log('mudou', Object.keys(boxState).length)
+
+    }, [boxState])
 
     return(
         <Container>
@@ -167,12 +198,12 @@ export const Etapa1 = (props) => {
                     <div className="content-etapas">
                     
                         <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={value} onChange={handleChange} aria-label="basic tabs example" className="tab-box">
-                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Definição de equipe" {...a11yProps(0)} />
-                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a11yProps(1)} />
-                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Mentoria" {...a11yProps(2)} />
-                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Validação do Problema" {...a11yProps(3)} />
-                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Revisão do Processo" {...a11yProps(4)} />
-                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Avaliação" {...a11yProps(5)} />
+                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Definição de equipe" {...a11yProps(0)} />
+                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a11yProps(1)} />
+                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Mentoria" {...a11yProps(2)} />
+                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Validação do Problema" {...a11yProps(3)} />
+                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Revisão do Processo" {...a11yProps(4)} />
+                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Avaliação" {...a11yProps(5)} />
                         </Tabs>
                         
 
@@ -191,20 +222,19 @@ export const Etapa1 = (props) => {
                                 </h4>
                             </div>
                             
-                            <Accordion className="box-accordion" expanded={expanded === 'panel1a'} onChange={handleOpenBox('panel1a')}>
+                            <Accordion className={`box-accordion`} expanded={expanded === 'panel1a'} onChange={handleOpenBox('panel1a')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon className="icon-exp" />}
                                 aria-controls="panel1bh-content"
-                                id="panel1bh-header">
-                                <Typography className="text-title">
+                                id="panel1bh-header"
+                                className={`${boxState['separacaoEquipe'] ? 'finalizada' : ''}`}>
+                                <Typography className={`text-title ${boxState['separacaoEquipe'] ? 'finalizada' : ''}`}>
                                     Separação da equipe
                                 </Typography>
                                 
                                 </AccordionSummary>
-                                <AccordionDetails>
-                                    <div>
-                                        
-
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                     
                                         Nesta atividade vocês devem realizar a separação da equipe, ou seja, irão realizar algumas atividades
                                         individuais para que ao chegar na atividade de definição de papéis da equipe, todos já tenham se conhecido melhor. 
                                         <br />
@@ -212,13 +242,13 @@ export const Etapa1 = (props) => {
 
                                         <div className={`timer-box`}>
                                             <div className="content-timer">
-                                                <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive} setTimeClockPause={setTimeClockPause}></Timer>
+                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} setTimeStop={setTimeStop} />
                                             </div>
                                         </div>
 
                                         <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Definição de informações da equipe" {...a22yProps(0)} />
-                                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a22yProps(1)} />
+                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Definição de informações da equipe" {...a22yProps(0)} />
+                                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a22yProps(1)} />
 
                                         </Tabs>
 
@@ -236,15 +266,10 @@ export const Etapa1 = (props) => {
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
-                                                    {console.log('pause ',timeClockPause)}
+             
                                                     <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
 
-                                                    <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
-
-                                                    { isPaused ?  
-                                                        <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                        <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                    }
+                                                    <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(1)} disabled={isActive}>Iniciar Atividade</button>
 
                                                 </div>
                                                 
@@ -265,10 +290,6 @@ export const Etapa1 = (props) => {
                                                     <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
                                                      <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(10)} disabled={isActive}>Iniciar Atividade</button>
 
-                                                    { isPaused ?  
-                                                        <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                        <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                    }
                                                 </div>
                                                 
                                             </div>
@@ -280,26 +301,32 @@ export const Etapa1 = (props) => {
                                         Antes de seguir para a realização da próxima etapa de atividades, favor informar se todos da equipe se conhecem.
                                         <div className="seConhecem">
                                             <input className="radio-s" type="radio" name="opcoes" id="sim" onChange={handleSeConhecem} /> Sim
-                                            <input className="radio-n" type="radio" name="opcoes" id="nao" onChange={handleSeConhecem}/> Não
+                                            <input className="radio-n" type="radio" name="opcoes" id="nao" onChange={handleSeConhecem} /> Não
                                         </div>
                                         <br />
                                         <br />                        
+                                 
+
+                                    <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['separacaoEquipe']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('separacaoEquipe')} /> Sim
                                     </div>
                                 </AccordionDetails>
                             </Accordion>
 
                             <div className={`${seConhecem ? "info-seConhecem" : "info-naoSeConhecem"}`}>
-                                Não é necessário realizar as atividades abaixo se todos os integrantes da equipe se conhecerem.  :)
+                                Não é necessário realizar as atividades abaixo se todos os integrantes da equipe se conhecerem.  :) 
                             </div>
-                            <Accordion className="box-accordion" expanded={expanded === 'panel2a'} onChange={handleOpenBox('panel2a')} disabled={seConhecem}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel2a'} onChange={handleOpenBox('panel2a')} disabled={seConhecem || isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2bh-content"
                                 id="panel2bh-header"
+                                className={`${boxState['aquecimentoEquipe'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className="text-title">Aquecimento da equipe</Typography>
+                                <Typography className={`text-title ${boxState['aquecimentoEquipe'] ? 'finalizada' : ''}`}>Aquecimento da equipe</Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                 <div>
                                     Nesta atividade vocês devem realizar uma dinâmica de equipe, ou seja, irão realizar algumas atividades
                                     individuais para que cada integrante se conheça e fique confortável um com o outro.
@@ -308,13 +335,13 @@ export const Etapa1 = (props) => {
 
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
-                                            <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                         </div>
                                     </div>
 
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Canvas de Aquecimento" {...a22yProps(0)} />
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Apresentação Canvas de Aquecimento" {...a22yProps(1)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Canvas de Aquecimento" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Apresentação Canvas de Aquecimento" {...a22yProps(1)} />
 
                                     </Tabs>
 
@@ -334,10 +361,7 @@ export const Etapa1 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                               
                                                     
                                             </div>
                                             
@@ -360,32 +384,33 @@ export const Etapa1 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(10)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
                                                     
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
-                                
+
+                                    <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['aquecimentoEquipe']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('aquecimentoEquipe')} /> Sim
+                                    </div>
                                 </div>
                                 </AccordionDetails>
                             </Accordion>
                             
 
-                            <Accordion className="box-accordion" expanded={expanded === 'panel3a'} onChange={handleOpenBox('panel3a')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel3a'} onChange={handleOpenBox('panel3a')} disabled={isActive }>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel3bh-content"
                                 id="panel3bh-header"
+                                className={`${boxState['definicaoPapeis'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className="text-title">
-                                    Definição de papéis da equipe
+                                <Typography className={`text-title ${boxState['definicaoPapeis'] ? 'finalizada' : ''}`}>
+                                    Definição de papéis da equipe 
                                 </Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
 
                                 
                                     <div className="papeis-etapa">
@@ -396,13 +421,13 @@ export const Etapa1 = (props) => {
 
                                         <div className={`timer-box`}>
                                             <div className="content-timer">
-                                                <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                             </div>
                                         </div>
 
                                         <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Definição de informações da equipe" {...a22yProps(0)} />
-                                            <Tab wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a22yProps(1)} />
+                                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Definição de informações da equipe" {...a22yProps(0)} />
+                                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a22yProps(1)} />
 
                                         </Tabs>
 
@@ -422,11 +447,7 @@ export const Etapa1 = (props) => {
                                                 <div className="iniciar-atv">
                                                     <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                     <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
-                                                    
-                                                    { isPaused ?  
-                                                        <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                        <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                    }
+                                                
                                                     
                                                 </div>
 
@@ -437,8 +458,6 @@ export const Etapa1 = (props) => {
                                                         <TextField fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />
                                                         <label className="text-papel">Quantidade de Integrantes</label>
                                                         <TextField type={'number'} fullWidth margin="normal" size="small" placeholder="Informe a quantidade de integrantes" variant="outlined" className="input-text" />
-                                                        <label className="text-papel">?????</label>
-                                                        <TextField fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
                                                     </FormControl>
 
                                                     <Button className="btn-formulario">Enviar Informações</Button>
@@ -463,21 +482,33 @@ export const Etapa1 = (props) => {
                                                 <div className="iniciar-atv">
                                                     <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                     <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
-                                                    
-                                                    { isPaused ?  
-                                                        <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                        <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                    }
-                                                    
+                                                   
                                                 </div>
                                                 <div className="papeis">
                                                     <h4>Favor preencher os nomes dos representante abaixo:</h4>
                                                     <FormControl fullWidth>
-                                                        <label className="text-papel">Facilitador</label>
+                                                    
+                                                        <label className="text-papel" >Facilitador</label>
+                                                        <Popup trigger={<QuestionMarkIcon className="icon-pop"></QuestionMarkIcon>} position="right center">
+                                                            <div>Responsável por guiar a equipe nas atividades realizadas.</div>
+                                                        </Popup>
+
                                                         <TextField fullWidth  margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
+                                                        
                                                         <label className="text-papel">Definidor</label>
+                                                        <Popup trigger={<QuestionMarkIcon className="icon-pop2"></QuestionMarkIcon>} position="right center">
+                                                            <div>Responsável por realizar as decisões mais importantes de cada atividade.</div>
+                                                        </Popup>
+                                                       
+
                                                         <TextField fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
                                                         <label className="text-papel">Responsável pelo tempo</label>
+                                                        
+                                                        <Popup trigger={<QuestionMarkIcon className="icon-pop3"></QuestionMarkIcon>} position="right center">
+                                                            <div>Responsável por gerenciar o tempo de realização de cada atividade.</div>
+                                                        </Popup>
+                                                        
+
                                                         <TextField fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
                                                     </FormControl>
 
@@ -486,21 +517,23 @@ export const Etapa1 = (props) => {
                                                 
                                             </div>
                                         </TabPanelInside>
-                                        
-
+                                       
+                                        <div className="finalizarAtv">
+                                            <label>Finalizar Atividade?</label>
+                                            <input checked={boxState['definicaoPapeis']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('definicaoPapeis')} /> Sim
+                                        </div>
                                     
                                     </div>
                                 </AccordionDetails>
                             </Accordion>
+
                             <div className="btn-Box">
-                                <button className="btn-proxAtv" onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
+                                <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
 
                         </TabPanel>
 
                         <TabPanel value={value} index={1} className="border mapeamento-problema">
-
-
                             <div className="info-etapa-text">
 
                                 <h2 className="text-title-etapa">Mapeamento do Problema</h2>
@@ -512,18 +545,18 @@ export const Etapa1 = (props) => {
                                 </h4>
                             </div>
 
-                            
-                            <Accordion className="box-accordion" expanded={expanded === 'panel1b'} onChange={handleOpenBox('panel1b')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel1b'} onChange={handleOpenBox('panel1b')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1bh-content"
-                                id="panel1bh-header">
-                                <Typography className="text-title">
+                                id="panel1bh-header"
+                                className={`${boxState['primeiraPesquisa'] ? 'finalizada' : ''}`}>
+                                <Typography className={`text-title ${boxState['primeiraPesquisa'] ? 'finalizada' : ''}`}>
                                     Primeira Pesquisa individual
                                 </Typography>
                                 
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                 <div>
                                     Nesta atividade vocês irão realizar pesquisas individuais sobre possíveis temas em qualquer área, que você deseje que a equipe desenvolva/mapeie alguma solução.
                                     <br />
@@ -531,12 +564,12 @@ export const Etapa1 = (props) => {
 
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
-                                            <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                         </div>
                                     </div>
 
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Primeira Pesquisa" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Primeira Pesquisa" {...a22yProps(0)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border">
@@ -554,38 +587,38 @@ export const Etapa1 = (props) => {
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(10)} disabled={isActive}>Iniciar Atividade</button>
-                                                
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
-                                                    
+                                             
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
-                                
+
+                                    <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['primeiraPesquisa']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('primeiraPesquisa')} /> Sim
+                                    </div>
                                 </div>
                                 </AccordionDetails>
                             </Accordion>
 
-                            <Accordion className="box-accordion" expanded={expanded === 'panel2b'} onChange={handleOpenBox('panel2b')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel2b'} onChange={handleOpenBox('panel2b')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2bh-content"
                                 id="panel2bh-header"
+                                className={`${boxState['definicaoProblema'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className="text-title">Discussão para definição do problema</Typography>
+                                <Typography className={`text-title ${boxState['definicaoProblema'] ? 'finalizada' : ''}`}>Discussão para definição do problema</Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
-                                            <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Primeira Discussão" {...a22yProps(0)} />
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Votação nos temas" {...a22yProps(1)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Primeira discussão" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Votação nos temas" {...a22yProps(1)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border">
@@ -607,10 +640,7 @@ export const Etapa1 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(10)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                             
                                                     
                                             </div>
                                             
@@ -633,37 +663,39 @@ export const Etapa1 = (props) => {
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
-                                                
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                             
                                                     
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
                                 </AccordionDetails>
+
+                                <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['definicaoProblema']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('definicaoProblema')} /> Sim
+                                    </div>
                             </Accordion>
                             
-                            <Accordion className="box-accordion" expanded={expanded === 'panel3b'} onChange={handleOpenBox('panel3b')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel3b'} onChange={handleOpenBox('panel3b')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel3bh-content"
                                 id="panel3bh-header"
+                                className={`${boxState['segundaPesquisa'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className="text-title">
+                                <Typography className={`text-title ${boxState['segundaPesquisa'] ? 'finalizada' : ''}`}>
                                     Segunda Pesquisa individual
                                 </Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
-                                            <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Segunda Pesquisa" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Segunda Pesquisa" {...a22yProps(0)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border">
@@ -684,38 +716,40 @@ export const Etapa1 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(10)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
-                                                    
+                                               
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
 
                                 </AccordionDetails>
+
+                                <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['segundaPesquisa']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('segundaPesquisa')} /> Sim
+                                    </div>
                             </Accordion>
 
-                            <Accordion className="box-accordion" expanded={expanded === 'panel4b'} onChange={handleOpenBox('panel4b')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel4b'} onChange={handleOpenBox('panel4b')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel4bh-content"
                                 id="panel4bh-header"
+                                className={`${boxState['definicaoEquipeProblema'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className="text-title">
+                                <Typography className={`text-title ${boxState['definicaoEquipeProblema'] ? 'finalizada' : ''}`}>
                                     Discussão em equipe para definição do problema/ideia 
                                 </Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
-                                            <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Segunda Discussão" {...a22yProps(0)} />
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Votação nas Soluções" {...a22yProps(1)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Segunda Discussão" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Votação nas Soluções" {...a22yProps(1)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border">
@@ -736,10 +770,7 @@ export const Etapa1 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(10)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                               
                                                     
                                             </div>
                                             
@@ -765,20 +796,22 @@ export const Etapa1 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                             
                                                     
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
                                 </AccordionDetails>
+
+                                <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['definicaoEquipeProblema']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('definicaoEquipeProblema')} /> Sim
+                                    </div>
                             </Accordion>
 
                             <div className="btn-Box">
-                                <button className="btn-proxAtv" onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
+                                <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
 
                         </TabPanel>
@@ -796,26 +829,27 @@ export const Etapa1 = (props) => {
                                 </h4>
                             </div>
 
-                            <Accordion className="box-accordion" expanded={expanded === 'panel1c'} onChange={handleOpenBox('panel1c')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel1c'} onChange={handleOpenBox('panel1c')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel3bh-content"
                                 id="panel3bh-header"
+                                className={`${boxState['mentoria'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className="text-title">
+                                <Typography className={`text-title ${boxState['mentoria'] ? 'finalizada' : ''}`}>
                                     Agendamento da mentoria
                                 </Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
-                                            <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Apresentação para o mentor" {...a22yProps(0)} />
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Retorno da Equipe" {...a22yProps(1)} />
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Apresentação para a turma" {...a22yProps(2)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Apresentação para o mentor" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Retorno da Equipe" {...a22yProps(1)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Apresentação para a turma" {...a22yProps(2)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border" >
@@ -836,11 +870,7 @@ export const Etapa1 = (props) => {
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>15 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(15)} disabled={isActive}>Iniciar Atividade</button>
-                                                
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                              
                                                     
                                             </div>
                                             
@@ -864,10 +894,7 @@ export const Etapa1 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                              
                                                     
                                             </div>
                                             
@@ -891,20 +918,22 @@ export const Etapa1 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                               
                                                     
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
                                 </AccordionDetails>
+
+                                <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['mentoria']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('mentoria')} /> Sim
+                                    </div>
                             </Accordion>
 
                             <div className="btn-Box">
-                                <button className="btn-proxAtv" onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
+                                <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
                         
 
@@ -923,22 +952,23 @@ export const Etapa1 = (props) => {
                                 </h4>
                             </div>
                         
-                            <Accordion className="box-accordion" expanded={expanded === 'panel1d'} onChange={handleOpenBox('panel1d')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel1d'} onChange={handleOpenBox('panel1d')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2bh-content"
                                 id="panel2bh-header"
+                                className={`${boxState['pesquisaRapida'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className="text-title">Pesquisa rápida sobre o problema/ideia</Typography>
+                                <Typography className={`text-title ${boxState['pesquisaRapida'] ? 'finalizada' : ''}`}>Pesquisa rápida sobre o problema/ideia</Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
-                                            <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Validação do problema" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Validação do problema" {...a22yProps(0)} />
                                         
                                     </Tabs>
 
@@ -959,37 +989,38 @@ export const Etapa1 = (props) => {
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>15 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(15)} disabled={isActive}>Iniciar Atividade</button>
-                                                
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                              
                                                     
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
                                 </AccordionDetails>
+                                <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['pesquisaRapida']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('pesquisaRapida')} /> Sim
+                                    </div>
                             </Accordion>
                             
-                            <Accordion className="box-accordion" expanded={expanded === 'panel2d'} onChange={handleOpenBox('panel2d')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel2d'} onChange={handleOpenBox('panel2d')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel3bh-content"
                                 id="panel3bh-header"
+                                className={`${boxState['discussaoValidacao'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className="text-title">
+                                <Typography className={`text-title ${boxState['discussaoValidacao'] ? 'finalizada' : ''}`}>
                                     Discussão
                                 </Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
-                                            <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Discussão sobre a Validação do problema" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Discussão sobre a Validação do problema" {...a22yProps(0)} />
                                         
                                     </Tabs>
 
@@ -1011,20 +1042,21 @@ export const Etapa1 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>25 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(25)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
+                                              
                                                     
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
                                 </AccordionDetails>
+                                <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['discussaoValidacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('discussaoValidacao')} /> Sim
+                                    </div>
                             </Accordion>
 
                             <div className="btn-Box">
-                                <button className="btn-proxAtv" onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
+                                <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
                         
 
@@ -1043,25 +1075,26 @@ export const Etapa1 = (props) => {
                                 </h4>
                             </div>
 
-                            <Accordion className="box-accordion" expanded={expanded === 'panel1e'} onChange={handleOpenBox('panel1e')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel1e'} onChange={handleOpenBox('panel1e')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel3bh-content"
                                 id="panel3bh-header"
+                                className={`${boxState['retrospectiva'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className="text-title">
+                                <Typography className={`text-title ${boxState['retrospectiva'] ? 'finalizada' : ''}`}>
                                     Retrospectiva do processo
                                 </Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
-                                            <Timer minutes={timeClock} isActive={isActive} setIsActive={setIsActive}></Timer>
+                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                         </div>
                                     </div>
 
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Retrospectiva" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Retrospectiva" {...a22yProps(0)} />
                                         
                                     </Tabs>
                                     
@@ -1072,8 +1105,6 @@ export const Etapa1 = (props) => {
                                             Retrospectiva da Sprint
                                         </h4>
 
-                                        
-                                    
                                         <div className="box-atv">
                                             Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma retrospectiva, ponderando e pensando sobre todas as atividades
                                             realizadas no dia e responder algumas questões, como: <strong> <em>O que tem funcionado?, O que não funcionou?, O que pode ser melhorado?</em> </strong>, sobre tudo que for realizado,
@@ -1087,12 +1118,7 @@ export const Etapa1 = (props) => {
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
-                                                
-                                                { isPaused ?  
-                                                    <button className="btn-atv" onClick={() => setTimeClock(timeClockPause)} disabled={!isActive}>Continuar Atividade</button> :
-                                                    <button className="btn-atv btn-pause" onClick={handlePauseTimer} disabled={!isActive}>Pausar Atividade</button>
-                                                }
-                                                    
+                                               
                                             </div>
 
                                             <br />
@@ -1106,10 +1132,14 @@ export const Etapa1 = (props) => {
 
                                     
                                 </AccordionDetails>
+                                <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['retrospectiva']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
+                                    </div>
                             </Accordion>
                             
                             <div className="btn-Box">
-                                <button className="btn-proxAtv" onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
+                                <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
                         </TabPanel>
 
@@ -1123,7 +1153,7 @@ export const Etapa1 = (props) => {
                                     e as atividades realizadas.
                                 </h4>
                             </div>
-                            <Accordion className="box-accordion" expanded={expanded === 'panel1f'} onChange={handleOpenBox('panel1f')}>
+                            <Accordion className="box-accordion" expanded={expanded === 'panel1f'} onChange={handleOpenBox('panel1f')} disabled={isActive}>
                                 <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel3bh-content"
@@ -1133,11 +1163,11 @@ export const Etapa1 = (props) => {
                                     Avaliação do processo
                                 </Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                     
 
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab wrapped fullWidth className="text-title tab-etapas" label="Avaliação" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Avaliação" {...a22yProps(0)} />
                                         
                                     </Tabs>
                                     
@@ -1152,11 +1182,8 @@ export const Etapa1 = (props) => {
                                             
                                             
                                             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfZSKR03O2QCmltpj-3d85kmdi9N35tQSWuW7j8tdrf5NxkKA/viewform?embedded=true" target={'_blank'}>
-                                                Clique para realizar a avaliação
+                                                Clique aqui para realizar a avaliação
                                             </a>
-
-                                            
-                                        
                                         </div>
                                     </TabPanelInside>
                                 </AccordionDetails>
@@ -1168,6 +1195,12 @@ export const Etapa1 = (props) => {
                 </div>
 
             </div>
+
+            <div className="finalizar-etapa">
+                <button type="submit" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</button>
+            </div>
+
+            
            
 
         </Container>

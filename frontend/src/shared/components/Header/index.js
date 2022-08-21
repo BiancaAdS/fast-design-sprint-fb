@@ -1,200 +1,139 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
-// import { Container } from "./styles";
-
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container  from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import { useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const drawerWidth = 240;
+
 const pages = [ 
     'INÍCIO', 
     'ETAPA 1', 
     'ETAPA 2', 
     'ETAPA 3', 
-   'ETAPA 4'
+    'ETAPA 4'
 ];
+
+const caminho = [
+    '/',
+    '/etapa1',
+    '/etapa2',
+    '/etapa3',
+    '/etapa4',
+]
 
 export const Header = (props) => {
 
 
+    let navigate = useNavigate();
 
+    const { window } = props;
+    const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  }; 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    const drawer = (
+        <Box onClick={handleDrawerToggle}  sx={{ textAlign: "center", backgroundColor: 'primary.main'}}>
+            <Typography variant="h6" sx={{ my: 2, color: 'white', fontWeight: 'bold' }}>
+                Fast Design Sprint
+            </Typography>
+            <Divider />
+            <List>
+                {pages.map((item,i) => (
+                    <ListItem key={item} disablePadding >
+                        <ListItemButton sx={{ textAlign: "center" }} onClick={() => handleClick(caminho[i])}>
+                            <ListItemText>
+                                <Button
+                                    key={item}
+                                    sx={{ color: 'white', fontWeight: 'bold' }}
+                                    className={'btn-header'}
+                                    onClick={() => handleClick(caminho[i])}
+                                >
+                                    {item}
+                                </Button>
+                            </ListItemText>
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    );
+    
+    const container = window !== undefined ? () => window().document.body : undefined;
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+    
+    const handleClick = ( caminho) => {
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
+        navigate(`../${caminho}`, { replace: true });
+    }
+   
     return (
-        // <Container>
-        
-            // <div className="blue-line"></div>
-
-            <AppBar position="static">
-                <Container maxWidth="xl">
-                    <Toolbar disableGutters>
-                    {/* icon logo aqui */}
+        <Box sx={{ display: "flex" }}>
+            <AppBar component="nav">
+                <Toolbar>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 2, display: { sm: "none" } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
                     <Typography
                         variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                        mr: 2,
-                        display: { xs: 'none', md: 'flex' },
-                        fontWeight: 700,
-                        color: 'inherit',
-                        textDecoration: 'none',
-                        }}
+                        component="div"
+                        sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
                     >
                         Fast Design Sprint
                     </Typography>
-
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleOpenNavMenu}
-                        color="inherit"
-                        >
-                        <MenuIcon />
-                        </IconButton>
-                        <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorElNav}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                        }}
-                        open={Boolean(anchorElNav)}
-                        onClose={handleCloseNavMenu}
-                        sx={{
-                            display: { xs: 'block', md: 'none' },
-                        }}
-                        >
-                        {pages.map((page) => (
-                            <MenuItem key={page} onClick={handleCloseNavMenu}>
-                            <Typography textAlign="center">{page}</Typography>
-                            </MenuItem>
-                        ))}
-                        </Menu>
-                    </Box>
-                    {/* icon logo aqui */}
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
-                        sx={{
-                        mr: 2,
-                        display: { xs: 'flex', md: 'none' },
-                        flexGrow: 1,
-                        fontWeight: 700,
-                        color: 'inherit',
-                        textDecoration: 'none',
-                        }}
-                    >
-                        Fast Design Sprint
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {/* {pages.map((page) => (
-                        <Button
-                            key={page}
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {page}
-                        </Button>
-                        ))} */}
-                    </Box>
-
-                    <Box  sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }  }}>
-                        {pages.map((page) => (
-                            
-                            //  <Link key={page} className="link-pages" to={`/`}>{page}</Link>
-                            // <div className="page"><Link className="link-page" to='/'>{page}</Link></div>
+                    <Box sx={{ display: { xs: "none", sm: "block" } }}>
+                        {pages.map((item, i) => (
                             <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold' }}
+                                key={item}
+                                sx={{ color: 'white', fontWeight: 'bold' }}
+                                className={'btn-header'}
+                                onClick={() => handleClick(caminho[i])}
                             >
-                                {page}
+                            {item}
                             </Button>
                         ))}
                     </Box>
-                    </Toolbar>
-                </Container>
-                {/* <header className="header-box">
-
-                <div className="content-box">
-
-                    <div className="box-logo">
-                        <div className="page-info">
-                            <img className="logo-icon" src="" alt="Logo FDS" />
-                            <h1 className="text-title">Fast Design Sprint</h1>
-                        </div>
-                        
-                    </div>
-
-                    <div className="box-pages">
-                        <div className="page-container">
-
-                            <div className="page"><Link className="link-page" to='/'>INÍCIO</Link></div> 
-                            <div className="page"><Link className="link-page" to='/etapa1'>ETAPA 1</Link></div>
-                            <div className="page"><Link className="link-page" to='/etapa2'>ETAPA 2</Link></div>
-                            <div className="page"><Link className="link-page" to='/etapa3'>ETAPA 3</Link></div>
-                            <div className="page"><Link className="link-page" to='/etapa4'>ETAPA 4</Link></div>
-                            
-
-                        </div>
-                        
-                    </div>
-                    
-                    
-                </div>                 
-
-
-
-            </header> */}
-                </AppBar>
-
-
-
-
+                </Toolbar>
+            </AppBar>
             
-
-         //</Container>
+            <Box component="nav">
+                
+                <Drawer
+                container={container}
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                    keepMounted: true
+                }}
+                sx={{
+                    display: { xs: "block", sm: "none" },
+                    "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                    backgroundColor: "primary.main"
+                    }
+                }}
+                >
+                    {drawer}
+                </Drawer>
+            </Box>
+        </Box>
     )
 }

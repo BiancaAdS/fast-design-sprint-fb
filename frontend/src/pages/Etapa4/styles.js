@@ -103,19 +103,11 @@ export const Container = styled.div`
         transition: all .5s;
     }
 
-    .formacao-equipe {
+    .aprimoramento-solucao {
         padding: 50px;
     }
 
-    .mapeamento-problema {
-        padding: 50px;
-    }
-
-    .mentoria {
-        padding: 50px;
-    }
-
-    .validacao-problema {
+    .apresentacao-solucao {
         padding: 50px;
     }
 
@@ -125,15 +117,6 @@ export const Container = styled.div`
 
     .metodos-avaliacao {
         padding: 50px;
-    }
-
-    .seConhecem {
-       margin-top: 5px;
-       
-    }
-
-    .radio-n {
-        margin-left: 15px;
     }
 
     .content-info {
@@ -167,17 +150,6 @@ export const Container = styled.div`
         margin-bottom: 10px;
     }
 
-    .info-naoSeConhecem {
-        display: none;
-    }
-
-    .info-seConhecem {
-        margin-bottom: -20px;
-        font-size: 12px;
-        font-weight: 600;
-        color: orange;
-    }
-
     .papeis-etapa {
         width: 100%;
     }
@@ -193,37 +165,12 @@ export const Container = styled.div`
 
         font-size: 14px;
         font-weight: 700;
-        width: auto;
     }
 
     .iniciar-atv {
         p {
             margin-bottom: 15px;
         }
-    }
-
-    .icon-pop{
-        width: 18px;
-        position: absolute;
-        margin-left: 78px;
-        margin-top: 11px;
-        cursor: pointer;
-    }
-
-    .icon-pop2{
-        width: 18px;
-        position: absolute;
-        margin-left: 70px;
-        margin-top: 102px;
-        cursor: pointer;
-    }
-
-    .icon-pop3{
-        width: 18px;
-        position: absolute;
-        margin-left: 180px;
-        margin-top: 195px;
-        cursor: pointer;
     }
 
     .btn-atv {
@@ -330,22 +277,6 @@ export const Container = styled.div`
         background-color: #FFFFFF;
     }
 
-    .finalizada {
-        background-color: #88c425;
-        color:  #FFFFFF;
-        font-weight: bold;
-    }
-
-    .finalizarAtv {
-        margin-top: 10px;
-        label {
-            font-weight: 700;
-        }
-        input {
-            margin-left: 10px;
-        }
-    }
-
     .disabled {
         background-color: gray;
         color: #FFFFFF;
@@ -359,40 +290,20 @@ export const Container = styled.div`
         border: 1px solid gray;
     }
 
-    .finalizar-etapa{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        margin: 50px 0;
+    .finalizada {
+        background-color: #88c425;
+        color:  #FFFFFF;
+        font-weight: bold;
     }
 
-    
-
-    .btn-finalEtapa {
-        width: 250px;
-        height: 50px;
-        border-radius: 10px;
-        background-color: #0a8005;
-        border: 1px solid #0a8005;
-
-        color: #FFFFFF;
-        font-weight: 700;
-        cursor: pointer;
-        display: none;
-    }
-
-    .finalizada-etapa {
-        display: block;
-    }
-
-    .btn-finalEtapa:hover {
-        background-color: #FFFFFF;
-        border: 1px solid #0a8005;
-        transition: all .5s;
-
-        color: #0a8005;
+    .finalizarAtv {
+        margin: 10px;
+        label {
+            font-weight: 700;
+        }
+        input {
+            margin-left: 10px;
+        }
     }
 
     @media screen and (max-width: 1440px){
@@ -405,10 +316,6 @@ export const Container = styled.div`
     @media screen and (max-width: 1024px){
         .tab-etapas {
             padding: 5px;
-        }
-
-        .finalizar-etapa{
-            margin: 15px 0;
         }
     }
 
@@ -433,7 +340,6 @@ export const Container = styled.div`
             align-items: center;
 
             flex-wrap: wrap;
-
         }
 
         .tab-etapas {
@@ -454,7 +360,9 @@ export const Container = styled.div`
         .tab-box {
             width: 100%;
             display: flex;
-            
+        }
+        .atv-container {
+            padding: 20px;
         }
 
         .tab-etapas {
@@ -462,23 +370,11 @@ export const Container = styled.div`
             border-radius: 0;
         }
 
-        .formacao-equipe {
+        .aprimoramento-solucao {
             padding: 40px;
         }
 
-        .atv-container {
-            padding: 20px;
-        }
-
-        .mapeamento-problema {
-            padding: 40px;
-        }
-
-        .mapeamento-problema {
-            padding: 40px;
-        }
-
-        .validacao-problema {
+        .apresentacao-solucao {
             padding: 40px;
         }
 
@@ -489,23 +385,16 @@ export const Container = styled.div`
         .metodos-avaliacao {
             padding: 40px;
         }
+
     }
 
     @media screen and (max-width: 375px){
        
-        .formacao-equipe {
+        .aprimoramento-solucao {
             padding: 30px;
         }
 
-        .mapeamento-problema {
-            padding: 30px;
-        }
-
-        .mapeamento-problema {
-            padding: 30px;
-        }
-
-        .validacao-problema {
+        .apresentacao-solucao {
             padding: 30px;
         }
 
@@ -520,11 +409,7 @@ export const Container = styled.div`
 
     @media screen and (max-width: 320px){
        
-       .formacao-equipe {
-           padding: 25px;
-       }
-
-       .atv-container {
+        .atv-container {
             padding: 15px;
         }
 
@@ -536,25 +421,21 @@ export const Container = styled.div`
             font-size: 12px;
         }
 
-       .mapeamento-problema {
-           padding: 25px;
-       }
-
-       .mapeamento-problema {
-           padding: 25px;
-       }
-
-       .validacao-problema {
-           padding: 25px;
-       }
-
-       .revisao-processo {
-           padding: 25px;
-       }
-
-       .metodos-avaliacao {
+        .aprimoramento-solucao {
             padding: 25px;
-       }
+        }
+
+        .apresentacao-solucao {
+            padding: 25px;
+        }
+
+        .revisao-processo {
+            padding: 25px;
+        }
+
+        .metodos-avaliacao {
+            padding: 25px;
+        }
    }
 
 `

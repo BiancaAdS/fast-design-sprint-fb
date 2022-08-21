@@ -2,40 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { Container } from './styles'
 
 
-export function Timer(props) {
+export const  Timer = ({ setIsActive, min, setHasFinised, isActive }) => {
     
-
-    // let countdownTimeout
-
-    const [time, setTime] = useState(0 * 60); //colocar como 25, para ter vinte cinco minutos
-    
-    const [hasFinised, setHasFinised] = useState(false);
+    const [time, setTime] = useState(0 * 60);
     
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
 
     useEffect(() => {
 
-        if(props.minutes !== 0) {
-            setTime(props.minutes * 60)
-            // props.setTimeClockPause(props.minutes * 60)
+        if(min !== 0) {
+            setTime(min * 60)
         }
+    }, [min])
 
-
-    }, [props.minutes, props])
-
-   
     useEffect(() =>{
-        if(props.isActive && time > 0) {
+        if(isActive && time > 0) {
             let countdownTimeout = setTimeout(() => {
                 setTime(time-1);
+                
             }, 1000)
-        } else if(props.isActive && time === 0){
+        } else if(isActive && time === 0){
             setHasFinised(true);
-            props.setIsActive(false);
-
+            setIsActive(false);
         }
-    }, [props.isActive, time, props])
+
+    }, [isActive, time])
+
 
     const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
     const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
