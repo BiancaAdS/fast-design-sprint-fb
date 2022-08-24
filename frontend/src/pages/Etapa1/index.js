@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios'
 
 import { TabPanel } from '../../shared/components/TabPanel'
 import { TabPanelInside } from '../../shared/components/TabPanelInside'
@@ -41,6 +42,12 @@ export const Etapa1 = (props) => {
     const [valueInside, setValueInside] = useState(0);
 
     const [seConhecem, setSeConhecem] = useState(JSON.parse(localStorage.getItem('seConhecem')) ? JSON.parse(localStorage.getItem('seConhecem')) : false)
+    const [facilitador, setFacilitador] = useState("")
+    const [definidor, setDefinidor] = useState("")
+    const [responsavelTempo, setResponsavelTempo] = useState("")
+    const [nomeDaEquipe, setNomeDaEquipe] = useState("")
+    const [quantidadeIntegrantes, setQuantidadeIntegrantes] = useState(0)
+    const qualEtapaFinalizada = 'etapa1'
 
     const [timeClock, setTimeClock] = useState(0)
     const [isActive, setIsActive] = useState(false);
@@ -59,6 +66,8 @@ export const Etapa1 = (props) => {
 
     const boxInitial = JSON.parse(localStorage.getItem('boxState'))
 
+    const [etapaFinalizada, setEtapaFinalizada] = useState(false)
+
     const [boxState, setBoxState] = useState(boxInitial ? boxInitial :{
         separacaoEquipe: false,
         aquecimentoEquipe: false,
@@ -73,66 +82,9 @@ export const Etapa1 = (props) => {
         retrospectiva: false
     })
 
-    const [etapaFinalizada, setEtapaFinalizada] = useState(false)
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    const handleChangeInside = (event, newValue) => {
-        setValueInside(newValue);
-    };
-
-    const handleOpenBox = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-        setValueInside(isExpanded ? valueInside : 0);
-        setOpenAccordion(isExpanded ? false : true)
-    };
-
-    const handleSeConhecem = (e) => {
-        if(e.target.id === 'sim') {
-            setSeConhecem(true)
-        } else {
-            setSeConhecem(false)
-        }
-    }
-
-    const handlePopoverOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
-
-    const startCountdown = () => {
-        setIsActive(true);
-    }
-
     const [timeStop, setTimeStop] = useState(timeClock)
 
-    const startNewChallenge = () => {
-        
-        if(Notification.permission == 'granted'){
-            new Notification("Tempo para realizar a atividade finalizado ", {
-                body: `:) Já é possível iniciar as próximas atividades.`
-            });
-        }
-    }
-    
-    const handleFinalizar = (boxName) => {
-        setBoxState({
-            ...boxState,
-            [boxName]: !boxState[boxName]
-        })
-    }
-
-    const handleFinalizarEtapas = (e) => {
-        e.preventDefault()
-        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
-    }
-
-
+ 
     useEffect(() => {
         localStorage.setItem('seConhecem', JSON.stringify(seConhecem))
     }, [seConhecem])
@@ -180,9 +132,108 @@ export const Etapa1 = (props) => {
         } else {
             setEtapaFinalizada(false)
         }
-        console.log('mudou', Object.keys(boxState).length)
 
     }, [boxState])
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const handleChangeInside = (event, newValue) => {
+        setValueInside(newValue);
+    };
+
+    const handleOpenBox = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+        setValueInside(isExpanded ? valueInside : 0);
+        setOpenAccordion(isExpanded ? false : true)
+    };
+
+    const handleSeConhecem = (e) => {
+        if(e.target.id === 'sim') {
+            setSeConhecem(true)
+            handleFinalizar('aquecimentoEquipe')
+        } else {
+            setSeConhecem(false)
+        }
+    }
+
+    const handlePopoverOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handlePopoverClose = () => {
+        setAnchorEl(null);
+    };
+
+    const startCountdown = () => {
+        setIsActive(true);
+    }
+
+    const startNewChallenge = () => {
+        
+        if(Notification.permission == 'granted'){
+            new Notification("Tempo para realizar a atividade finalizado ", {
+                body: `:) Já é possível iniciar as próximas atividades.`
+            });
+        }
+    }
+
+    const [linkRetrospectiva1, setLinkRetrospectiva] = useState("link1 aqui")
+    
+    const handleFinalizar = (boxName) => {
+        setBoxState({
+            ...boxState,
+            [boxName]: !boxState[boxName]
+        })
+    }
+
+    const handleFinalizarEtapas = (e) => {
+        e.preventDefault()
+        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
+    }
+
+    const [datas, setDatas] = useState({})
+
+    const handleInformacaoEquipe = async (e) => {
+        e.preventDefault()
+
+        const { data } = await axios.get(`/api/view-equipe/${nomeDaEquipe}`)
+       
+        if(Object.keys(data).length !== 0) {
+            axios.post('/api/create-equipe', {
+                nomeDaEquipe: data.nomeDaEquipe ? data.nomeDaEquipe : nomeDaEquipe,
+                quantidadeIntegrantes: data.quantidadeIntegrantes ? data.quantidadeIntegrantes : quantidadeIntegrantes,
+                seConhecem: data.seConhecem ? data.seConhecem : seConhecem,
+                definidor: data.definidor ? data.definidor : definidor,
+                facilitador: data.facilitador ? data.facilitador : facilitador,
+                responsavelTempo: data.responsavelTempo ? data.responsavelTempo : responsavelTempo,
+                linkRetrospectiva1: data.linkRetrospectiva1 ? data.linkRetrospectiva1 : linkRetrospectiva1,
+                linkRetrospectiva2: data.linkRetrospectiva2 ? data.linkRetrospectiva2 : "",
+                linkRetrospectiva3: data.linkRetrospectiva3 ? data.linkRetrospectiva3 : "",
+                linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : "",
+                etapaFinalizada: data.qualEtapaFinalizada ? data.qualEtapaFinalizada : qualEtapaFinalizada
+            })
+        } else {
+            axios.post('/api/create-equipe', {
+                nomeDaEquipe: nomeDaEquipe,
+                quantidadeIntegrantes: quantidadeIntegrantes,
+                seConhecem: seConhecem,
+                definidor: definidor,
+                facilitador: facilitador,
+                responsavelTempo: responsavelTempo,
+                linkRetrospectiva1:linkRetrospectiva1,
+                linkRetrospectiva2:"",
+                linkRetrospectiva3:"",
+                linkRetrospectiva4:"",
+                etapaFinalizada: qualEtapaFinalizada
+            })
+        }
+       
+    }
+
+    const [youtubeIDSeparacaoEquipe] = useState('wq3MnTvRV-Y')
+    const [youtubeIDAquecimentoEquipe] = useState('sM7BrKIMNk4')
 
     return(
         <Container>
@@ -236,9 +287,20 @@ export const Etapa1 = (props) => {
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                      
                                         Nesta atividade vocês devem realizar a separação da equipe, ou seja, irão realizar algumas atividades
-                                        individuais para que ao chegar na atividade de definição de papéis da equipe, todos já tenham se conhecido melhor. 
+                                        individuais para que ao chegar na atividade de definição de papéis da equipe, todos já tenham se conhecido melhor.
                                         <br />
                                         <br />
+
+                                        <div className="video-box">
+
+                                            <iframe className='video'
+                                                    title='Atividade Separação da Equipe'
+                                                    sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                                    allowFullScreen='allowFullScreen'
+                                                    src={`https://youtube.com/embed/${youtubeIDSeparacaoEquipe}?autoplay=0`}>
+                                            </iframe>
+
+                                        </div>
 
                                         <div className={`timer-box`}>
                                             <div className="content-timer">
@@ -248,7 +310,7 @@ export const Etapa1 = (props) => {
 
                                         <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
                                             <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Definição de informações da equipe" {...a22yProps(0)} />
-                                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Mapeamento do Problema" {...a22yProps(1)} />
+                                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Aproximação de participantes" {...a22yProps(1)} />
 
                                         </Tabs>
 
@@ -261,15 +323,15 @@ export const Etapa1 = (props) => {
                                             </h4>
                                             <div className="box-atv">
                                                 Nesta atividade vocês irão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                                deve realizar a confecção do Jamboard disponível no link: <br />
-                                                <a href="/etapa1" target="_blank">LINK AQUI</a>
+                                                deve realizar a confecção do seu Jamboard, o modelo está disponível no link: <br />
+                                                <a href="https://jamboard.google.com/d/1SB6ea3udT-UhZwt-c_ZPLb0a8sCNoPatpTfGqTtqUxs/edit?usp=sharing" target="_blank">Clique aqui para abrir o Jamboard</a>
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
              
                                                     <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
 
-                                                    <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(1)} disabled={isActive}>Iniciar Atividade</button>
+                                                    <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
 
                                                 </div>
                                                 
@@ -333,6 +395,17 @@ export const Etapa1 = (props) => {
                                     <br />
                                     <br />
 
+                                    
+                                    <div className="video-box">
+
+                                        <iframe className='video'
+                                                title='Atividade Aquecimento da Equipe'
+                                                sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                                src={`https://youtube.com/embed/${youtubeIDSeparacaoEquipe}?autoplay=0`}>
+                                        </iframe>
+
+                                    </div>
+
                                     <div className={`timer-box`}>
                                         <div className="content-timer">
                                             <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
@@ -353,8 +426,8 @@ export const Etapa1 = (props) => {
                                         </h4>
                                         <div className="box-atv">
                                             Nesta atividade vocês irão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                            deve realizar a confecção do Canvas de Aquecimento disponível no link: <br />
-                                            <a href="/etapa1" target="_blank" rel="noopener noreferrer">LINK AQUI</a>
+                                            deve realizar a confecção do Canvas de Aquecimento, o modelo está disponível no link: <br />
+                                            <a href="https://jamboard.google.com/d/19lkrUINcbUKPrD5X-t3rKilXbVL0wEgzGtvPCeQKxCk/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Clique aqui para abrir o Canvas</a>
                                             <br />
                                             <br />
                                             <div className="iniciar-atv">
@@ -453,17 +526,22 @@ export const Etapa1 = (props) => {
 
                                                 <div className="papeis">
                                                     <h4>Favor preencher as informações da equipe abaixo:</h4>
-                                                    <FormControl fullWidth required>
-                                                        <label className="text-papel">Nome da Equipe</label>
-                                                        <TextField fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />
-                                                        <label className="text-papel">Quantidade de Integrantes</label>
-                                                        <TextField type={'number'} fullWidth margin="normal" size="small" placeholder="Informe a quantidade de integrantes" variant="outlined" className="input-text" />
-                                                    </FormControl>
 
-                                                    <Button className="btn-formulario">Enviar Informações</Button>
+                                                    <form onSubmit={handleInformacaoEquipe}>
+
+                                                        <FormControl fullWidth>
+                                                            <label className="text-papel">Nome da Equipe</label>
+                                                            <TextField required type={'text'} onChange={(e) => setNomeDaEquipe(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />
+                                                            <label className="text-papel">Quantidade de Integrantes</label>
+                                                            <TextField required onChange={(e) => setQuantidadeIntegrantes(e.target.value)} type={'number'} fullWidth margin="normal" size="small" placeholder="Informe a quantidade de integrantes" variant="outlined" className="input-text" />
+                                                            
+                                                            <Button type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                        </FormControl>
+
+                                                    </form>
+                                                    
                                                     
                                                 </div>
-                                                
                                             </div>
                                         </TabPanelInside>
 
@@ -486,33 +564,35 @@ export const Etapa1 = (props) => {
                                                 </div>
                                                 <div className="papeis">
                                                     <h4>Favor preencher os nomes dos representante abaixo:</h4>
-                                                    <FormControl fullWidth>
-                                                    
-                                                        <label className="text-papel" >Facilitador</label>
-                                                        <Popup trigger={<QuestionMarkIcon className="icon-pop"></QuestionMarkIcon>} position="right center">
-                                                            <div>Responsável por guiar a equipe nas atividades realizadas.</div>
-                                                        </Popup>
 
-                                                        <TextField fullWidth  margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
-                                                        
-                                                        <label className="text-papel">Definidor</label>
-                                                        <Popup trigger={<QuestionMarkIcon className="icon-pop2"></QuestionMarkIcon>} position="right center">
-                                                            <div>Responsável por realizar as decisões mais importantes de cada atividade.</div>
-                                                        </Popup>
-                                                       
+                                                    <form onSubmit={handleInformacaoEquipe}>
 
-                                                        <TextField fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
-                                                        <label className="text-papel">Responsável pelo tempo</label>
-                                                        
-                                                        <Popup trigger={<QuestionMarkIcon className="icon-pop3"></QuestionMarkIcon>} position="right center">
-                                                            <div>Responsável por gerenciar o tempo de realização de cada atividade.</div>
-                                                        </Popup>
-                                                        
+                                                        <FormControl fullWidth>
+                                                            
+                                                            <label className="text-papel" >Facilitador</label>
+                                                            <Popup trigger={<QuestionMarkIcon className="icon-pop"></QuestionMarkIcon>} position="right center">
+                                                                <div>Responsável por guiar a equipe nas atividades realizadas.</div>
+                                                            </Popup>
+                                                            <TextField required onChange={(e) => setFacilitador(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
+                                                            
+                                                            <label className="text-papel">Definidor</label>
+                                                            <Popup trigger={<QuestionMarkIcon className="icon-pop2"></QuestionMarkIcon>} position="right center">
+                                                                <div>Responsável por realizar as decisões mais importantes de cada atividade.</div>
+                                                            </Popup>
+                                                            <TextField required onChange={(e) => setDefinidor(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
+                                                            
+                                                            <label className="text-papel">Responsável pelo tempo</label>
+                                                            <Popup trigger={<QuestionMarkIcon className="icon-pop3"></QuestionMarkIcon>} position="right center">
+                                                                <div>Responsável por gerenciar o tempo de realização de cada atividade.</div>
+                                                            </Popup>
+                                                            <TextField required onChange={(e) => setResponsavelTempo(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
 
-                                                        <TextField fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
-                                                    </FormControl>
+                                                            <Button type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                        </FormControl>
 
-                                                    <Button className="btn-formulario">Enviar Informações</Button>
+                                                    </form>
+
+                                                   
                                                 </div>
                                                 
                                             </div>
@@ -760,8 +840,7 @@ export const Etapa1 = (props) => {
                                         </h4>
                                         <div className="box-atv">
                                             Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Cada integrante da equipe
-                                            deve realizar a apresentação das soluções encontradas na atividade anterior para a equipe. A apresentação pode ser rápida, apenas para que os
-                                            integrantes tenham uma ideia geral sobre a solução/ideia encontrada para que possa facilitar na hora de realizar a votação 
+                                            deve realizar a apresentação das soluções encontradas na atividade anterior para a equipe. A apresentação pode ser rápida, apenas para que os integrantes tenham uma ideia geral sobre a solução/ideia encontrada para que possa facilitar na hora de realizar a votação 
                                             nos problemas/ideias de interesse da equipe.
                                                                                 
                                             <br />
@@ -1114,7 +1193,10 @@ export const Etapa1 = (props) => {
                                             acompanhe o tempo.
                                             <br />
                                             <br />
-                                            
+                                            O modelo da Retrospectiva está disponível no link: <br />
+                                            <a href="https://docs.google.com/drawings/d/1WWcMllAeZOwbzd_1VsRnoZHcBBUxnOYdbUMSq7UvPWQ/edit?usp=sharing" target="_blank">Clique aqui para abrir o modelo</a>
+                                            <br />
+                                            <br />
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
@@ -1123,8 +1205,19 @@ export const Etapa1 = (props) => {
 
                                             <br />
                                             <br />
+
+                                            <form onSubmit={handleInformacaoEquipe}>
+
+                                                <FormControl fullWidth>
+                                                    <label className="text-papel">Link da Retrospectiva preenchida</label>
+                                                    <TextField required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
+                                                    <Button type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                </FormControl>
+
+                                            </form>
                                             
-                                                <BoardSprint></BoardSprint>
+
+                                            {/* <BoardSprint></BoardSprint> */}
                                         
                                         </div>
                                         

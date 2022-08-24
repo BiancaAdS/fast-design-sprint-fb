@@ -12,7 +12,8 @@ export const  Timer = ({ setIsActive, min, setHasFinised, isActive }) => {
     useEffect(() => {
 
         if(min !== 0) {
-            setTime(min * 60)
+            // setTime(min * 60)
+            setTime(min * 6)
         }
     }, [min])
 

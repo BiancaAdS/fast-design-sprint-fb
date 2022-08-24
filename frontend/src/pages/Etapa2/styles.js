@@ -320,6 +320,42 @@ export const Container = styled.div`
         }
     }
 
+    .btn-finalEtapa {
+        width: 250px;
+        height: 50px;
+        border-radius: 10px;
+        background-color: #0a8005;
+        border: 1px solid #0a8005;
+
+        color: #FFFFFF;
+        font-weight: 700;
+        cursor: pointer;
+        display: none;
+    }
+
+    .finalizada-etapa {
+        display: block;
+    }
+
+    .btn-finalEtapa:hover {
+        background-color: #FFFFFF;
+        border: 1px solid #0a8005;
+        transition: all .5s;
+
+        color: #0a8005;
+    }
+
+    .video-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 0;
+    }
+
+    .video {
+        width: 727px;
+        height: 409px;
+    }
 
     @media screen and (max-width: 1440px){
         
@@ -345,7 +381,6 @@ export const Container = styled.div`
             width: 14.28%;
         }
     }
-
 
     @media screen and (max-width: 768px){
         

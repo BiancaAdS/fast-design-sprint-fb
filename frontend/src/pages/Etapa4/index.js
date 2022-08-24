@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios'
 
 import { TabPanel } from '../../shared/components/TabPanel'
 import { TabPanelInside } from '../../shared/components/TabPanelInside'
@@ -122,6 +123,48 @@ export const Etapa4 = (props) => {
     useEffect(() => {
         Notification.requestPermission();
     }, []);
+
+    const handleInformacaoEquipe = async (e) => {
+        e.preventDefault()
+
+        // const { data } = await axios.get(`/api/view-equipe/${nomeDaEquipe}`)
+       
+        // if(Object.keys(data).length !== 0) {
+        //     axios.post('/api/create-equipe', {
+        //         nomeDaEquipe: data.nomeDaEquipe ? data.nomeDaEquipe : nomeDaEquipe,
+        //         quantidadeIntegrantes: data.quantidadeIntegrantes ? data.quantidadeIntegrantes : quantidadeIntegrantes,
+        //         seConhecem: data.seConhecem ? data.seConhecem : seConhecem,
+        //         definidor: data.definidor ? data.definidor : definidor,
+        //         facilitador: data.facilitador ? data.facilitador : facilitador,
+        //         responsavelTempo: data.responsavelTempo ? data.responsavelTempo : responsavelTempo,
+        //         linkRetrospectiva1: data.linkRetrospectiva1 ? data.linkRetrospectiva1 : linkRetrospectiva1,
+        //         linkRetrospectiva2: data.linkRetrospectiva2 ? data.linkRetrospectiva2 : "",
+        //         linkRetrospectiva3: data.linkRetrospectiva3 ? data.linkRetrospectiva3 : "",
+        //         linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : "",
+        //         etapaFinalizada: data.qualEtapaFinalizada ? data.qualEtapaFinalizada : qualEtapaFinalizada
+        //     })
+        // } else {
+        //     axios.post('/api/create-equipe', {
+        //         nomeDaEquipe: nomeDaEquipe,
+        //         quantidadeIntegrantes: quantidadeIntegrantes,
+        //         seConhecem: seConhecem,
+        //         definidor: definidor,
+        //         facilitador: facilitador,
+        //         responsavelTempo: responsavelTempo,
+        //         linkRetrospectiva1:linkRetrospectiva1,
+        //         linkRetrospectiva2:"",
+        //         linkRetrospectiva3:"",
+        //         linkRetrospectiva4:"",
+        //         etapaFinalizada: qualEtapaFinalizada
+        //     })
+        // }
+       
+    }
+
+    const handleFinalizarEtapas = (e) => {
+        e.preventDefault()
+        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
+    }
 
     return(
         <Container>
@@ -324,48 +367,39 @@ export const Etapa4 = (props) => {
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border" >
                                     
-
                                         <h4 className="text-title-inside">
                                             Apresentação da equipe e do problema/ideia escolhido para o mentor
                                         </h4>
                                         <div className="box-atv">
                                             Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, 
-                                            seus integrantes, quantos são os integrantes, além de informar o papel de cada um) para o mentor. A apresentação pode ser rápida, 
-                                            apenas para que o mentor saiba qual solução sua equipe irá desenvolver e mostrar quais são as pessoas que compõe a equipe. Após a equipe
-                                            realizar a apresentação, o grupo pode realizar a primeira validação da ideia com o mentor, fazendo perguntas sobre o tema escolhido para desenvolver, como:
-                                            se é uma boa escolha ou modos de se iniciar o desenvolvimento.
+                                            seus integrantes e como a solução foi finalizada) para o mentor. A apresentação pode ser rápida, 
+                                            apenas para que o mentor saiba como ficou o desenvolvimento completo da solução escolhida pela equipe.
+                                            Deixando tempo para possíveis considerações do mentor acerca da solução implementada pela equipe.
                                             <br />
                                             <br />
                                             
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
-                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
-                                              
-                                                    
+                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>  
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
 
                                     <TabPanelInside value={valueInside} index={1} className="atv-container border">
-                                    
 
                                         <h4 className="text-title-inside">
                                             Retorno da equipe
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Após a apresentação da solução definida para o mentor, o grupo terá um tempo para se 
-                                            preparar para a próxima apresentação, que será feita para a turma. 
-                                            
-                                                                        
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Após a apresentação da solução definida para o mentor, 
+                                            o grupo terá um tempo para se preparar para a próxima apresentação, que será feita para a turma. 
+                    
                                             <br />
                                             <br />
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
-                                                
-                                              
-                                                    
                                             </div>
                                             
                                         </div>
@@ -373,23 +407,19 @@ export const Etapa4 = (props) => {
                                 
                                     <TabPanelInside value={valueInside} index={2} className="atv-container border">
                                     
-
                                         <h4 className="text-title-inside">
                                         Apresentação da equipe e do problema/ideia escolhido para a turma
                                         </h4>
                                         <div className="box-atv">
                                             Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma rápida apresentação do seu grupo (informando o nome da equipe, 
-                                            seus integrantes, quantos são os integrantes, além de informar o papel de cada um) para a turma. A apresentação pode ser rápida, 
-                                            apenas para que a turma conheça a solução que sua equipe irá desenvolver e mostrar quais são os integrantes da equipe.
+                                            seus integrantes e como a solução foi finalizada)para a turma. A apresentação pode ser rápida, 
+                                            apenas para que a turma saiba como ficou o desenvolvimento completo da solução escolhida pela equipe.
                                                                         
                                             <br />
                                             <br />
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>3 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(3)} disabled={isActive}>Iniciar Atividade</button>
-                                                
-                                               
-                                                    
                                             </div>
                                             
                                         </div>
@@ -405,9 +435,7 @@ export const Etapa4 = (props) => {
                             <div className="btn-Box">
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
-                        
-
-                        </TabPanel>
+                        </TabPanel> {/*JA FOI FEITO*/}
 
                         <TabPanel value={value} index={2} className="border revisao-processo">
 
@@ -446,7 +474,6 @@ export const Etapa4 = (props) => {
                                     </Tabs>
                                     
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border">
-                                    
 
                                         <h4 className="text-title-inside">
                                             Retrospectiva da Sprint
@@ -461,6 +488,10 @@ export const Etapa4 = (props) => {
                                             acompanhe o tempo.
                                             <br />
                                             <br />
+                                            O modelo da Retrospectiva está disponível no link: <br />
+                                            <a href="https://docs.google.com/drawings/d/1WWcMllAeZOwbzd_1VsRnoZHcBBUxnOYdbUMSq7UvPWQ/edit?usp=sharing" target="_blank">Clique aqui para abrir o modelo</a>
+                                            <br />
+                                            <br />
                                             
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
@@ -470,12 +501,21 @@ export const Etapa4 = (props) => {
 
                                             <br />
                                             <br />
+
+                                            <form onSubmit={handleInformacaoEquipe}>
+
+                                                <FormControl fullWidth>
+                                                    <label className="text-papel">Link da Retrospectiva preenchida</label>
+                                                    <TextField required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
+                                                    <Button type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                </FormControl>
+
+                                            </form>
                                         
                                         </div>
                                         
                                     </TabPanelInside>
 
-                                    
                                 </AccordionDetails>
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
@@ -486,7 +526,7 @@ export const Etapa4 = (props) => {
                             <div className="btn-Box">
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
-                        </TabPanel>
+                        </TabPanel> {/*JA FOI FEITO - FALTA COLOCAR O INPUT DE TEXTO*/}
 
                         <TabPanel value={value} index={3} className="border metodos-avaliacao">
                             <div className="info-etapa-text">
@@ -521,26 +561,25 @@ export const Etapa4 = (props) => {
                                             Avaliação do processo
                                         </h4>
 
-                                        
-                                    
-                                        <div className="box-atv">
-                                            
-                                            
-                                            <a href="https://forms.gle/hUEUTT8mvEfpzxYN7" target={'_blank'}>
+                                        <div className="box-atv">                          
+                                            <a href="https://forms.gle/awyN4q8yUKmS6r6i6" target={'_blank'}>
                                                 Clique aqui para realizar a avaliação
                                             </a>
                                         </div>
                                     </TabPanelInside>
                                 </AccordionDetails>
                             </Accordion>
-                        </TabPanel>
+                        </TabPanel> {/*JA FOI FEITO*/}
 
                     </div>
 
                 </div>
 
             </div>
-           
+
+            <div className="finalizar-etapa">
+                <button type="submit" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</button>
+            </div>
 
         </Container>
     )

@@ -395,6 +395,18 @@ export const Container = styled.div`
         color: #0a8005;
     }
 
+    .video-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 0;
+    }
+
+    .video {
+        width: 727px;
+        height: 409px;
+    }
+
     @media screen and (max-width: 1440px){
         
         .content-page {
@@ -488,6 +500,10 @@ export const Container = styled.div`
 
         .metodos-avaliacao {
             padding: 40px;
+        }
+        .video {
+            width: calc(100%);
+            height: 409px;
         }
     }
 

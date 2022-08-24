@@ -6,6 +6,8 @@ import { Timer } from '../../shared/components/Timer'
 
 import { Tabs, Tab} from '@mui/material';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { FormControl, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import Typography from '@mui/material/Typography';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -42,6 +44,8 @@ export const Etapa2 = (props) => {
     const [isOpenAccordion, setOpenAccordion] = useState(false)
 
     const [isFinished, setIsFinished] = useState(false)
+
+    const [linkRetrospectiva, setLinkRetrospectiva] = useState("")
 
     const boxInitial = JSON.parse(localStorage.getItem('boxState2'))
 
@@ -91,6 +95,43 @@ export const Etapa2 = (props) => {
         })
     }
 
+    const handleInformacaoEquipe = async (e) => {
+        e.preventDefault()
+
+        // const { data } = await axios.get(`/api/view-equipe/${nomeDaEquipe}`)
+       
+        // if(Object.keys(data).length !== 0) {
+        //     axios.post('/api/create-equipe', {
+        //         nomeDaEquipe: data.nomeDaEquipe ? data.nomeDaEquipe : nomeDaEquipe,
+        //         quantidadeIntegrantes: data.quantidadeIntegrantes ? data.quantidadeIntegrantes : quantidadeIntegrantes,
+        //         seConhecem: data.seConhecem ? data.seConhecem : seConhecem,
+        //         definidor: data.definidor ? data.definidor : definidor,
+        //         facilitador: data.facilitador ? data.facilitador : facilitador,
+        //         responsavelTempo: data.responsavelTempo ? data.responsavelTempo : responsavelTempo,
+        //         linkRetrospectiva1: data.linkRetrospectiva1 ? data.linkRetrospectiva1 : linkRetrospectiva1,
+        //         linkRetrospectiva2: data.linkRetrospectiva2 ? data.linkRetrospectiva2 : "",
+        //         linkRetrospectiva3: data.linkRetrospectiva3 ? data.linkRetrospectiva3 : "",
+        //         linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : "",
+        //         etapaFinalizada: data.qualEtapaFinalizada ? data.qualEtapaFinalizada : qualEtapaFinalizada
+        //     })
+        // } else {
+        //     axios.post('/api/create-equipe', {
+        //         nomeDaEquipe: nomeDaEquipe,
+        //         quantidadeIntegrantes: quantidadeIntegrantes,
+        //         seConhecem: seConhecem,
+        //         definidor: definidor,
+        //         facilitador: facilitador,
+        //         responsavelTempo: responsavelTempo,
+        //         linkRetrospectiva1:linkRetrospectiva1,
+        //         linkRetrospectiva2:"",
+        //         linkRetrospectiva3:"",
+        //         linkRetrospectiva4:"",
+        //         etapaFinalizada: qualEtapaFinalizada
+        //     })
+        // }
+       
+    }
+
     useEffect(() => {
         localStorage.setItem('boxState2', JSON.stringify(boxState))
     }, [boxState])
@@ -119,6 +160,11 @@ export const Etapa2 = (props) => {
     useEffect(() => {
         Notification.requestPermission();
     }, []);
+
+    const handleFinalizarEtapas = (e) => {
+        e.preventDefault()
+        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
+    }
 
     return(
         <Container>
@@ -151,7 +197,7 @@ export const Etapa2 = (props) => {
 
                                 <h2 className="text-title-etapa">Discussão da Solução</h2>
                                 <h4 className="text-subtitle">
-                                    Etapa em que os participantes irão realizar atividades que tem como objetivo definir a solução que será implementada pela equipe. Esta Etapa
+                                    Etapa em que os participantes irão realizar atividades que tem como objetivo definir a solução que será implementada pela equipe. Esta etapa
                                     contém atividades que permitem a equipe a fazer pesquisas individuais e em grupo, para facilitar na escolha de uma solução para ser implementada. 
                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade 
                                     e para acompanhar esse tempo lembre sempre de olhar para o relógio.
@@ -172,8 +218,8 @@ export const Etapa2 = (props) => {
                                 </AccordionSummary>
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                      
-                                        Nesta atividade vocês devem realizar a separação da equipe, ou seja, irão realizar algumas atividades
-                                        individuais para que ao chegar na atividade de definição de papéis da equipe, todos já tenham se conhecido melhor. 
+                                        Nesta atividade vocês irão trabalhar em <strong>grupo</strong> e <strong>individualmente</strong>. Vocês irão realizar atividades
+                                        para pesquisar possíveis soluções a serem desenvolvidas e irão votar na solução que a equipe tem mais interesse em implementar. 
                                         <br />
                                         <br />
 
@@ -194,14 +240,14 @@ export const Etapa2 = (props) => {
 
                                         <TabPanelInside value={valueInside} index={0} className="atv-container border">
                                         
-
                                             <h4 className="text-title-inside">
                                                 Pesquisa individual sobre o problema/ideia a ser implementado
                                             </h4>
                                             <div className="box-atv">
                                                 Nesta atividade vocês irão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                                deve realizar a confecção do Jamboard disponível no link: <br />
-                                                <a href="/etapa1" target="_blank">LINK AQUI</a>
+                                                deve realizar uma pesquisa individual sobre o problema escolhido para solucionar ou pesquisar soluções já existentes, 
+                                                sobre o problema escolhido, que desejam melhorar.
+                                                
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
@@ -218,11 +264,12 @@ export const Etapa2 = (props) => {
                                         <TabPanelInside value={valueInside} index={1} className="atv-container border" >
 
                                             <h4 className="text-title-inside">
-                                            Organização individual de propostas para o problema/ideia a ser implementado
+                                                Organização individual de propostas para o problema/ideia a ser implementado
                                             </h4>
                                             <div className="box-atv">
                                                 Nesta atividade vocês irão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                                deve realizar a apresentação do Jamboard preenchido na atividade anterior para toda a equipe.
+                                                deve realizar a organização das ideias encontradas na atividade anterior e preparar uma rápida apresentação sobre as mesmas
+                                                para toda a equipe.
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
@@ -241,7 +288,9 @@ export const Etapa2 = (props) => {
                                             </h4>
                                             <div className="box-atv">
                                                 Nesta atividade vocês irão trabalhar em <strong>grupo</strong>. Cada integrante da equipe
-                                                deve realizar a apresentação do Jamboard preenchido na atividade anterior para toda a equipe.
+                                                deve realizar a apresentação das informações encontradas nas atividades anteriores sobre as soluções/problemas para toda a equipe, 
+                                                deixando espaço para possíveis questionamentos dos integrantes. A apresentação pode ser rápida, apenas para que os integrantes da 
+                                                equipe tenham uma ideia geral sobre o problema, para que possa facilitar na hora de realizar a votação das soluções/problemas. 
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
@@ -260,7 +309,14 @@ export const Etapa2 = (props) => {
                                             </h4>
                                             <div className="box-atv">
                                                 Nesta atividade vocês irão trabalhar em <strong>grupo</strong>. Cada integrante da equipe
-                                                deve realizar a apresentação do Jamboard preenchido na atividade anterior para toda a equipe.
+                                                deve realizar a votação na solução/problema que mais gosta e achar interessante para a equipe desenvolver no decorrer das etapas.
+                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Após realizar as apresentações na atividade anterior, 
+                                                cada integrante da equipe irá realizar a votação na proposta de seu interesse, que mais gostou. <br />
+                                                Lembre-se, cada integrante tem <strong>três</strong> votos para gastar, ou seja, ele deve votar três vezes, seja em apenas uma 
+                                                proposta ou em mais. Para que a votação  não acabe empatada ou sem solução, 
+                                                o <strong>Definidor </strong> tem seu papel posto em prova nessa votação, por ele ser
+                                                responsável por tomar as decisões de maior importância na equipe, seu voto é duplicado nessa  votação.
+
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
@@ -287,7 +343,6 @@ export const Etapa2 = (props) => {
 
                         <TabPanel value={value} index={1} className="border esboco-problema">
 
-
                             <div className="info-etapa-text">
 
                                 <h2 className="text-title-etapa">Esboço da Solução ou do Protótipo</h2>
@@ -312,46 +367,47 @@ export const Etapa2 = (props) => {
                                 
                                 </AccordionSummary>
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                <div>
-                                    Nesta atividade vocês irão realizar pesquisas individuais sobre possíveis temas em qualquer área, que você deseje que a equipe desenvolva/mapeie alguma solução.
-                                    <br />
-                                    <br />
+                                    <div>
+                                        Nesta atividade a equipe é responsável por preparar um esboço simples sobre a solução escolhida na atividade anterior.
+                                        <br />
+                                        <br />
 
-                                    <div className={`timer-box`}>
-                                        <div className="content-timer">
-                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
-                                        </div>
-                                    </div>
-
-                                    <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Esboço da solução ou do protótipo" {...a22yProps(0)} />
-                                    </Tabs>
-
-                                    <TabPanelInside value={valueInside} index={0} className="atv-container border">
-                
-                                        <h4 className="text-title-inside">
-                                            Esboço da solução ou do protótipo 
-                                        </h4>
-                                        <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                            deve realizar a pesquisa de possíveis soluções que deseja que a equipe desenvolva uma solução. 
-                                        
-                                            <br />
-                                            <br />
-                                            <div className="iniciar-atv">
-                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>1 hora</strong> para finalizar a mesma.</p> 
-                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(60)} disabled={isActive}>Iniciar Atividade</button>
-                                             
+                                        <div className={`timer-box`}>
+                                            <div className="content-timer">
+                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                             </div>
-                                            
                                         </div>
-                                    </TabPanelInside>
 
-                                    <div className="finalizarAtv">
-                                        <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('esbocoSolucao')} /> Sim
+                                        <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
+                                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Esboço da solução ou do protótipo" {...a22yProps(0)} />
+                                        </Tabs>
+
+                                        <TabPanelInside value={valueInside} index={0} className="atv-container border">
+                    
+                                            <h4 className="text-title-inside">
+                                                Esboço da solução ou do protótipo 
+                                            </h4>
+                                            <div className="box-atv">
+                                                Nesta atividade vocês irão trabalhar em <strong>grupo</strong>. Cada integrante da equipe
+                                                deve fazer um esboço da solução ou do protótipo votado na atividade anterior, podendo conter qualquer funcionalidade 
+                                                que o mesmo ache ideal para contribuir na resolução do problema. A forma de confecção do esboço fica a cargo do integrante, podendo
+                                                escolher o que achar mais fácil utilizar.
+                                                <br />
+                                                <br />
+                                                <div className="iniciar-atv">
+                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>1 hora</strong> para finalizar a mesma.</p> 
+                                                    <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(60)} disabled={isActive}>Iniciar Atividade</button>
+                                                
+                                                </div>
+                                                
+                                            </div>
+                                        </TabPanelInside>
+
+                                        <div className="finalizarAtv">
+                                            <label>Finalizar Atividade?</label>
+                                            <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('esbocoSolucao')} /> Sim
+                                        </div>
                                     </div>
-                                </div>
                                 </AccordionDetails>
                             </Accordion>
 
@@ -381,10 +437,10 @@ export const Etapa2 = (props) => {
                                             Preparação de apresentação do esboço da solução/protótipo
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Cada integrante da equipe
-                                            deve realizar a apresentação dos temas encontrados na atividade anterior para a equipe. A apresentação pode ser rápida, apenas para que os
-                                            integrantes tenham uma ideia geral do tema para que possa facilitar na hora de realizar a votação nos temas de interesse.
-                                                                                
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. A equipe é responsável por preparar uma apresentação sobre
+                                            o esboço feito na atividade anterior para o mentor e a turma. A apresentação pode ser rápida, apenas para que os
+                                            mentor fique familiarizado com a solução escolhida e como a mesma vai ser implementada. A equipe pode preparar questionamentos para o 
+                                            mentor facilitando na hora de recolher o feedback do mentor.                             
                                             <br />
                                             <br />
 
@@ -400,28 +456,7 @@ export const Etapa2 = (props) => {
                                         </div>
                                     </TabPanelInside>
 
-                                    <TabPanelInside value={valueInside} index={1} className="atv-container border">
                                     
-
-                                        <h4 className="text-title-inside">
-                                            Votação nos temas de interesse da equipe
-                                        </h4>
-                                        <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Após a apresentação dos temas realizados pelos integrantes da equipe
-                                            na atividade anterior, cada integrante da equipe irá realizar a votação nos temas de seu interesse. <br />
-                                            Cada integrante tem <strong>três</strong> votos para gastar, ou seja, ele deve votar três vezes, seja em apenas um tema ou em mais.
-                                                                        
-                                            <br />
-                                            <br />
-                                            <div className="iniciar-atv">
-                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
-                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
-                                             
-                                                    
-                                            </div>
-                                            
-                                        </div>
-                                    </TabPanelInside>
                                 </AccordionDetails>
 
                                 <div className="finalizarAtv">
@@ -443,8 +478,9 @@ export const Etapa2 = (props) => {
                                 <h2 className="text-title-etapa">Mentoria</h2>
                                 <h4 className="text-subtitle">
                                     Etapa em que os participantes irão realizar o agendamento de uma reunião com o mentor responsável pela equipe. Esta etapa tem como objetivo 
-                                    iniciar o processo de validação da ideia, pois contém atividades que incentivam a apresentação ao mentor e com isso gerar possíveis melhorias à
-                                    serem aplicadas na solução/problema mapeado. <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
+                                    iniciar o processo de validação da ideia, pois contém atividades que incentivam a apresentação do esboço preparado ao mentor e 
+                                    com isso gerar possíveis melhorias que podem ser aplicadas no esboço da solução/problema feito. 
+                                    <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
                                     cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                 </h4>
                             </div>
@@ -476,14 +512,14 @@ export const Etapa2 = (props) => {
                                     
 
                                         <h4 className="text-title-inside">
-                                            Apresentação da equipe e do problema/ideia escolhido para o mentor
+                                            Apresentação do esboço do problema/ideia escolhido para o mentor
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, 
-                                            seus integrantes, quantos são os integrantes, além de informar o papel de cada um) para o mentor. A apresentação pode ser rápida, 
-                                            apenas para que o mentor saiba qual solução sua equipe irá desenvolver e mostrar quais são as pessoas que compõe a equipe. Após a equipe
-                                            realizar a apresentação, o grupo pode realizar a primeira validação da ideia com o mentor, fazendo perguntas sobre o tema escolhido para desenvolver, como:
-                                            se é uma boa escolha ou modos de se iniciar o desenvolvimento.
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a apresentação do seu grupo (informando o 
+                                            nome da equipe e solução escolhida para desenvolver) para o mentor. A apresentação pode ser rápida, 
+                                            apenas para que o mentor saiba qual é a sua equipe e a solução sua equipe irá desenvolver e mostrar o esboço preparado nas atividades
+                                            anteriores. Após a equipe realizar a apresentação, o grupo pode realizar a primeira validação da ideia com o mentor, 
+                                            fazendo perguntas sobre o tema escolhido para desenvolver, sobre o esboço feito: se é uma boa idea a forma escolhida para implementar, etc.
                                             <br />
                                             <br />
                                             
@@ -498,14 +534,13 @@ export const Etapa2 = (props) => {
                                     </TabPanelInside>
 
                                     <TabPanelInside value={valueInside} index={1} className="atv-container border">
-                                    
 
                                         <h4 className="text-title-inside">
                                             Retorno da equipe
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Após a apresentação da solução definida para o mentor, o grupo terá um tempo para se 
-                                            preparar para a próxima apresentação, que será feita para a turma. 
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Após a apresentação da solução definida para o mentor, o grupo 
+                                            terá um tempo para se preparar para a próxima apresentação, que será feita para a turma. 
                                             
                                                                         
                                             <br />
@@ -523,14 +558,13 @@ export const Etapa2 = (props) => {
                                 
                                     <TabPanelInside value={valueInside} index={2} className="atv-container border">
                                     
-
                                         <h4 className="text-title-inside">
                                         Apresentação da equipe e do problema/ideia escolhido para a turma
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma rápida apresentação do seu grupo (informando o nome da equipe, 
-                                            seus integrantes, quantos são os integrantes, além de informar o papel de cada um) para a turma. A apresentação pode ser rápida, 
-                                            apenas para que a turma conheça a solução que sua equipe irá desenvolver e mostrar quais são os integrantes da equipe.
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma rápida apresentação do seu grupo 
+                                            (informando o nome da equipe e solução escolhida para desenvolver) para a turma. A apresentação pode ser rápida, 
+                                            apenas para que a turma conheça a solução que sua equipe irá desenvolver e mostrar o esboço realizado e como o mesmo foi feito.
                                                                         
                                             <br />
                                             <br />
@@ -580,7 +614,7 @@ export const Etapa2 = (props) => {
                                 id="panel2bh-header"
                                 className={`${boxState['reformulacaoEsboco'] ? 'finalizada' : ''}`}
                                 >
-                                <Typography className={`text-title ${boxState['reformulacaoEsboco'] ? 'finalizada' : ''}`}>Reformulação do esboço com base na mentoria</Typography>
+                                <Typography className={`text-title ${boxState['reformulacaoEsboco'] ? 'finalizada' : ''}`}>Reformulação de pontos do esboço com base na mentoria</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                     <div className={`timer-box`}>
@@ -597,13 +631,12 @@ export const Etapa2 = (props) => {
                                     
 
                                         <h4 className="text-title-inside">
-                                            Pesquisa rápida com conhecidos sobre o problema/ideia definido nas atividades anteriores
+                                            Reformulação de pontos do esboço com base no feedback da mentoria
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma rápida apresentação e pesquisa sobre a solução com conhecidos, 
-                                            podendo ser apresentados em formulários para poder recolher a percepção de pessoas de fora do grupo sobre a solução escolhida. 
-                                            O formulário pode ser curto para que seja fácil de recolher as repostas, fazendo perguntas sobre o tema escolhido para desenvolver, , se é viável/interessante ou não
-                                            o desenvolvimento da solução.
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a reformulação de pontos obtidos na reunião 
+                                            e apresentação para o mentor, realizando a análise se é viável ou não aplicar as melhorias que foram apontadas pelo mentor.
+                                            
                                             <br />
                                             <br />
                                             
@@ -652,19 +685,15 @@ export const Etapa2 = (props) => {
                                             Revisão de esboço da ideia/solução
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a análise da respostas obtidas dos formulários e pesquisas aplicadas
-                                            na atividade anterior. Nesta atividade o interessante é que o grupo tenha recolhido o máximo de feedback possível sobre a ideia para que se 
-                                            houver ajustes os mesmos sejam mapeados e definidos, e assim, possam ser aplicados nas próximas etapas. Com a análise é possível que a 
-                                            equipe entenda a percepção de pessoas de fora do grupo sobre a solução se ela é interessante de ser desenvolvida ou se é necessário realizar mais pesquisas.
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a revisão do esboço com base na reformulação
+                                            feita na atividade anterior, podendo levar em conta a análise feita, os comentários obtidos do mentor e novas ideias que podem vim a surgir
+                                            dos integrantes após essa rodada de validação.
                                             <br />
                                             <br />
                                             
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
-                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
-                                                
-                                              
-                                                    
+                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>  
                                             </div>
                                             
                                         </div>
@@ -680,7 +709,6 @@ export const Etapa2 = (props) => {
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
                         
-
                         </TabPanel>
 
                         <TabPanel value={value} index={4} className="border validacao-esboco">
@@ -724,9 +752,9 @@ export const Etapa2 = (props) => {
                                         </h4>
                                         <div className="box-atv">
                                             Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma rápida apresentação e pesquisa sobre a solução com conhecidos, 
-                                            podendo ser apresentados em formulários para poder recolher a percepção de pessoas de fora do grupo sobre a solução escolhida. 
-                                            O formulário pode ser curto para que seja fácil de recolher as repostas, fazendo perguntas sobre o tema escolhido para desenvolver, , se é viável/interessante ou não
-                                            o desenvolvimento da solução.
+                                            podendo ser apresentados em formulários para poder recolher a percepção de pessoas de fora do grupo sobre o esboço da solução confeccionado. 
+                                            O formulário pode ser curto para que seja fácil de recolher as repostas, fazendo perguntas sobre o tema escolhido para desenvolver, 
+                                            sobre o esboço, se é viável/interessante ou não continuar com o desenvolvimento do esboço.
                                             <br />
                                             <br />
                                             
@@ -805,6 +833,10 @@ export const Etapa2 = (props) => {
                                             acompanhe o tempo.
                                             <br />
                                             <br />
+                                            O modelo da Retrospectiva está disponível no link: <br />
+                                            <a href="https://docs.google.com/drawings/d/1WWcMllAeZOwbzd_1VsRnoZHcBBUxnOYdbUMSq7UvPWQ/edit?usp=sharing" target="_blank">Clique aqui para abrir o modelo</a>
+                                            <br />
+                                            <br />
                                             
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
@@ -814,6 +846,16 @@ export const Etapa2 = (props) => {
 
                                             <br />
                                             <br />
+
+                                            <form onSubmit={handleInformacaoEquipe}>
+
+                                                <FormControl fullWidth>
+                                                    <label className="text-papel">Link da Retrospectiva preenchida</label>
+                                                    <TextField required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
+                                                    <Button type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                </FormControl>
+
+                                            </form>
                                         
                                         </div>
                                         
@@ -885,7 +927,9 @@ export const Etapa2 = (props) => {
 
             </div>
            
-
+            <div className="finalizar-etapa">
+                <button type="submit" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</button>
+            </div>
         </Container>
     )
 }
