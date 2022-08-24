@@ -6,7 +6,7 @@ class EquipesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipes
         fields = ('id', 
-                  'nomeEquipe', 
+                  'nomeDaEquipe', 
                   'quantidadeIntegrantes',
                   'seConhecem', 
                   'etapaFinalizada', 
@@ -20,3 +20,18 @@ class EquipesSerializer(serializers.ModelSerializer):
                   'created_at'
                 )
         
+        
+class CreateEquipesSerializer(serializers.ModelSerializer):
+    class Meta:
+          model = Equipes
+          fields = ('nomeDaEquipe', 
+                    'quantidadeIntegrantes', 
+                    'seConhecem', 
+                    'definidor', 
+                    'facilitador', 
+                    'responsavelTempo', 
+                    'etapaFinalizada',
+                    'linkRetrospectiva1', 
+                    'linkRetrospectiva2', 
+                    'linkRetrospectiva3', 
+                    'linkRetrospectiva4')
