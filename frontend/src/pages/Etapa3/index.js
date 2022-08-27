@@ -171,6 +171,8 @@ export const Etapa3 = (props) => {
        
     }
 
+    const [etapaFinalizada, setEtapaFinalizada] = useState(false);
+
     const handleFinalizarEtapas = (e) => {
         e.preventDefault()
         alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')

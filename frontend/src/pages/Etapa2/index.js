@@ -132,6 +132,8 @@ export const Etapa2 = (props) => {
        
     }
 
+    const [etapaFinalizada, setEtapaFinalizada] = useState(false)
+
     useEffect(() => {
         localStorage.setItem('boxState2', JSON.stringify(boxState))
     }, [boxState])

@@ -234,6 +234,7 @@ export const Etapa1 = (props) => {
 
     const [youtubeIDSeparacaoEquipe] = useState('wq3MnTvRV-Y')
     const [youtubeIDAquecimentoEquipe] = useState('sM7BrKIMNk4')
+    const [youtubeIDDefinicaoPapeis] = useState('6xAvGshgwjI')
 
     return(
         <Container>
@@ -401,7 +402,7 @@ export const Etapa1 = (props) => {
                                         <iframe className='video'
                                                 title='Atividade Aquecimento da Equipe'
                                                 sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
-                                                src={`https://youtube.com/embed/${youtubeIDSeparacaoEquipe}?autoplay=0`}>
+                                                src={`https://youtube.com/embed/${youtubeIDAquecimentoEquipe}?autoplay=0`}>
                                         </iframe>
 
                                     </div>
@@ -491,6 +492,17 @@ export const Etapa1 = (props) => {
                                         vai ficar com uma determinada responsabilidade, além de preencher algumas informações sobre a equipe.
                                         <br />
                                         <br />
+
+                                        <div className="video-box">
+
+                                            <iframe className='video'
+                                                    title='Atividade Separação da Equipe'
+                                                    sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                                    allowFullScreen='allowFullScreen'
+                                                    src={`https://youtube.com/embed/${youtubeIDDefinicaoPapeis}?autoplay=0`}>
+                                            </iframe>
+
+                                        </div>
 
                                         <div className={`timer-box`}>
                                             <div className="content-timer">

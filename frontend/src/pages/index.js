@@ -1,4 +1,5 @@
 export { Home } from './Home'
+export { Inicio } from './Inicio'
 export { Etapa1 } from './Etapa1'
 export { Etapa2 } from './Etapa2'
 export { Etapa3 } from './Etapa3'

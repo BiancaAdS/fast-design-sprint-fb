@@ -1,139 +1,69 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import React, { useState }  from "react";
+import { Link } from 'react-router-dom'
 
 
-const drawerWidth = 240;
-
-const pages = [ 
-    'INÍCIO', 
-    'ETAPA 1', 
-    'ETAPA 2', 
-    'ETAPA 3', 
-    'ETAPA 4'
-];
-
-const caminho = [
-    '/',
-    '/etapa1',
-    '/etapa2',
-    '/etapa3',
-    '/etapa4',
-]
+import { Container, 
+    NavbarContainer, 
+    Navbar, 
+    Heading,
+    LinksContainer, 
+    BurgerMenu,
+    Icon,
+    MobileMenu,
+    Container01,
+    Heading1,
+    CloseMenu,
+    Icon02,
+    LinksContainer1, 
+} from "./styles";
 
 export const Header = (props) => {
 
+  const [open, setOpen] = useState(false)
 
-    let navigate = useNavigate();
+  const openMenu = () => {
+    setOpen(!open)
+  }
 
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-
-    const drawer = (
-        <Box onClick={handleDrawerToggle}  sx={{ textAlign: "center", backgroundColor: 'primary.main'}}>
-            <Typography variant="h6" sx={{ my: 2, color: 'white', fontWeight: 'bold' }}>
-                Fast Design Sprint
-            </Typography>
-            <Divider />
-            <List>
-                {pages.map((item,i) => (
-                    <ListItem key={item} disablePadding >
-                        <ListItemButton sx={{ textAlign: "center" }} onClick={() => handleClick(caminho[i])}>
-                            <ListItemText>
-                                <Button
-                                    key={item}
-                                    sx={{ color: 'white', fontWeight: 'bold' }}
-                                    className={'btn-header'}
-                                    onClick={() => handleClick(caminho[i])}
-                                >
-                                    {item}
-                                </Button>
-                            </ListItemText>
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
-    
-    const container = window !== undefined ? () => window().document.body : undefined;
-
-    
-    const handleClick = ( caminho) => {
-
-        navigate(`../${caminho}`, { replace: true });
-    }
-   
-    return (
-        <Box sx={{ display: "flex" }}>
-            <AppBar component="nav">
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: "none" } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-                    >
-                        Fast Design Sprint
-                    </Typography>
-                    <Box sx={{ display: { xs: "none", sm: "block" } }}>
-                        {pages.map((item, i) => (
-                            <Button
-                                key={item}
-                                sx={{ color: 'white', fontWeight: 'bold' }}
-                                className={'btn-header'}
-                                onClick={() => handleClick(caminho[i])}
-                            >
-                            {item}
-                            </Button>
-                        ))}
-                    </Box>
-                </Toolbar>
-            </AppBar>
-            
-            <Box component="nav">
-                
-                <Drawer
-                container={container}
-                variant="temporary"
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                ModalProps={{
-                    keepMounted: true
-                }}
-                sx={{
-                    display: { xs: "block", sm: "none" },
-                    "& .MuiDrawer-paper": {
-                    boxSizing: "border-box",
-                    width: drawerWidth,
-                    backgroundColor: "primary.main"
-                    }
-                }}
-                >
-                    {drawer}
-                </Drawer>
-            </Box>
-        </Box>
+    return(
+        <Container>
+            <NavbarContainer data-role="Header">
+            <Navbar>
+              <Heading projVariant="cardHeading">
+                <Link className="linkPages" to="/home">Fast Design Sprint</Link>
+              </Heading>
+              <LinksContainer>
+                <Link className="linkPages" to="/home">Inicio</Link>
+                <Link className="linkPages" to="/etapa1">Etapa 1</Link>
+                <Link className="linkPages" to="/etapa2">Etapa 2</Link>
+                <Link className="linkPages" to="/etapa3">Etapa 3</Link>
+                <Link className="linkPages" to="/etapa4">Etapa 4</Link>
+              </LinksContainer>
+              <BurgerMenu data-type="BurgerMenu"  onClick={openMenu}>
+                <Icon viewBox="0 0 1024 1024">
+                  <path d="M128 256h768v86h-768v-86zM128 554v-84h768v84h-768zM128 768v-86h768v86h-768z"></path>
+                </Icon>
+              </BurgerMenu>
+              <MobileMenu className={`${open ? 'open' : ''}`} data-type="MobileMenu">
+                <Container01>
+                  <Heading1 projVariant="cardHeading"><Link className="linkPages" to="/home">Fast Design Sprint</Link></Heading1>
+                  <CloseMenu data-type="CloseMobileMenu" onClick={openMenu}>
+                    <Icon02 viewBox="0 0 1024 1024">
+                      <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
+                    </Icon02>
+                  </CloseMenu>
+                </Container01>
+                <hr />
+                <LinksContainer1>
+                  <Link className="linkPagesMob" to="/home" onClick={openMenu}>Inicio</Link>
+                  <Link className="linkPagesMob" to="/etapa1" onClick={openMenu}>Etapa 1</Link>
+                  <Link className="linkPagesMob" to="/etapa2" onClick={openMenu}>Etapa 2</Link>
+                  <Link className="linkPagesMob" to="/etapa3" onClick={openMenu}>Etapa 3</Link>
+                  <Link className="linkPagesMob" to="/etapa4" onClick={openMenu}>Etapa 4</Link>
+                </LinksContainer1>
+              </MobileMenu>
+            </Navbar>
+          </NavbarContainer>
+        </Container>
     )
 }
