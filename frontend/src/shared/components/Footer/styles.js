@@ -32,7 +32,9 @@ export const Container = styled.div`
 `
 
 export const FooterContainer = styled.div`
- width: 100%;
+  width: 100%;
+  bottom: 0;
+
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -42,8 +44,10 @@ export const FooterContainer = styled.div`
  
   export const Footer = styled.footer`
     width: 100%;
+  bottom: 0;
+
     display: flex;
-    max-width: 1400px;
+
     align-items: center;
     padding-top: 32px;
     padding-left: 48px;
@@ -61,6 +65,9 @@ export const FooterContainer = styled.div`
   `
  
   export const Container17 = styled.div `
+  width: 100%;
+  bottom: 0;
+
     display: flex;
     max-width: 1400px;
     align-items: center;

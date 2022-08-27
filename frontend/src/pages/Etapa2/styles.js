@@ -320,6 +320,15 @@ export const Container = styled.div`
         }
     }
 
+    .finalizar-etapa {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 70px 0;
+    }
+
     .btn-finalEtapa {
         width: 250px;
         height: 50px;

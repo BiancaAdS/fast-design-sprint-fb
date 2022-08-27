@@ -6,7 +6,7 @@ import { TabPanelInside } from '../../shared/components/TabPanelInside'
 import { Timer } from '../../shared/components/Timer'
 
 import { Tabs, Tab} from '@mui/material';
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, FormControl, TextField, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 
@@ -161,6 +161,24 @@ export const Etapa4 = (props) => {
        
     }
 
+    useEffect(() => {
+
+        var count = 0
+
+        for(var elem in boxState) {
+            if(boxState[elem]) {
+                count++
+            }
+        }
+
+        if(count === Object.keys(boxState).length) {
+            setEtapaFinalizada(true)
+        } else {
+            setEtapaFinalizada(false)
+        }
+
+    }, [boxState])
+
     const [etapaFinalizada, setEtapaFinalizada] = useState(false)
 
     const handleFinalizarEtapas = (e) => {
@@ -197,7 +215,7 @@ export const Etapa4 = (props) => {
                                 <h2 className="text-title-etapa">Aprimoramento da solução ou protótipo</h2>
                                 <h4 className="text-subtitle">
                                     Etapa em que os participantes irão fazer atividades que tem como objetivo realizar a aplicação de melhorias no protótipo da solução com base
-                                    nas respostas obtidas das validações/questionários aplicados para possíveis usuários realizados nas atividades da segunda etapa.
+                                    nas respostas obtidas das validações/questionários aplicados para possíveis usuários realizados nas atividades da terceira etapa.
                                     Esta etapa contém atividades que permitem o aprimoramento do protótipo e a revisão do protótipo.
                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade 
                                     e para acompanhar esse tempo lembre sempre de olhar para o relógio.
@@ -218,10 +236,7 @@ export const Etapa4 = (props) => {
                                 </AccordionSummary>
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                      
-                                        Nesta atividade vocês devem realizar a separação da equipe, ou seja, irão realizar algumas atividades
-                                        individuais para que ao chegar na atividade de definição de papéis da equipe, todos já tenham se conhecido melhor. 
-                                        <br />
-                                        <br />
+                                        
 
                                         <div className={`timer-box`}>
                                             <div className="content-timer">
@@ -240,12 +255,11 @@ export const Etapa4 = (props) => {
                                                 Reformulação do protótipo com base nas respostas de pesquisas
                                             </h4>
                                             <div className="box-atv">
-                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma rápida apresentação e pesquisa sobre a solução com conhecidos, 
-                                                podendo ser apresentados em formulários para poder recolher a percepção de pessoas de fora do grupo sobre a solução escolhida. 
-                                                O formulário pode ser curto para que seja fácil de recolher as repostas, fazendo perguntas sobre o tema escolhido para desenvolver, , se é viável/interessante ou não
-                                                o desenvolvimento da solução.
-                                                <br />
-                                                <br />
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a reformulação do protótipo com base nos 
+                                            pontos obtidos das pesquisas aplicadas na etapa três, realizando a análise se é viável ou não aplicar as melhorias que foram 
+                                            apontadas nos resultados das análises.
+                                            <br />
+                                            <br />
                                                 
                                                 <div className="iniciar-atv">
                                                     <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>15 minutos</strong> para finalizar a mesma.</p> 
@@ -260,7 +274,7 @@ export const Etapa4 = (props) => {
 
                                     <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoPrototipo')} /> Sim
+                                        <input checked={boxState['reformulacaoPrototipo']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoPrototipo')} /> Sim
                                     </div>
                                 </AccordionDetails>
                             </Accordion>
@@ -301,9 +315,9 @@ export const Etapa4 = (props) => {
                                                 Revisão da solução ou protótipo
                                             </h4>
                                             <div className="box-atv">
-                                                Nesta atividade vocês irão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                                deve realizar a confecção do Jamboard disponível no link: <br />
-                                                <a href="/etapa1" target="_blank">LINK AQUI</a>
+                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a revisão da solução/protótipo com base na 
+                                                reformulação feita na atividade anterior, podendo levar em conta a análise feita, os comentários obtidos do mentor e novas ideias 
+                                                que podem vim a surgir dos integrantes após essa rodada de validação.
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
@@ -319,7 +333,7 @@ export const Etapa4 = (props) => {
                                        
                                     <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoSolucao')} /> Sim
+                                        <input checked={boxState['revisaoSolucao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoSolucao')} /> Sim
                                     </div>
                                 </AccordionDetails>
                             </Accordion>
@@ -328,7 +342,7 @@ export const Etapa4 = (props) => {
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
 
-                        </TabPanel>
+                        </TabPanel> 
 
                         <TabPanel value={value} index={1} className="border apresentacao-solucao">
                             
@@ -430,14 +444,14 @@ export const Etapa4 = (props) => {
 
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('apresentacaoSolucao')} /> Sim
+                                        <input checked={boxState['apresentacaoSolucao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('apresentacaoSolucao')} /> Sim
                                     </div>
                             </Accordion>
 
                             <div className="btn-Box">
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
-                        </TabPanel> {/*JA FOI FEITO*/}
+                        </TabPanel>
 
                         <TabPanel value={value} index={2} className="border revisao-processo">
 
@@ -521,14 +535,14 @@ export const Etapa4 = (props) => {
                                 </AccordionDetails>
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
+                                        <input checked={boxState['retrospectiva']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
                                     </div>
                             </Accordion>
                             
                             <div className="btn-Box">
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
-                        </TabPanel> {/*JA FOI FEITO - FALTA COLOCAR O INPUT DE TEXTO*/}
+                        </TabPanel> 
 
                         <TabPanel value={value} index={3} className="border metodos-avaliacao">
                             <div className="info-etapa-text">
@@ -571,7 +585,7 @@ export const Etapa4 = (props) => {
                                     </TabPanelInside>
                                 </AccordionDetails>
                             </Accordion>
-                        </TabPanel> {/*JA FOI FEITO*/}
+                        </TabPanel>
 
                     </div>
 

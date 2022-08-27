@@ -5,7 +5,7 @@ import { TabPanelInside } from '../../shared/components/TabPanelInside'
 import { Timer } from '../../shared/components/Timer'
 
 import { Tabs, Tab} from '@mui/material';
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, FormControl, TextField, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 
@@ -133,6 +133,24 @@ export const Etapa3 = (props) => {
     useEffect(() => {
         Notification.requestPermission();
     }, []);
+
+    useEffect(() => {
+
+        var count = 0
+
+        for(var elem in boxState) {
+            if(boxState[elem]) {
+                count++
+            }
+        }
+
+        if(count === Object.keys(boxState).length) {
+            setEtapaFinalizada(true)
+        } else {
+            setEtapaFinalizada(false)
+        }
+
+    }, [boxState])
 
     const handleInformacaoEquipe = async (e) => {
         e.preventDefault()
@@ -266,7 +284,7 @@ export const Etapa3 = (props) => {
 
                                     <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoEsboco')} /> Sim
+                                        <input checked={boxState['reformulacaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoEsboco')} /> Sim
                                     </div>
                                 </AccordionDetails>
                             </Accordion>
@@ -324,7 +342,7 @@ export const Etapa3 = (props) => {
                                 </AccordionDetails>
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoEsboco')} /> Sim
+                                        <input checked={boxState['revisaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoEsboco')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -332,10 +350,9 @@ export const Etapa3 = (props) => {
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
 
-                        </TabPanel> {/*JA FOI FEITO*/}
+                        </TabPanel>
 
                         <TabPanel value={value} index={1} className="border testagem">
-
 
                             <div className="info-etapa-text">
 
@@ -361,7 +378,7 @@ export const Etapa3 = (props) => {
                                 </AccordionSummary>
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                 <div>
-                                    Nesta atividade vocês irão realizar pesquisas individuais sobre possíveis temas em qualquer área, que você deseje que a equipe desenvolva/mapeie alguma solução.
+                                    Nesta atividade vocês irão realizar a escolha da ferramenta que será utilizada para realizar a construção solução mapeada.
                                     <br />
                                     <br />
 
@@ -397,7 +414,7 @@ export const Etapa3 = (props) => {
 
                                     <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('ferramentas')} /> Sim
+                                        <input checked={boxState['ferramentas']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('ferramentas')} /> Sim
                                     </div>
                                 </div>
                                 </AccordionDetails>
@@ -424,14 +441,13 @@ export const Etapa3 = (props) => {
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border">
                                     
-
                                         <h4 className="text-title-inside">
                                             Preparação de testes com usuários
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Cada integrante da equipe
-                                            deve realizar a apresentação dos temas encontrados na atividade anterior para a equipe. A apresentação pode ser rápida, apenas para que os
-                                            integrantes tenham uma ideia geral do tema para que possa facilitar na hora de realizar a votação nos temas de interesse.
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. A equipe será responsável por realizar o preparo dos testes a serem
+                                            realizados no protótipo com os usuários escolhidos, sejam eles reais ou fictícios. Ficando a cargo da equipe o tipo de teste e a forma
+                                            como o mesmo será aplicado.
                                                                                 
                                             <br />
                                             <br />
@@ -441,8 +457,6 @@ export const Etapa3 = (props) => {
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
                                                 <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
                                                 
-                                             
-                                                    
                                             </div>
                                             
                                         </div>
@@ -474,7 +488,7 @@ export const Etapa3 = (props) => {
 
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('preparacaoTestes')} /> Sim
+                                        <input checked={boxState['preparacaoTestes']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('preparacaoTestes')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -490,10 +504,11 @@ export const Etapa3 = (props) => {
 
                                 <h2 className="text-title-etapa">Desenvolvimento e testagem da solução ou protótipo</h2>
                                 <h4 className="text-subtitle">
-                                    Etapa em que os participantes irão iniciar a confecção do protótipo na ferramenta escolhida na etapa anterior, finalizada a construção do protótipo, 
-                                    a equipe iniciará atividades para a preparação dos testes com usuários. Esta etapa tem como objetivo 
-                                    iniciar o processo de confecção do protótipo e realizar a testagem desse protótipo. <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
-                                    cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
+                                    Etapa em que os participantes irão iniciar a confecção do protótipo na ferramenta escolhida na etapa anterior, após finalizar a construção 
+                                    do protótipo, a equipe iniciará atividades de aplicação dos testes com usuários. Esta etapa tem como objetivo 
+                                    iniciar o processo de confecção do protótipo e realizar a testagem desse protótipo. <br /> <strong>Lembrem-se</strong>, 
+                                    cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade e para acompanhar esse 
+                                    tempo lembre sempre de olhar para o relógio.
 
                                 </h4>
                             </div>
@@ -526,17 +541,14 @@ export const Etapa3 = (props) => {
                                             Construção de um modelo ou protótipo
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, 
-                                            seus integrantes, quantos são os integrantes, além de informar o papel de cada um) para o mentor. A apresentação pode ser rápida, 
-                                            apenas para que o mentor saiba qual solução sua equipe irá desenvolver e mostrar quais são as pessoas que compõe a equipe. Após a equipe
-                                            realizar a apresentação, o grupo pode realizar a primeira validação da ideia com o mentor, fazendo perguntas sobre o tema escolhido para desenvolver, como:
-                                            se é uma boa escolha ou modos de se iniciar o desenvolvimento.
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong> ou <strong>individualmente</strong>. O grupo irá realizar a 
+                                            construção do protótipo na ferramenta escolhida.
                                             <br />
                                             <br />
                                             
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>1 hora e 30 minutos</strong> para finalizar a mesma.</p> 
-                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(90)} disabled={isActive}>Iniciar Atividade</button>
+                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(60)} disabled={isActive}>Iniciar Atividade</button>
                                               
                                                     
                                             </div>
@@ -549,7 +561,7 @@ export const Etapa3 = (props) => {
 
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('construcao')} /> Sim
+                                        <input checked={boxState['construcao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('construcao')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -581,11 +593,8 @@ export const Etapa3 = (props) => {
                                             Testagem da solução ou protótipo
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, 
-                                            seus integrantes, quantos são os integrantes, além de informar o papel de cada um) para o mentor. A apresentação pode ser rápida, 
-                                            apenas para que o mentor saiba qual solução sua equipe irá desenvolver e mostrar quais são as pessoas que compõe a equipe. Após a equipe
-                                            realizar a apresentação, o grupo pode realizar a primeira validação da ideia com o mentor, fazendo perguntas sobre o tema escolhido para desenvolver, como:
-                                            se é uma boa escolha ou modos de se iniciar o desenvolvimento.
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve irá realizar a aplicação dos testes preparados para os
+                                            usuários que o grupo selecionou e realizar a documentação dos resultados obtidos com a aplicação dos testes.
                                             <br />
                                             <br />
                                             
@@ -604,7 +613,7 @@ export const Etapa3 = (props) => {
 
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagem')} /> Sim
+                                        <input checked={boxState['testagem']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagem')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -636,11 +645,8 @@ export const Etapa3 = (props) => {
                                             Avaliação dos resultados da testagem
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, 
-                                            seus integrantes, quantos são os integrantes, além de informar o papel de cada um) para o mentor. A apresentação pode ser rápida, 
-                                            apenas para que o mentor saiba qual solução sua equipe irá desenvolver e mostrar quais são as pessoas que compõe a equipe. Após a equipe
-                                            realizar a apresentação, o grupo pode realizar a primeira validação da ideia com o mentor, fazendo perguntas sobre o tema escolhido para desenvolver, como:
-                                            se é uma boa escolha ou modos de se iniciar o desenvolvimento.
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a análise dos resultados obtidos dos testes
+                                            aplicados na etapa anterior.
                                             <br />
                                             <br />
                                             
@@ -659,7 +665,7 @@ export const Etapa3 = (props) => {
 
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('avaliacaoTestagem')} /> Sim
+                                        <input checked={boxState['avaliacaoTestagem']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('avaliacaoTestagem')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -691,11 +697,9 @@ export const Etapa3 = (props) => {
                                             Preparação da apresentação para a mentoria
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, 
-                                            seus integrantes, quantos são os integrantes, além de informar o papel de cada um) para o mentor. A apresentação pode ser rápida, 
-                                            apenas para que o mentor saiba qual solução sua equipe irá desenvolver e mostrar quais são as pessoas que compõe a equipe. Após a equipe
-                                            realizar a apresentação, o grupo pode realizar a primeira validação da ideia com o mentor, fazendo perguntas sobre o tema escolhido para desenvolver, como:
-                                            se é uma boa escolha ou modos de se iniciar o desenvolvimento.
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a preparação da apresentação do seu grupo 
+                                            para o mentor. A apresentação pode ser rápida, apenas para que o mentor saiba qual solução sua equipe desenvolveu e mostrar o
+                                            protótipo desenvolvido.
                                             <br />
                                             <br />
                                             
@@ -714,7 +718,7 @@ export const Etapa3 = (props) => {
 
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('apresentacao')} /> Sim
+                                        <input checked={boxState['apresentacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('apresentacao')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -834,7 +838,7 @@ export const Etapa3 = (props) => {
 
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('mentoria')} /> Sim
+                                        <input checked={boxState['mentoria']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('mentoria')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -843,7 +847,7 @@ export const Etapa3 = (props) => {
                             </div>
                         
 
-                        </TabPanel> {/*JA FOI FEITO*/}
+                        </TabPanel>
 
                         <TabPanel value={value} index={4} className="border validacao-solucao">
 
@@ -903,7 +907,7 @@ export const Etapa3 = (props) => {
                                 </AccordionDetails>
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('pesquisaValidacao')} /> Sim
+                                        <input checked={boxState['pesquisaValidacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('pesquisaValidacao')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -912,11 +916,10 @@ export const Etapa3 = (props) => {
                             </div>
                         
 
-                        </TabPanel> {/*JA FOI FEITO*/}
+                        </TabPanel>
 
                         <TabPanel value={value} index={5} className="border aprimoramento-prototipo" >
 
-                
                             <div className="info-etapa-text">
 
                                 <h2 className="text-title-etapa">Aprimoramento da solução ou protótipo</h2>
@@ -985,7 +988,7 @@ export const Etapa3 = (props) => {
     
                                     <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoPrototipo')} /> Sim
+                                        <input checked={boxState['reformulacaoPrototipo']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoPrototipo')} /> Sim
                                     </div>
                                 </AccordionDetails>
                             </Accordion>
@@ -1045,7 +1048,7 @@ export const Etapa3 = (props) => {
 
                                     <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoPrototipo')} /> Sim
+                                        <input checked={boxState['revisaoPrototipo']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoPrototipo')} /> Sim
                                     </div>
                                 </AccordionDetails>
                             </Accordion>
@@ -1163,7 +1166,7 @@ export const Etapa3 = (props) => {
                                 </AccordionDetails>
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagemReformulada')} /> Sim
+                                        <input checked={boxState['testagemReformulacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagemReformulada')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -1171,7 +1174,7 @@ export const Etapa3 = (props) => {
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
 
-                        </TabPanel> {/*JA FOI FEITO*/}
+                        </TabPanel>
 
                         <TabPanel value={value} index={6} className="border revisao-processo">
 
@@ -1257,14 +1260,14 @@ export const Etapa3 = (props) => {
                                 </AccordionDetails>
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
+                                        <input checked={boxState['retrospectiva']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
                                     </div>
                             </Accordion>
                             
                             <div className="btn-Box">
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
-                        </TabPanel> {/*JA FOI FEITO - FALTA COLOCAR O INPUT DE TEXTO*/}
+                        </TabPanel>
 
                         <TabPanel value={value} index={7} className="border metodos-avaliacao">
                             <div className="info-etapa-text">
@@ -1311,7 +1314,7 @@ export const Etapa3 = (props) => {
                                     </TabPanelInside>
                                 </AccordionDetails>
                             </Accordion>
-                        </TabPanel> {/*JA FOI FEITO*/}
+                        </TabPanel>
 
                     </div>
 

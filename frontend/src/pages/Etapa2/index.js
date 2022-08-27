@@ -150,6 +150,24 @@ export const Etapa2 = (props) => {
 
     }, [timeClock, isActive, isPaused])
 
+    useEffect(() => {
+
+        var count = 0
+
+        for(var elem in boxState) {
+            if(boxState[elem]) {
+                count++
+            }
+        }
+
+        if(count === Object.keys(boxState).length) {
+            setEtapaFinalizada(true)
+        } else {
+            setEtapaFinalizada(false)
+        }
+
+    }, [boxState])
+
 
     useEffect(() => {
 
@@ -332,7 +350,7 @@ export const Etapa2 = (props) => {
 
                                     <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('discussao')} /> Sim
+                                        <input checked={boxState['discussao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('discussao')} /> Sim
                                     </div>
                                 </AccordionDetails>
                             </Accordion>
@@ -341,7 +359,7 @@ export const Etapa2 = (props) => {
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
 
-                        </TabPanel>
+                        </TabPanel> 
 
                         <TabPanel value={value} index={1} className="border esboco-problema">
 
@@ -407,7 +425,7 @@ export const Etapa2 = (props) => {
 
                                         <div className="finalizarAtv">
                                             <label>Finalizar Atividade?</label>
-                                            <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('esbocoSolucao')} /> Sim
+                                            <input checked={boxState['esbocoSolucao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('esbocoSolucao')} /> Sim
                                         </div>
                                     </div>
                                 </AccordionDetails>
@@ -463,7 +481,7 @@ export const Etapa2 = (props) => {
 
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('preparacaoApresentacao')} /> Sim
+                                        <input checked={boxState['preparacaoApresentacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('preparacaoApresentacao')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -584,7 +602,7 @@ export const Etapa2 = (props) => {
 
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('mentoria')} /> Sim
+                                        <input checked={boxState['mentoria']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('mentoria')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -593,7 +611,7 @@ export const Etapa2 = (props) => {
                             </div>
                         
 
-                        </TabPanel>
+                        </TabPanel> 
 
                         <TabPanel value={value} index={3} className="border aprimoramento-esboco">
 
@@ -654,7 +672,7 @@ export const Etapa2 = (props) => {
                                 </AccordionDetails>
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoEsboco')} /> Sim
+                                        <input checked={boxState['reformulacaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoEsboco')} /> Sim
                                     </div>
                             </Accordion>
                             
@@ -703,7 +721,7 @@ export const Etapa2 = (props) => {
                                 </AccordionDetails>
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoEsboco')} /> Sim
+                                        <input checked={boxState['revisaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoEsboco')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -711,7 +729,7 @@ export const Etapa2 = (props) => {
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
                         
-                        </TabPanel>
+                        </TabPanel> 
 
                         <TabPanel value={value} index={4} className="border validacao-esboco">
 
@@ -772,7 +790,7 @@ export const Etapa2 = (props) => {
                                 </AccordionDetails>
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('pesquisaValidacao')} /> Sim
+                                        <input checked={boxState['pesquisaValidacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('pesquisaValidacao')} /> Sim
                                     </div>
                             </Accordion>
 
@@ -781,7 +799,7 @@ export const Etapa2 = (props) => {
                             </div>
                         
 
-                        </TabPanel>
+                        </TabPanel> 
 
                         <TabPanel value={value} index={5} className="border revisao-processo">
 
@@ -874,7 +892,7 @@ export const Etapa2 = (props) => {
                             <div className="btn-Box">
                                 <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
                             </div>
-                        </TabPanel>
+                        </TabPanel> 
 
                         <TabPanel value={value} index={6} className="border metodos-avaliacao">
                             <div className="info-etapa-text">
@@ -921,7 +939,7 @@ export const Etapa2 = (props) => {
                                     </TabPanelInside>
                                 </AccordionDetails>
                             </Accordion>
-                        </TabPanel>
+                        </TabPanel> 
 
                     </div>
 
