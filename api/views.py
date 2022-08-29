@@ -1,27 +1,74 @@
-from urllib import request
-from django.shortcuts import render
 from rest_framework import generics, status
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from rest_framework.request import Request
+from rest_framework.response import Response
+
+from django.contrib.auth.models import User
 
 from .serializers import EquipesSerializer, CreateEquipesSerializer
 from .models import Equipes
 
+from django.contrib.auth import authenticate, login
+
 # Create your views here.
+
+class LoginView(APIView):
+    permission_classes = []
+   
+    def post(self, request: Request):
+                
+        username = request.data.get("username")
+        password = request.data.get("password")
+        
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            response = {"authenticate": True}
+            return Response(data=response, status=status.HTTP_200_OK)
+
+        else:
+            return Response(data={"authenticate": False})
+
+    def get(self, request: Request):
+        content = {"user": str(request.user), "auth": str(request.auth)}
+
+        return Response(data=content, status=status.HTTP_200_OK)    
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+   
+    @classmethod
+    def get_token(cls, user):
+        
+        token = super().get_token(user)       
+        token['username'] = user.username
+        return token
+    
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+   
+
+@api_view(['GET'])
+def getRoutes (request):
+    routes = [
+        '/api/token',
+        '/api/token/refresh'
+    ]
+    return Response(routes)
+
 
 class EquipesView(generics.ListAPIView):
     queryset = Equipes.objects.all()
     serializer_class = EquipesSerializer
-    
-class EquipeAPIView(APIView):
-    
-    def get(self, request):
-        equipe= Equipes.objects.all()
-        serializer= EquipesSerializer(equipe, many=True)
-        return Response(serializer.data)
-    
+
 class EquipeDetailAPIView(APIView):
     
     def get(self, request, nomeDaEquipe):
@@ -54,6 +101,10 @@ class CreateEquipesView(APIView):
             linkRetrospectiva3 = serializer.data.get('linkRetrospectiva3')
             linkRetrospectiva4 = serializer.data.get('linkRetrospectiva4')
             equipeAtual = self.request.session.session_key
+            
+            user = User.objects.create_user(username=nomeDaEquipe,first_name=nomeDaEquipe, password=nomeDaEquipe)
+            user.save()
+            
             queryset = Equipes.objects.filter(nomeDaEquipe=nomeDaEquipe)
             if(queryset.exists()):
                 equipe = queryset[0]
@@ -68,7 +119,8 @@ class CreateEquipesView(APIView):
                 equipe.linkRetrospectiva2 = linkRetrospectiva2
                 equipe.linkRetrospectiva3 = linkRetrospectiva3
                 equipe.linkRetrospectiva4 = linkRetrospectiva4
-                equipe.save(update_fields=['equipeAtual','nomeDaEquipe', 'quantidadeIntegrantes', 'etapaFinalizada','seConhecem', 'definidor', 'facilitador', 'responsavelTempo', 'linkRetrospectiva1', 'linkRetrospectiva2', 'linkRetrospectiva3', 'linkRetrospectiva4'])
+                
+                equipe.save(update_fields=['equipeAtual','equipeAtual','nomeDaEquipe', 'quantidadeIntegrantes', 'etapaFinalizada','seConhecem', 'definidor', 'facilitador', 'responsavelTempo', 'linkRetrospectiva1', 'linkRetrospectiva2', 'linkRetrospectiva3', 'linkRetrospectiva4'])
                 return Response(EquipesSerializer(equipe).data, status=status.HTTP_200_OK)
             else:
                 equipe = Equipes(equipeAtual=equipeAtual, nomeDaEquipe=nomeDaEquipe, quantidadeIntegrantes=quantidadeIntegrantes, seConhecem=seConhecem, definidor=definidor, facilitador=facilitador, responsavelTempo=responsavelTempo, etapaFinalizada=etapaFinalizada, linkRetrospectiva1=linkRetrospectiva1, linkRetrospectiva2=linkRetrospectiva2, linkRetrospectiva3=linkRetrospectiva3, linkRetrospectiva4=linkRetrospectiva4)

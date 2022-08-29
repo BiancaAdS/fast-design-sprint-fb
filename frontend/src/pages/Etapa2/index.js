@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+
+import { AuthContext } from "../../contexts/Auth/AuthContext";
 
 import { TabPanel } from '../../shared/components/TabPanel'
 import { TabPanelInside } from '../../shared/components/TabPanelInside'
@@ -30,6 +32,9 @@ function a22yProps(index) {
 
   
 export const Etapa2 = (props) => {
+
+    const auth = useContext(AuthContext)
+
     const [value, setValue] = useState(0);
     const [valueInside, setValueInside] = useState(0);
 
@@ -193,7 +198,7 @@ export const Etapa2 = (props) => {
                 <div className="content-page">
 
                     <div className="content-info">
-                        <h1>Bem vindos a segunda etapa!</h1>
+                        <h1>Bem vindos a segunda etapa! {auth.user ? auth.user.username : ''}</h1>
                     </div>
 
 

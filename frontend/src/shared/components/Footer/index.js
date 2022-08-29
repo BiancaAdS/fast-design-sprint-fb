@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom'
+
+import { AuthContext } from "../../../contexts/Auth/AuthContext";
+
 import { Container,
     FooterContainer,
     Footer,
@@ -17,6 +20,12 @@ import { Container,
 
 export const Footers = (props) => {
 
+    const auth = useContext(AuthContext)
+
+    const handleFinalizar = () => {
+      auth.logoutUser()
+    }
+
     return(
         <Container>
             <FooterContainer>
@@ -29,6 +38,7 @@ export const Footers = (props) => {
                   <Link className="linkPages" to="/etapa2">Etapa 2</Link>
                   <Link className="linkPages" to="/etapa3">Etapa 3</Link>
                   <Link className="linkPages" to="/etapa4">Etapa 4</Link>
+                  <Link className="linkPages" to="/" onClick={handleFinalizar}>Finalizar Sprint</Link>
                 </Nav>
               </Container17>
               <Separator></Separator>

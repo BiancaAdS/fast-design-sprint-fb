@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from 'axios'
+
+import { AuthContext } from "../../contexts/Auth/AuthContext";
 
 import { TabPanel } from '../../shared/components/TabPanel'
 import { TabPanelInside } from '../../shared/components/TabPanelInside'
@@ -38,6 +40,9 @@ function a22yProps(index) {
 
   
 export const Etapa1 = (props) => {
+
+    const auth = useContext(AuthContext)
+
     const [value, setValue] = useState(0);
     const [valueInside, setValueInside] = useState(0);
 
@@ -83,6 +88,11 @@ export const Etapa1 = (props) => {
     })
 
     const [timeStop, setTimeStop] = useState(timeClock)
+
+    
+    const [youtubeIDSeparacaoEquipe] = useState('wq3MnTvRV-Y')
+    const [youtubeIDAquecimentoEquipe] = useState('sM7BrKIMNk4')
+    const [youtubeIDDefinicaoPapeis] = useState('6xAvGshgwjI')
 
  
     useEffect(() => {
@@ -179,7 +189,7 @@ export const Etapa1 = (props) => {
         }
     }
 
-    const [linkRetrospectiva1, setLinkRetrospectiva] = useState("link1 aqui")
+    const [linkRetrospectiva1, setLinkRetrospectiva] = useState("")
     
     const handleFinalizar = (boxName) => {
         setBoxState({
@@ -193,13 +203,17 @@ export const Etapa1 = (props) => {
         alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
     }
 
+    
+
     const [datas, setDatas] = useState({})
+
+    const [logarUser, setLogarUser] = useState(false)
 
     const handleInformacaoEquipe = async (e) => {
         e.preventDefault()
 
-        const { data } = await axios.get(`/api/view-equipe/${nomeDaEquipe}`)
-       
+        const { data } = await axios.get(`/api/equipes/${nomeDaEquipe}`)
+               
         if(Object.keys(data).length !== 0) {
             axios.post('/api/create-equipe', {
                 nomeDaEquipe: data.nomeDaEquipe ? data.nomeDaEquipe : nomeDaEquipe,
@@ -228,13 +242,41 @@ export const Etapa1 = (props) => {
                 linkRetrospectiva4:"",
                 etapaFinalizada: qualEtapaFinalizada
             })
+            setLogarUser(true)
         }
-       
+
     }
 
-    const [youtubeIDSeparacaoEquipe] = useState('wq3MnTvRV-Y')
-    const [youtubeIDAquecimentoEquipe] = useState('sM7BrKIMNk4')
-    const [youtubeIDDefinicaoPapeis] = useState('6xAvGshgwjI')
+
+    const handleLoginNew = async () => {
+
+        const logged = await auth.loginUser(nomeDaEquipe, nomeDaEquipe)
+
+        return logged
+    }
+
+    useEffect(() => {
+
+        const handleLoginNew = async () => {
+
+            const logged = await auth.loginUser(nomeDaEquipe, nomeDaEquipe)
+
+            return logged
+        }
+
+        if(nomeDaEquipe !== '') {
+            
+            let interval =  setInterval(()=> {
+               
+                handleLoginNew()
+                setLogarUser(false)
+            }, 1200)
+
+            return ()=> clearInterval(interval)
+
+        }
+
+    }, [logarUser])
 
     return(
         <Container>
@@ -243,7 +285,7 @@ export const Etapa1 = (props) => {
                 <div className="content-page">
 
                     <div className="content-info">
-                        <h1>Bem vindos a primeira etapa!</h1>
+                        <h1>Bem vindos a primeira etapa! {auth.user ? auth.user.username : ''}</h1>
                     </div>
 
 

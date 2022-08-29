@@ -1,6 +1,7 @@
-import React, { useState }  from "react";
+import React, { useState, useContext }  from "react";
 import { Link } from 'react-router-dom'
 
+import { AuthContext } from "../../../contexts/Auth/AuthContext";
 
 import { Container, 
     NavbarContainer, 
@@ -21,8 +22,19 @@ export const Header = (props) => {
 
   const [open, setOpen] = useState(false)
 
+  const auth = useContext(AuthContext)
+
   const openMenu = () => {
     setOpen(!open)
+  }
+
+  const handleFinalizarMob = () => {
+    auth.logoutUser()
+    setOpen(!open)
+  }
+
+  const handleFinalizar = () => {
+    auth.logoutUser()
   }
 
     return(
@@ -38,6 +50,7 @@ export const Header = (props) => {
                 <Link className="linkPages" to="/etapa2">Etapa 2</Link>
                 <Link className="linkPages" to="/etapa3">Etapa 3</Link>
                 <Link className="linkPages" to="/etapa4">Etapa 4</Link>
+                <Link className="linkPages" to="/" onClick={handleFinalizar}>Finalizar Sprint</Link>
               </LinksContainer>
               <BurgerMenu data-type="BurgerMenu"  onClick={openMenu}>
                 <Icon viewBox="0 0 1024 1024">
@@ -60,6 +73,7 @@ export const Header = (props) => {
                   <Link className="linkPagesMob" to="/etapa2" onClick={openMenu}>Etapa 2</Link>
                   <Link className="linkPagesMob" to="/etapa3" onClick={openMenu}>Etapa 3</Link>
                   <Link className="linkPagesMob" to="/etapa4" onClick={openMenu}>Etapa 4</Link>
+                  <Link className="linkPagesMob" to="/" onClick={handleFinalizarMob}>Finalizar Sprint</Link>
                 </LinksContainer1>
               </MobileMenu>
             </Navbar>

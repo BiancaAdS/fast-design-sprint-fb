@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Equipes(models.Model):
     nomeDaEquipe = models.CharField(max_length=240, default="")
-    equipeAtual = models.CharField(max_length=240)
+    equipeAtual = models.CharField(max_length=240, default="")
     quantidadeIntegrantes = models.IntegerField()
     seConhecem = models.BooleanField(null=False, default=False)
     etapaFinalizada = models.CharField(max_length=35, default="", blank=True)
