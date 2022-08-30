@@ -218,11 +218,8 @@ export const Etapa1 = (props) => {
         e.preventDefault()
 
         const { data } = await axios.get(`/api/equipes/${nomeDaEquipe}`)
-
-        console.log('aqui')
                
         if(Object.keys(data).length !== 0) {
-            console.log('aqui')
             axios.post('/api/create-equipe', {
                 nomeDaEquipe: data.nomeDaEquipe ? data.nomeDaEquipe : nomeDaEquipe,
                 quantidadeIntegrantes: data.quantidadeIntegrantes ? data.quantidadeIntegrantes : quantidadeIntegrantes,

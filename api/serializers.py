@@ -5,7 +5,7 @@ from .models import Equipes
 class EquipesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipes
-        fields = ('id', 
+        fields = ('equipe_id', 
                   'nomeDaEquipe', 
                   'quantidadeIntegrantes',
                   'seConhecem', 

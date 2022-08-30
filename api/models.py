@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Equipes(models.Model):
+    equipe_id =  models.AutoField(primary_key=True, null=False, auto_created=True)
     nomeDaEquipe = models.CharField(max_length=240, default="")
     equipeAtual = models.CharField(max_length=240, default="")
     quantidadeIntegrantes = models.IntegerField()
