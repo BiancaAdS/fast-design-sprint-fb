@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import EquipesView, CreateEquipesView, EquipeDetailAPIView, getRoutes, MyTokenObtainPairView,LoginView
+from .views import EquipesView, CreateEquipesView, EquipeDetailAPIView, getRoutes, MyTokenObtainPairView, LoginView
 
 from rest_framework_simplejwt.views import (
     TokenRefreshView,

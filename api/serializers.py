@@ -12,14 +12,16 @@ class EquipesSerializer(serializers.ModelSerializer):
                   'etapaFinalizada', 
                   'definidor', 
                   'facilitador', 
-                  'responsavelTempo', 
+                  'observador', 
+                  'entrevistador',
+                  'scrumMaster',
                   'linkRetrospectiva1', 
                   'linkRetrospectiva2', 
                   'linkRetrospectiva3', 
                   'linkRetrospectiva4', 
                   'created_at'
                 )
-        
+    
         
 class CreateEquipesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,7 +31,9 @@ class CreateEquipesSerializer(serializers.ModelSerializer):
                     'seConhecem', 
                     'definidor', 
                     'facilitador', 
-                    'responsavelTempo', 
+                    'observador', 
+                    'entrevistador',
+                    'scrumMaster',
                     'etapaFinalizada',
                     'linkRetrospectiva1', 
                     'linkRetrospectiva2', 
