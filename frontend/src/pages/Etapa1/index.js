@@ -33,18 +33,6 @@ function a22yProps(index) {
     };
 }
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-  
 export const Etapa1 = (props) => {
 
     const auth = useContext(AuthContext)
@@ -223,11 +211,8 @@ export const Etapa1 = (props) => {
     const handleFinalizarEtapas = async () => {
         const login = handleLoginNew()
         handleOpenModal()
-        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa' + nomeDaEquipe)
     }
 
-    
-    const [logarUser, setLogarUser] = useState(false)
 
     const handleInformacaoEquipe = async (e) => {
         e.preventDefault()
@@ -270,7 +255,6 @@ export const Etapa1 = (props) => {
                 linkRetrospectiva4:"",
                 etapaFinalizada: '',
             })
-            setLogarUser(true)
         }
 
     }

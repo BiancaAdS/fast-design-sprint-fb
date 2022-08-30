@@ -184,7 +184,6 @@ export const Etapa2 = (props) => {
 
     const handleFinalizarEtapas = () => {
         handleOpenModal()
-        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
     }
 
     return(

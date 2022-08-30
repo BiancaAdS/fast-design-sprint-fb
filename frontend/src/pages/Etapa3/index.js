@@ -196,7 +196,6 @@ export const Etapa3 = (props) => {
 
     const handleFinalizarEtapas = () => {
         handleOpenModal()
-        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
     }
 
     return(
@@ -259,7 +258,7 @@ export const Etapa3 = (props) => {
                                         </div>
 
                                         <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Reformulação do esboço" {...a22yProps(0)} />
+                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Reformulação do esboço" {...a22yProps(0)} />
                                         </Tabs>
 
                                         <TabPanelInside value={valueInside} index={0} className="atv-container border">
@@ -312,7 +311,7 @@ export const Etapa3 = (props) => {
                                         </div>
 
                                         <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Revisão de esboço" {...a22yProps(0)} />
+                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Revisão de esboço" {...a22yProps(0)} />
                                         </Tabs>
 
 
@@ -391,7 +390,7 @@ export const Etapa3 = (props) => {
                                     </div>
 
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Escolha de ferramenta" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Escolha de ferramenta" {...a22yProps(0)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border">
@@ -438,7 +437,7 @@ export const Etapa3 = (props) => {
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Preparação de testes" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Preparação de testes" {...a22yProps(0)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border">
@@ -534,7 +533,7 @@ export const Etapa3 = (props) => {
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Construção do modelo ou protótipo" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Construção do modelo ou protótipo" {...a22yProps(0)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border" >
@@ -586,7 +585,7 @@ export const Etapa3 = (props) => {
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Testagem da solução ou protótipo" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Testagem da solução ou protótipo" {...a22yProps(0)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border" >
@@ -638,7 +637,7 @@ export const Etapa3 = (props) => {
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Avaliação dos resultados" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Avaliação dos resultados" {...a22yProps(0)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border" >
@@ -690,7 +689,7 @@ export const Etapa3 = (props) => {
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Preparação da apresentação" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Preparação da apresentação" {...a22yProps(0)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border" >
@@ -765,9 +764,9 @@ export const Etapa3 = (props) => {
                                         </div>
                                     </div>
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Apresentação para o mentor" {...a22yProps(0)} />
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Retorno da Equipe" {...a22yProps(1)} />
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Apresentação para a turma" {...a22yProps(2)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Apresentação para o mentor" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Retorno da Equipe" {...a22yProps(1)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Apresentação para a turma" {...a22yProps(2)} />
                                     </Tabs>
 
                                     <TabPanelInside value={valueInside} index={0} className="atv-container border" >
@@ -889,7 +888,7 @@ export const Etapa3 = (props) => {
                                         </div>
 
                                         <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Reformulação do protótipo" {...a22yProps(0)} />
+                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Reformulação do protótipo" {...a22yProps(0)} />
                                         </Tabs>
 
 
@@ -944,7 +943,7 @@ export const Etapa3 = (props) => {
                                         </div>
 
                                         <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Revisão da solução" {...a22yProps(0)} />
+                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Revisão da solução" {...a22yProps(0)} />
                                         </Tabs>
 
 
@@ -1000,7 +999,7 @@ export const Etapa3 = (props) => {
                                         </div>
 
                                         <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Testagem" {...a22yProps(0)} />
+                                            <Tab aria-selected={true} disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Testagem" {...a22yProps(0)} />
                                         </Tabs>
 
 
@@ -1130,7 +1129,7 @@ export const Etapa3 = (props) => {
                                     </div>
 
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Retrospectiva" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Retrospectiva" {...a22yProps(0)} />
                                         
                                     </Tabs>
                                     
@@ -1215,7 +1214,7 @@ export const Etapa3 = (props) => {
                                     
 
                                     <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Avaliação" {...a22yProps(0)} />
+                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Avaliação" {...a22yProps(0)} />
                                         
                                     </Tabs>
                                     

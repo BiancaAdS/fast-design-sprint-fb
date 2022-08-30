@@ -4,68 +4,12 @@ export const Container = styled.div`
 
     margin-bottom: 80px;
 
-    .acc {
-        margin: 25px 0 50px;
-    }
-
-    .conteiner-etapa {
-        width: 100%;
-        height: 55px;
-
-        border: 1px solid black;
-        border-radius: 8px;
-        margin-bottom: 5px;
-        margin-top: 15px;
-
+    .content-info {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-    }
+        justify-content: space-between;
 
-    .label-etapa {
-        margin: 15px;
-    }
-
-    
-    .text-title-etapa {
-        margin-bottom: 15px;
-    }
-
-    .text-subtitle {
-        margin-bottom: 15px;
-        font-weight: 500;
-        text-align: justify;
-        line-height: 22px;
-    }   
-
-    .text-title {
-        font-weight: bold;
-        color: #f39601;
-        outline: none;
-    }
-
-    .box-accordion {
-        margin: 25px 0;
-        border: 2px solid #f39601;
-
-        svg {
-            fill: #f39601;
-            stroke: #f39601;
-        }
-    }
-
-    .border {
-        border: 2px solid #f39601;
-        border-radius: 0 0 8px 8px;
-        border-top: 0;    
-    }
-
-    .line {
-        border: 1px solid whitesmoke;
-        width: calc(55%);
-        margin-left: 20%;
-        margin-top: 15px;
-        margin-bottom: 15px;
+        margin: 50px 0;
     }
 
     .tab-box {
@@ -88,7 +32,6 @@ export const Container = styled.div`
         color: #FFFFFF;
     }
 
-
     .tab-etapas {
         color: #f39601;
 
@@ -101,6 +44,18 @@ export const Container = styled.div`
         background-color: #f39601;
         color: #FFFFFF;
         transition: all .5s;
+    }
+
+    .text-title {
+        font-weight: bold;
+        color: #f39601;
+        outline: none;
+    }
+
+    .border {
+        border: 2px solid #f39601;
+        border-radius: 0 0 8px 8px;
+        border-top: 0;    
     }
 
     .aprimoramento-solucao {
@@ -119,21 +74,33 @@ export const Container = styled.div`
         padding: 50px;
     }
 
-    .content-info {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        margin: 50px 0;
+    .text-title-etapa {
+        margin-bottom: 15px;
     }
 
+    .text-subtitle {
+        margin-bottom: 15px;
+        font-weight: 500;
+        text-align: justify;
+        line-height: 22px;
+    }   
+
+    .box-accordion {
+        margin: 25px 0;
+        border: 2px solid #f39601;
+
+        svg {
+            fill: #f39601;
+            stroke: #f39601;
+        }
+    }
+        
     .timer-box {
         display: flex;
         align-items: center;
         justify-content: flex-end;
        
         margin-right: 5px;
-        
     }
 
     .content-timer {
@@ -150,20 +117,17 @@ export const Container = styled.div`
         margin-bottom: 10px;
     }
 
-    .papeis-etapa {
-        width: 100%;
-    }
-    .papeis{
-        width: 100%;
-
-        margin: 25px 0;
+    .atv-container {
+        padding: 35px;
     }
 
-    .text-papel {
-        margin-bottom: -5px;
+    .box-atv {
         margin-top: 15px;
+    }
 
-        font-size: 14px;
+    .text-title-inside {
+        margin: 5px 0;
+        font-size: 16px;
         font-weight: 700;
     }
 
@@ -205,14 +169,22 @@ export const Container = styled.div`
         border: 1px solid gray;
     }
 
-    .btn-pause {
-        border: 1px solid red;
-        background-color: red;
+    .papeis-etapa {
+        width: 100%;
     }
 
-    .btn-pause:hover {
-        background-color: #FFFFFF;
-        color: red;
+    .papeis{
+        width: 100%;
+
+        margin: 25px 0;
+    }
+
+    .text-papel {
+        margin-bottom: -5px;
+        margin-top: 15px;
+
+        font-size: 14px;
+        font-weight: 700;
     }
 
     .btn-Box {
@@ -239,20 +211,6 @@ export const Container = styled.div`
         background-color: #FFFFFF;
         color: #f39601;
     } 
-
-    .atv-container {
-        padding: 35px;
-    }
-
-    .box-atv {
-        margin-top: 15px;
-    }
-
-    .text-title-inside {
-        margin: 5px 0;
-        font-size: 16px;
-        font-weight: 700;
-    }
 
     .btn-formulario {
         margin-top: 15px;
@@ -315,7 +273,6 @@ export const Container = styled.div`
         margin: 70px 0;
     }
 
-
     .btn-finalEtapa {
         width: 250px;
         height: 50px;
@@ -372,7 +329,6 @@ export const Container = styled.div`
             width: 20%;
         }
     }
-
 
     @media screen and (max-width: 768px){
         

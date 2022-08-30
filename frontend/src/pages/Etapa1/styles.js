@@ -4,68 +4,12 @@ export const Container = styled.div`
 
     margin-bottom: 80px;
 
-    .acc {
-        margin: 25px 0 50px;
-    }
-
-    .conteiner-etapa {
-        width: 100%;
-        height: 55px;
-
-        border: 1px solid black;
-        border-radius: 8px;
-        margin-bottom: 5px;
-        margin-top: 15px;
-
+    .content-info {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-    }
+        justify-content: space-between;
 
-    .label-etapa {
-        margin: 15px;
-    }
-
-    
-    .text-title-etapa {
-        margin-bottom: 15px;
-    }
-
-    .text-subtitle {
-        margin-bottom: 15px;
-        font-weight: 500;
-        text-align: justify;
-        line-height: 22px;
-    }   
-
-    .text-title {
-        font-weight: bold;
-        color: #f39601;
-        outline: none;
-    }
-
-    .box-accordion {
-        margin: 25px 0;
-        border: 2px solid #f39601;
-
-        svg {
-            fill: #f39601;
-            stroke: #f39601;
-        }
-    }
-
-    .border {
-        border: 2px solid #f39601;
-        border-radius: 0 0 8px 8px;
-        border-top: 0;    
-    }
-
-    .line {
-        border: 1px solid whitesmoke;
-        width: calc(55%);
-        margin-left: 20%;
-        margin-top: 15px;
-        margin-bottom: 15px;
+        margin: 50px 0;
     }
 
     .tab-box {
@@ -88,7 +32,6 @@ export const Container = styled.div`
         color: #FFFFFF;
     }
 
-
     .tab-etapas {
         color: #f39601;
 
@@ -101,6 +44,18 @@ export const Container = styled.div`
         background-color: #f39601;
         color: #FFFFFF;
         transition: all .5s;
+    }
+
+    .text-title {
+        font-weight: bold;
+        color: #f39601;
+        outline: none;
+    }
+
+    .border {
+        border: 2px solid #f39601;
+        border-radius: 0 0 8px 8px;
+        border-top: 0;    
     }
 
     .formacao-equipe {
@@ -127,21 +82,8 @@ export const Container = styled.div`
         padding: 50px;
     }
 
-    .seConhecem {
-       margin-top: 5px;
-       
-    }
-
-    .radio-n {
-        margin-left: 15px;
-    }
-
-    .content-info {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        margin: 50px 0;
+    .text-title-etapa {
+        margin-bottom: 15px;
     }
 
     .timer-box {
@@ -150,7 +92,6 @@ export const Container = styled.div`
         justify-content: flex-end;
        
         margin-right: 5px;
-        
     }
 
     .content-timer {
@@ -167,6 +108,83 @@ export const Container = styled.div`
         margin-bottom: 10px;
     }
 
+    .text-subtitle {
+        margin-bottom: 15px;
+        font-weight: 500;
+        text-align: justify;
+        line-height: 22px;
+    }  
+
+    .box-accordion {
+        margin: 25px 0;
+        border: 2px solid #f39601;
+
+        svg {
+            fill: #f39601;
+            stroke: #f39601;
+        }
+    }
+
+    .atv-container {
+        padding: 35px;
+    }
+
+    .text-title-inside {
+        margin: 5px 0;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .box-atv {
+        margin-top: 15px;
+    }
+
+    .btn-atv {
+        width: 150px;
+        height: 25px;
+        border-radius: 15px;
+        border: 1px solid green;
+        background-color: green;
+        color: #FFFFFF;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+
+        margin-right: 5px;
+    }
+
+    .btn-atv:hover {
+        background-color: #FFFFFF;
+        color: green;
+    }
+
+    .selected {
+        background-color: gray;
+        color: #FFFFFF;
+        border: 1px solid gray;
+        cursor: auto;
+    }
+
+    .selected:hover {
+        background-color: gray;
+        color: #FFFFFF;
+        border: 1px solid gray;
+    }
+
+    .iniciar-atv {
+        p {
+            margin-bottom: 15px;
+        }
+    }
+
+    .seConhecem {
+       margin-top: 5px;
+    }
+
+    .radio-n {
+        margin-left: 15px;
+    }
+
     .info-naoSeConhecem {
         display: none;
     }
@@ -181,6 +199,7 @@ export const Container = styled.div`
     .papeis-etapa {
         width: 100%;
     }
+
     .papeis{
         width: 100%;
 
@@ -194,12 +213,6 @@ export const Container = styled.div`
         font-size: 14px;
         font-weight: 700;
         width: auto;
-    }
-
-    .iniciar-atv {
-        p {
-            margin-bottom: 15px;
-        }
     }
 
     .icon-pop{
@@ -242,48 +255,6 @@ export const Container = styled.div`
         cursor: pointer;
     }
 
-    .btn-atv {
-        width: 150px;
-        height: 25px;
-        border-radius: 15px;
-        border: 1px solid green;
-        background-color: green;
-        color: #FFFFFF;
-        font-weight: bold;
-        font-size: 14px;
-        cursor: pointer;
-
-        margin-right: 5px;
-    }
-
-    .btn-atv:hover {
-        background-color: #FFFFFF;
-        color: green;
-    }
-
-    .selected {
-        background-color: gray;
-        color: #FFFFFF;
-        border: 1px solid gray;
-        cursor: auto;
-    }
-
-    .selected:hover {
-        background-color: gray;
-        color: #FFFFFF;
-        border: 1px solid gray;
-    }
-
-    .btn-pause {
-        border: 1px solid red;
-        background-color: red;
-    }
-
-    .btn-pause:hover {
-        background-color: #FFFFFF;
-        color: red;
-    }
-
     .btn-Box {
         display: flex;
         align-items: center;
@@ -308,20 +279,6 @@ export const Container = styled.div`
         background-color: #FFFFFF;
         color: #f39601;
     } 
-
-    .atv-container {
-        padding: 35px;
-    }
-
-    .box-atv {
-        margin-top: 15px;
-    }
-
-    .text-title-inside {
-        margin: 5px 0;
-        font-size: 16px;
-        font-weight: 700;
-    }
 
     .btn-formulario {
         margin-top: 15px;
@@ -384,8 +341,6 @@ export const Container = styled.div`
         margin: 50px 0;
     }
 
-    
-
     .btn-finalEtapa {
         width: 250px;
         height: 50px;
@@ -421,18 +376,6 @@ export const Container = styled.div`
     .video {
         width: 727px;
         height: 409px;
-    }
-
-    .modal {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 400px;
-        background-color: red;
-        border: 2px solid #000;
-        box-shadow: 5px 5px 5px 5px #000;
-        padding: 400px;
     }
 
     @media screen and (max-width: 1440px){
@@ -473,7 +416,6 @@ export const Container = styled.div`
             align-items: center;
 
             flex-wrap: wrap;
-
         }
 
         .tab-etapas {
@@ -494,7 +436,6 @@ export const Container = styled.div`
         .tab-box {
             width: 100%;
             display: flex;
-            
         }
 
         .tab-etapas {
