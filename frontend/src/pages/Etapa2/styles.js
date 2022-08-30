@@ -379,7 +379,6 @@ export const Container = styled.div`
         .tab-box {
             width: 100%;
             display: flex;
-            
         }
 
         .tab-etapas {
@@ -417,6 +416,10 @@ export const Container = styled.div`
 
         .metodos-avaliacao {
             padding: 40px;
+        }
+
+        .btn-Box {
+            justify-content: center;
         }
     }
 
@@ -492,6 +495,10 @@ export const Container = styled.div`
         .metodos-avaliacao {
             padding: 25px;
         }
+
+        .btn-proxAtv {
+            height: 40px;
+       }
    }
 
 `

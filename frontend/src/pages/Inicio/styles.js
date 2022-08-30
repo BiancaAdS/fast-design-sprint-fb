@@ -120,6 +120,18 @@ export const Container = styled.div`
        }
    }
 
+   @media screen and (max-width: 1440px){
+       .content {
+            margin: 135px 0;
+       }
+   }
+
+   @media screen and (max-width: 425px){
+       .content {
+            margin: 120px 0;
+       }
+   }
+
    @media screen and (max-width: 375px){
         .box-info {
             padding: 25px;

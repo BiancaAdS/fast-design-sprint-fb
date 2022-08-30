@@ -470,9 +470,14 @@ export const Container = styled.div`
         .metodos-avaliacao {
             padding: 40px;
         }
+
         .video {
             width: calc(100%);
             height: 409px;
+        }
+
+        .btn-Box {
+            justify-content: center;
         }
     }
 
@@ -539,6 +544,10 @@ export const Container = styled.div`
 
        .metodos-avaliacao {
             padding: 25px;
+       }
+
+       .btn-proxAtv {
+            height: 40px;
        }
    }
 

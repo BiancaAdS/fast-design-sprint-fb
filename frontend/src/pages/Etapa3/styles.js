@@ -442,6 +442,10 @@ export const Container = styled.div`
         .metodos-avaliacao {
             padding: 40px;
         }
+
+        .btn-Box {
+            justify-content: center;
+        }
     }
 
     @media screen and (max-width: 375px){
@@ -524,6 +528,10 @@ export const Container = styled.div`
         .metodos-avaliacao {
             padding: 25px;
         }
+        
+        .btn-proxAtv {
+            height: 40px;
+       }
    }
 
 `
