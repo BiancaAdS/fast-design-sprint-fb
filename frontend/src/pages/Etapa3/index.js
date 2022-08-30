@@ -340,12 +340,12 @@ export const Etapa3 = (props) => {
                                             </div>
                                         </TabPanelInside>
                                        
-                                   
-                                </AccordionDetails>
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['revisaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoEsboco')} /> Sim
                                     </div>
+                                </AccordionDetails>
+                                
                             </Accordion>
 
                             <div className="btn-Box">
@@ -380,7 +380,7 @@ export const Etapa3 = (props) => {
                                 </AccordionSummary>
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
                                 <div>
-                                    Nesta atividade vocês irão realizar a escolha da ferramenta que será utilizada para realizar a construção solução mapeada.
+                                    
                                     <br />
                                     <br />
 
@@ -400,8 +400,8 @@ export const Etapa3 = (props) => {
                                             Escolha de ferramenta para materializar solução ou protótipo ideado
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                            deve realizar a pesquisa de possíveis soluções que deseja que a equipe desenvolva uma solução. 
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Nesta atividade vocês irão realizar a escolha da ferramenta que será utilizada 
+                                            para realizar a construção solução ou protótipo. 
                                         
                                             <br />
                                             <br />
@@ -486,12 +486,13 @@ export const Etapa3 = (props) => {
                                             
                                         </div>
                                     </TabPanelInside>
-                                </AccordionDetails>
-
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['preparacaoTestes']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('preparacaoTestes')} /> Sim
                                     </div>
+                                </AccordionDetails>
+
+                               
                             </Accordion>
 
                             <div className="btn-Box">
@@ -558,13 +559,13 @@ export const Etapa3 = (props) => {
                                         </div>
                                     </TabPanelInside>
 
-                                   
-                                </AccordionDetails>
-
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['construcao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('construcao')} /> Sim
                                     </div>
+                                </AccordionDetails>
+
+                                
                             </Accordion>
 
                             <Accordion className="box-accordion" expanded={expanded === 'panel2c'} onChange={handleOpenBox('panel2c')} disabled={isActive}>
@@ -610,13 +611,13 @@ export const Etapa3 = (props) => {
                                         </div>
                                     </TabPanelInside>
 
-                                   
-                                </AccordionDetails>
-
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['testagem']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagem')} /> Sim
                                     </div>
+                                </AccordionDetails>
+
+                                
                             </Accordion>
 
                             <Accordion className="box-accordion" expanded={expanded === 'panel3c'} onChange={handleOpenBox('panel3c')} disabled={isActive}>
@@ -663,12 +664,12 @@ export const Etapa3 = (props) => {
                                     </TabPanelInside>
 
                                    
-                                </AccordionDetails>
-
                                 <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['avaliacaoTestagem']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('avaliacaoTestagem')} /> Sim
                                     </div>
+                                </AccordionDetails>
+
                             </Accordion>
 
                             <Accordion className="box-accordion" expanded={expanded === 'panel4c'} onChange={handleOpenBox('panel4c')} disabled={isActive}>
@@ -715,13 +716,13 @@ export const Etapa3 = (props) => {
                                         </div>
                                     </TabPanelInside>
 
-                                   
-                                </AccordionDetails>
-
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['apresentacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('apresentacao')} /> Sim
                                     </div>
+                                </AccordionDetails>
+
+                               
                             </Accordion>
 
 
@@ -836,12 +837,13 @@ export const Etapa3 = (props) => {
                                             
                                         </div>
                                     </TabPanelInside>
-                                </AccordionDetails>
-
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['mentoria']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('mentoria')} /> Sim
                                     </div>
+                                </AccordionDetails>
+
+                               
                             </Accordion>
 
                             <div className="btn-Box">
@@ -898,9 +900,9 @@ export const Etapa3 = (props) => {
                                                 Reformulação da solução ou protótipo com base nas respostas de pesquisas
                                             </h4>
                                             <div className="box-atv">
-                                                Nesta atividade vocês irão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                                deve realizar a confecção do Jamboard disponível no link: <br />
-                                                <a href="/etapa1" target="_blank">LINK AQUI</a>
+                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a reformulação de pontos obtidos na
+                                                reunião e apresentação para o mentor, realizando a análise se é viável ou não aplicar as melhorias que foram apontadas pelo mentor.
+                                            
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
@@ -1081,12 +1083,13 @@ export const Etapa3 = (props) => {
                                             </div>
                                         </TabPanelInside>
 
+                                    <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['testagemReformulada']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagemReformulada')} /> Sim
+                                    </div>
                                     
                                 </AccordionDetails>
-                                <div className="finalizarAtv">
-                                        <label>Finalizar Atividade?</label>
-                                        <input checked={boxState['testagemReformulacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagemReformulada')} /> Sim
-                                    </div>
+                               
                             </Accordion>
 
                             <div className="btn-Box">
@@ -1095,7 +1098,7 @@ export const Etapa3 = (props) => {
 
                         </TabPanel>
 
-                        <TabPanel value={value} index={6} className="border revisao-processo">
+                        <TabPanel value={value} index={5} className="border revisao-processo">
 
                             <div className="info-etapa-text">
 
@@ -1175,12 +1178,12 @@ export const Etapa3 = (props) => {
                                         
                                     </TabPanelInside>
 
-                                    
-                                </AccordionDetails>
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['retrospectiva']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
                                     </div>
+                                </AccordionDetails>
+                               
                             </Accordion>
                             
                             <div className="btn-Box">
@@ -1188,7 +1191,7 @@ export const Etapa3 = (props) => {
                             </div>
                         </TabPanel>
 
-                        <TabPanel value={value} index={7} className="border metodos-avaliacao">
+                        <TabPanel value={value} index={6} className="border metodos-avaliacao">
                             <div className="info-etapa-text">
 
                                 <h2 className="text-title-etapa">Avaliação</h2>

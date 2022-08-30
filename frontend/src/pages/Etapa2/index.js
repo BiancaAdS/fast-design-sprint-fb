@@ -275,7 +275,7 @@ export const Etapa2 = (props) => {
              
                                                     <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
 
-                                                    <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(1)} disabled={isActive}>Iniciar Atividade</button>
+                                                    <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
 
                                                 </div>
                                                 
@@ -477,13 +477,13 @@ export const Etapa2 = (props) => {
                                         </div>
                                     </TabPanelInside>
 
-                                    
-                                </AccordionDetails>
-
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['preparacaoApresentacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('preparacaoApresentacao')} /> Sim
                                     </div>
+                                </AccordionDetails>
+
+                               
                             </Accordion>
 
                             <div className="btn-Box">
@@ -599,12 +599,13 @@ export const Etapa2 = (props) => {
                                             
                                         </div>
                                     </TabPanelInside>
-                                </AccordionDetails>
-
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['mentoria']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('mentoria')} /> Sim
                                     </div>
+                                </AccordionDetails>
+
+                                
                             </Accordion>
 
                             <div className="btn-Box">
@@ -670,11 +671,12 @@ export const Etapa2 = (props) => {
                                             
                                         </div>
                                     </TabPanelInside>
-                                </AccordionDetails>
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['reformulacaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoEsboco')} /> Sim
                                     </div>
+                                </AccordionDetails>
+                                
                             </Accordion>
                             
                             <Accordion className="box-accordion" expanded={expanded === 'panel2d'} onChange={handleOpenBox('panel2d')} disabled={isActive}>
@@ -719,11 +721,12 @@ export const Etapa2 = (props) => {
                                             
                                         </div>
                                     </TabPanelInside>
-                                </AccordionDetails>
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['revisaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoEsboco')} /> Sim
                                     </div>
+                                </AccordionDetails>
+                               
                             </Accordion>
 
                             <div className="btn-Box">
@@ -788,11 +791,12 @@ export const Etapa2 = (props) => {
                                             
                                         </div>
                                     </TabPanelInside>
-                                </AccordionDetails>
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['pesquisaValidacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('pesquisaValidacao')} /> Sim
                                     </div>
+                                </AccordionDetails>
+                                
                             </Accordion>
 
                             <div className="btn-Box">
@@ -881,13 +885,13 @@ export const Etapa2 = (props) => {
                                         </div>
                                         
                                     </TabPanelInside>
-
+                                    <div className="finalizarAtv">
+                                        <label>Finalizar Atividade?</label>
+                                        <input checked={boxState['retrospectiva']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
+                                    </div>
                                     
                                 </AccordionDetails>
-                                <div className="finalizarAtv">
-                                        <label>Finalizar Atividade?</label>
-                                        <input className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
-                                    </div>
+                                
                             </Accordion>
                             
                             <div className="btn-Box">

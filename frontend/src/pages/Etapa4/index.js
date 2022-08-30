@@ -437,17 +437,18 @@ export const Etapa4 = (props) => {
                                             <br />
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>3 minutos</strong> para finalizar a mesma.</p> 
-                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
+                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(3)} disabled={isActive}>Iniciar Atividade</button>
                                             </div>
                                             
                                         </div>
                                     </TabPanelInside>
-                                </AccordionDetails>
-
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['apresentacaoSolucao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('apresentacaoSolucao')} /> Sim
                                     </div>
+                                </AccordionDetails>
+
+                                
                             </Accordion>
 
                             <div className="btn-Box">
@@ -533,12 +534,12 @@ export const Etapa4 = (props) => {
                                         </div>
                                         
                                     </TabPanelInside>
-
-                                </AccordionDetails>
-                                <div className="finalizarAtv">
+                                    <div className="finalizarAtv">
                                         <label>Finalizar Atividade?</label>
                                         <input checked={boxState['retrospectiva']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
                                     </div>
+                                </AccordionDetails>
+                                
                             </Accordion>
                             
                             <div className="btn-Box">
