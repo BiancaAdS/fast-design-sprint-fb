@@ -571,3 +571,21 @@ export const Container = styled.div`
    }
 
 `
+
+export const BoxModal = styled.div`
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 8px;
+    box-shadow:  5px 5px 10px 0px #d4d4d4;
+    padding: 10px;
+
+    @media screen and (max-width: 375px){
+        width: 95%;
+    }
+`

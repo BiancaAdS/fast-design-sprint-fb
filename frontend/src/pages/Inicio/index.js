@@ -33,18 +33,28 @@ export const Inicio = () => {
             if(existe.data.authenticate) {
 
                 const isLogged = await auth.loginUser(nomeDaEquipe, nomeDaEquipe)
+                const { data } = await axios.get(`/api/equipes/${nomeDaEquipe}`)
   
-                if(isLogged) { /*pegar info de qual etapa esta parando e redirecionar para la*/
+                if(isLogged) {
                     setEquipeNaoExiste(false)
-                    navigate(`/etapa1`, { replace: true })
+                    if(data) {
+                       
+                        let etapa = data.etapaFinalizada
+                        let newEtapa
+                        if(etapa === 'etapa1') newEtapa = etapa.replace("1", "2")
+                        else if (etapa === 'etapa2') newEtapa = etapa.replace("2", "3")
+                        else if (etapa === 'etapa3') newEtapa = etapa.replace("3", "4")
+                        else if (etapa === 'etapa4') newEtapa = etapa
+                        else newEtapa = 'etapa1'
+
+                        navigate(`/${newEtapa}`, { replace: true })
+                    }
                 }
 
             } else {
-                alert('Esta equipe não iniciou uma sprint :(')
                 setEquipeNaoExiste(true)
             }
         }
-
 
     }
 
@@ -68,11 +78,12 @@ export const Inicio = () => {
                        </div>
 
                         <label className="text-papel">Insira o nome da Equipe</label>
-                        <TextField required type={'text'} onChange={(e) => setNomeDaEquipe(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
+                        <TextField onMouseLeave={() => setEquipeNaoExiste(false)} onFocus={() => setEquipeNaoExiste(false)} required type={'text'} onChange={(e) => setNomeDaEquipe(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className={`input-text ${equipeNaoExiste ? 'equipeNaoExisteInput' : ''}`} />                                                  
+                        <div className={`${equipeNaoExiste ? 'equipeNaoExiste' : 'equipeExiste'}`} onMouseLeave={() => setEquipeNaoExiste(false)}>
+                            Está equipe ainda não iniciou uma sprint.
+                        </div>
                         <Button type="submit" className="btn-formulario" onClick={hadleContinuarSprint}>Continuar Sprint</Button>
                         
-                    
-
 
                         <div className="divider">
 

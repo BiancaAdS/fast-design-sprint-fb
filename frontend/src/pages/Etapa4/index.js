@@ -7,14 +7,13 @@ import { TabPanel } from '../../shared/components/TabPanel'
 import { TabPanelInside } from '../../shared/components/TabPanelInside'
 import { Timer } from '../../shared/components/Timer'
 
-import { Tabs, Tab} from '@mui/material';
-import { Accordion, AccordionDetails, AccordionSummary, FormControl, TextField, Button } from '@mui/material';
-import Typography from '@mui/material/Typography';
-
+import { Tabs, Tab, Accordion, AccordionDetails, AccordionSummary, FormControl, TextField, Button, Typography, Modal } from '@mui/material';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { Container } from "./styles";
+import { Container, BoxModal } from "./styles";
+
+import notification from '../../shared/assets/notification.wav'
 
 function a11yProps(index) {
     return {
@@ -65,6 +64,10 @@ export const Etapa4 = (props) => {
         }
     )
 
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -86,11 +89,14 @@ export const Etapa4 = (props) => {
     const [timeStop, setTimeStop] = useState(timeClock)
 
     const startNewChallenge = () => {
-        
+        const audio = new Audio(notification);
+        audio.load();
         if(Notification.permission == 'granted'){
             new Notification("Tempo para realizar a atividade finalizado ", {
                 body: `:) Já é possível iniciar as próximas atividades.`
             });
+            
+            audio.play()
         }
     }
     
@@ -130,40 +136,30 @@ export const Etapa4 = (props) => {
         Notification.requestPermission();
     }, []);
 
+    const [linkRetrospectiva, setLinkRetrospectiva] = useState("")
+
     const handleInformacaoEquipe = async (e) => {
         e.preventDefault()
 
-        // const { data } = await axios.get(`/api/view-equipe/${nomeDaEquipe}`)
+        const { data } = await axios.get(`/api/equipes/${auth.user.username}`)
        
-        // if(Object.keys(data).length !== 0) {
-        //     axios.post('/api/create-equipe', {
-        //         nomeDaEquipe: data.nomeDaEquipe ? data.nomeDaEquipe : nomeDaEquipe,
-        //         quantidadeIntegrantes: data.quantidadeIntegrantes ? data.quantidadeIntegrantes : quantidadeIntegrantes,
-        //         seConhecem: data.seConhecem ? data.seConhecem : seConhecem,
-        //         definidor: data.definidor ? data.definidor : definidor,
-        //         facilitador: data.facilitador ? data.facilitador : facilitador,
-        //         responsavelTempo: data.responsavelTempo ? data.responsavelTempo : responsavelTempo,
-        //         linkRetrospectiva1: data.linkRetrospectiva1 ? data.linkRetrospectiva1 : linkRetrospectiva1,
-        //         linkRetrospectiva2: data.linkRetrospectiva2 ? data.linkRetrospectiva2 : "",
-        //         linkRetrospectiva3: data.linkRetrospectiva3 ? data.linkRetrospectiva3 : "",
-        //         linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : "",
-        //         etapaFinalizada: data.qualEtapaFinalizada ? data.qualEtapaFinalizada : qualEtapaFinalizada
-        //     })
-        // } else {
-        //     axios.post('/api/create-equipe', {
-        //         nomeDaEquipe: nomeDaEquipe,
-        //         quantidadeIntegrantes: quantidadeIntegrantes,
-        //         seConhecem: seConhecem,
-        //         definidor: definidor,
-        //         facilitador: facilitador,
-        //         responsavelTempo: responsavelTempo,
-        //         linkRetrospectiva1:linkRetrospectiva1,
-        //         linkRetrospectiva2:"",
-        //         linkRetrospectiva3:"",
-        //         linkRetrospectiva4:"",
-        //         etapaFinalizada: qualEtapaFinalizada
-        //     })
-        // }
+        if(Object.keys(data).length !== 0) {
+            axios.post('/api/create-equipe', {
+                nomeDaEquipe: data.nomeDaEquipe,
+                quantidadeIntegrantes: data.quantidadeIntegrantes,
+                seConhecem: data.seConhecem,
+                definidor: data.definidor,
+                facilitador: data.facilitador,
+                observador: data.observador,
+                entrevistador: data.entrevistador,
+                scrumMaster: data.scrumMaster,
+                linkRetrospectiva1: data.linkRetrospectiva1,
+                linkRetrospectiva2: data.linkRetrospectiva2,
+                linkRetrospectiva3: data.linkRetrospectiva3,
+                linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : linkRetrospectiva,
+                etapaFinalizada: "etapa4"
+            })
+        } 
        
     }
 
@@ -187,8 +183,8 @@ export const Etapa4 = (props) => {
 
     const [etapaFinalizada, setEtapaFinalizada] = useState(false)
 
-    const handleFinalizarEtapas = (e) => {
-        e.preventDefault()
+    const handleFinalizarEtapas = () => {
+        handleOpenModal()
         alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
     }
 
@@ -199,7 +195,7 @@ export const Etapa4 = (props) => {
                 <div className="content-page">
 
                     <div className="content-info">
-                        <h1>Bem vindos a quarta etapa! {auth.user ? auth.user.username : ''}</h1>
+                        <h1>Bem vindos a quarta etapa{auth.user ? ", " + auth.user.username : ''}!</h1>
                     </div>
 
 
@@ -441,7 +437,7 @@ export const Etapa4 = (props) => {
                                             <br />
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>3 minutos</strong> para finalizar a mesma.</p> 
-                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(3)} disabled={isActive}>Iniciar Atividade</button>
+                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
                                             </div>
                                             
                                         </div>
@@ -600,7 +596,23 @@ export const Etapa4 = (props) => {
             </div>
 
             <div className="finalizar-etapa">
-                <button type="submit" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</button>
+                <button type="button" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</button>
+
+                <Modal
+                    open={openModal}
+                    onClose={handleCloseModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <BoxModal className="modal">
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Quarta Etapa Finalizada!
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Todas as atividades foram finalizadas. Agora sua equipe já tem uma solução mapeada e um protótipo construído!
+                        </Typography>
+                    </BoxModal>
+                </Modal>
             </div>
 
         </Container>

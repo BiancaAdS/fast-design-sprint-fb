@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 
+import axios from 'axios'
 
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 
@@ -8,13 +9,13 @@ import { TabPanelInside } from '../../shared/components/TabPanelInside'
 import { Timer } from '../../shared/components/Timer'
 
 import { Tabs, Tab} from '@mui/material';
-import { Accordion, AccordionDetails, AccordionSummary, FormControl, TextField, Button } from '@mui/material';
-import Typography from '@mui/material/Typography';
-
+import { Accordion, AccordionDetails, AccordionSummary, FormControl, TextField, Button, Typography, Modal } from '@mui/material';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { Container } from "./styles";
+import { Container, BoxModal } from "./styles";
+
+import notification from '../../shared/assets/notification.wav'
 
 function a11yProps(index) {
     return {
@@ -74,6 +75,10 @@ export const Etapa3 = (props) => {
     }
     )
 
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -96,11 +101,14 @@ export const Etapa3 = (props) => {
     const [timeStop, setTimeStop] = useState(timeClock)
 
     const startNewChallenge = () => {
-        
+        const audio = new Audio(notification);
+        audio.load();
         if(Notification.permission == 'granted'){
             new Notification("Tempo para realizar a atividade finalizado ", {
                 body: `:) Já é possível iniciar as próximas atividades.`
             });
+            
+            audio.play()
         }
     }
     
@@ -158,47 +166,36 @@ export const Etapa3 = (props) => {
 
     }, [boxState])
 
+    const [linkRetrospectiva, setLinkRetrospectiva] = useState("")
+
     const handleInformacaoEquipe = async (e) => {
         e.preventDefault()
 
-        // const { data } = await axios.get(`/api/view-equipe/${nomeDaEquipe}`)
+        const { data } = await axios.get(`/api/equipes/${auth.user.username}`)
        
-        // if(Object.keys(data).length !== 0) {
-        //     axios.post('/api/create-equipe', {
-        //         nomeDaEquipe: data.nomeDaEquipe ? data.nomeDaEquipe : nomeDaEquipe,
-        //         quantidadeIntegrantes: data.quantidadeIntegrantes ? data.quantidadeIntegrantes : quantidadeIntegrantes,
-        //         seConhecem: data.seConhecem ? data.seConhecem : seConhecem,
-        //         definidor: data.definidor ? data.definidor : definidor,
-        //         facilitador: data.facilitador ? data.facilitador : facilitador,
-        //         responsavelTempo: data.responsavelTempo ? data.responsavelTempo : responsavelTempo,
-        //         linkRetrospectiva1: data.linkRetrospectiva1 ? data.linkRetrospectiva1 : linkRetrospectiva1,
-        //         linkRetrospectiva2: data.linkRetrospectiva2 ? data.linkRetrospectiva2 : "",
-        //         linkRetrospectiva3: data.linkRetrospectiva3 ? data.linkRetrospectiva3 : "",
-        //         linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : "",
-        //         etapaFinalizada: data.qualEtapaFinalizada ? data.qualEtapaFinalizada : qualEtapaFinalizada
-        //     })
-        // } else {
-        //     axios.post('/api/create-equipe', {
-        //         nomeDaEquipe: nomeDaEquipe,
-        //         quantidadeIntegrantes: quantidadeIntegrantes,
-        //         seConhecem: seConhecem,
-        //         definidor: definidor,
-        //         facilitador: facilitador,
-        //         responsavelTempo: responsavelTempo,
-        //         linkRetrospectiva1:linkRetrospectiva1,
-        //         linkRetrospectiva2:"",
-        //         linkRetrospectiva3:"",
-        //         linkRetrospectiva4:"",
-        //         etapaFinalizada: qualEtapaFinalizada
-        //     })
-        // }
-       
+        if(Object.keys(data).length !== 0) {
+            axios.post('/api/create-equipe', {
+                nomeDaEquipe: data.nomeDaEquipe,
+                quantidadeIntegrantes: data.quantidadeIntegrantes,
+                seConhecem: data.seConhecem,
+                definidor: data.definidor,
+                facilitador: data.facilitador,
+                observador: data.observador,
+                entrevistador: data.entrevistador,
+                scrumMaster: data.scrumMaster,
+                linkRetrospectiva1: data.linkRetrospectiva1,
+                linkRetrospectiva2: data.linkRetrospectiva2,
+                linkRetrospectiva3: data.linkRetrospectiva3 ? data.linkRetrospectiva3 : linkRetrospectiva,
+                linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : "",
+                etapaFinalizada: "etapa3"
+            })
+        } 
     }
 
     const [etapaFinalizada, setEtapaFinalizada] = useState(false);
 
-    const handleFinalizarEtapas = (e) => {
-        e.preventDefault()
+    const handleFinalizarEtapas = () => {
+        handleOpenModal()
         alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
     }
 
@@ -209,7 +206,7 @@ export const Etapa3 = (props) => {
                 <div className="content-page">
 
                     <div className="content-info">
-                        <h1>Bem vindos a terceira etapa! {auth.user ? auth.user.username : ''}</h1>
+                        <h1>Bem vindos a terceira etapa{auth.user ? ", " + auth.user.username : ''}!</h1>
                     </div>
 
 
@@ -220,10 +217,9 @@ export const Etapa3 = (props) => {
                             <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Organização da testagem " {...a11yProps(1)} />
                             <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Desenvolvimento e testagem" {...a11yProps(2)} />
                             <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Mentoria" {...a11yProps(3)} />
-                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Validação Solução" {...a11yProps(4)} />
-                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Aprimoramento Protótipo" {...a11yProps(5)} />
-                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Revisão do Processo" {...a11yProps(6)} />
-                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Avaliação" {...a11yProps(7)} />
+                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Aprimoramento Protótipo" {...a11yProps(4)} />
+                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Revisão do Processo" {...a11yProps(5)} />
+                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Avaliação" {...a11yProps(6)} />
                         </Tabs>
                         
 
@@ -554,7 +550,7 @@ export const Etapa3 = (props) => {
                                             
                                             <div className="iniciar-atv">
                                                 <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>1 hora e 30 minutos</strong> para finalizar a mesma.</p> 
-                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(60)} disabled={isActive}>Iniciar Atividade</button>
+                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(90)} disabled={isActive}>Iniciar Atividade</button>
                                               
                                                     
                                             </div>
@@ -599,7 +595,7 @@ export const Etapa3 = (props) => {
                                             Testagem da solução ou protótipo
                                         </h4>
                                         <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve irá realizar a aplicação dos testes preparados para os
+                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo irá realizar a aplicação dos testes preparados para os
                                             usuários que o grupo selecionou e realizar a documentação dos resultados obtidos com a aplicação dos testes.
                                             <br />
                                             <br />
@@ -648,7 +644,7 @@ export const Etapa3 = (props) => {
                                     
 
                                         <h4 className="text-title-inside">
-                                            Avaliação dos resultados da testagem
+                                            Avaliação dos resultados da testagem e Melhoria da solução ou protótipo
                                         </h4>
                                         <div className="box-atv">
                                             Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a análise dos resultados obtidos dos testes
@@ -855,83 +851,14 @@ export const Etapa3 = (props) => {
 
                         </TabPanel>
 
-                        <TabPanel value={value} index={4} className="border validacao-solucao">
-
-                            <div className="info-etapa-text">
-
-                                <h2 className="text-title-etapa">Validação da Solução</h2>
-                                <h4 className="text-subtitle">
-                                    Etapa em que os participantes irão realizar a validação do protótipo confeccionado nas etapas anteriores. A etapa possui 
-                                    atividades que visam incentivar o processo de validação, disponibilizando tempo para aplicar questionários sobre o protótipo desenvolvido.
-                                    <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
-                                    cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
-                                </h4>
-                            </div>
-                        
-                            <Accordion className="box-accordion" expanded={expanded === 'panel1e'} onChange={handleOpenBox('panel1e')} disabled={isActive}>
-                                <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel2bh-content"
-                                id="panel2bh-header"
-                                className={`${boxState['pesquisaValidacao'] ? 'finalizada' : ''}`}
-                                >
-                                <Typography className={`text-title ${boxState['pesquisaValidacao'] ? 'finalizada' : ''}`}>Pesquisa de validação do protótipo</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                    <div className={`timer-box`}>
-                                        <div className="content-timer">
-                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
-                                        </div>
-                                    </div>
-                                    <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas" label="Pesquisa de validação" {...a22yProps(0)} />
-                                        
-                                    </Tabs>
-
-                                    <TabPanelInside value={valueInside} index={0} className="atv-container border">
-                                    
-
-                                        <h4 className="text-title-inside">
-                                            Pesquisa rápida com conhecidos sobre o protótipo do problema/ideia confeccionado
-                                        </h4>
-                                        <div className="box-atv">
-                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma rápida apresentação e pesquisa sobre
-                                            o protótipo com conhecidos, podendo ser apresentados em formulários, curtos para que seja fácil de recolher a percepção de pessoas
-                                            de fora do grupo sobre o protótipo construído. 
-                                            <br />
-                                            <br />
-                                            
-                                            <div className="iniciar-atv">
-                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
-                                                <button className={`btn-atv ${isPaused || isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
-                                              
-                                                    
-                                            </div>
-                                            
-                                        </div>
-                                    </TabPanelInside>
-                                </AccordionDetails>
-                                <div className="finalizarAtv">
-                                        <label>Finalizar Atividade?</label>
-                                        <input checked={boxState['pesquisaValidacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('pesquisaValidacao')} /> Sim
-                                    </div>
-                            </Accordion>
-
-                            <div className="btn-Box">
-                                <button disabled={isActive} className={`btn-proxAtv ${isActive ? 'disabled' : ''}`} onClick={() => setValue((prev) => prev+1)}>Ir para as próximas atividades</button>
-                            </div>
-                        
-
-                        </TabPanel>
-
-                        <TabPanel value={value} index={5} className="border aprimoramento-prototipo" >
+                        <TabPanel value={value} index={4} className="border aprimoramento-prototipo" >
 
                             <div className="info-etapa-text">
 
                                 <h2 className="text-title-etapa">Aprimoramento da solução ou protótipo</h2>
                                 <h4 className="text-subtitle">
                                     Etapa em que os participantes irão fazer atividades que tem como objetivo realizar a aplicação de melhorias no protótipo da solução com base
-                                    nas respostas obtidas das validações/questionários aplicados nas etapas anteriores.
+                                    nas respostas obtidas das validações realizadas nas etapas anteriores.
                                     Esta etapa contém atividades que permitem o aprimoramento do protótipo e a revisão do protótipo, além de conter atividades de testagem do 
                                     protótipo melhorado, se necessário.
                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade 
@@ -947,16 +874,11 @@ export const Etapa3 = (props) => {
                                 id="panel1bh-header"
                                 className={`${boxState['reformulacaoPrototipo'] ? 'finalizada' : ''}`}>
                                 <Typography className={`text-title ${boxState['reformulacaoPrototipo'] ? 'finalizada' : ''}`}>
-                                    Reformulação da solução ou protótipo com base nas respostas de pesquisas
+                                    Reformulação da solução ou protótipo com base na mentoria
                                 </Typography>
                                 
                                 </AccordionSummary>
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-
-                                        Nesta atividade vocês devem realizar a separação da equipe, ou seja, irão realizar algumas atividades
-                                        individuais para que ao chegar na atividade de definição de papéis da equipe, todos já tenham se conhecido melhor. 
-                                        <br />
-                                        <br />
 
                                         <div className={`timer-box`}>
                                             <div className="content-timer">
@@ -1012,11 +934,7 @@ export const Etapa3 = (props) => {
                                 </AccordionSummary>
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
 
-                                        Nesta atividade vocês devem realizar a separação da equipe, ou seja, irão realizar algumas atividades
-                                        individuais para que ao chegar na atividade de definição de papéis da equipe, todos já tenham se conhecido melhor. 
-                                        <br />
-                                        <br />
-
+                                      
                                         <div className={`timer-box`}>
                                             <div className="content-timer">
                                                 <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} setTimeStop={setTimeStop} />
@@ -1035,9 +953,9 @@ export const Etapa3 = (props) => {
                                                 Revisão da solução
                                             </h4>
                                             <div className="box-atv">
-                                                Nesta atividade vocês irão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                                deve realizar a confecção do Jamboard disponível no link: <br />
-                                                <a href="/etapa1" target="_blank">LINK AQUI</a>
+                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a revisão da solução construída com base na 
+                                                reformulação feita na atividade anterior, podendo levar em conta a análise feita, os comentários obtidos do mentor e novas ideias 
+                                                que podem vim a surgir dos integrantes após essa rodada de validação.
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
@@ -1072,11 +990,7 @@ export const Etapa3 = (props) => {
                                 </AccordionSummary>
                                 <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
 
-                                        Nesta atividade vocês devem realizar a separação da equipe, ou seja, irão realizar algumas atividades
-                                        individuais para que ao chegar na atividade de definição de papéis da equipe, todos já tenham se conhecido melhor. 
-                                        <br />
-                                        <br />
-
+                                       
                                         <div className={`timer-box`}>
                                             <div className="content-timer">
                                                 <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} setTimeStop={setTimeStop} />
@@ -1095,9 +1009,8 @@ export const Etapa3 = (props) => {
                                                 Testagem da solução reformulada
                                             </h4>
                                             <div className="box-atv">
-                                                Nesta atividade vocês irão trabalhar <strong>individualmente</strong>. Cada integrante da equipe
-                                                deve realizar a confecção do Jamboard disponível no link: <br />
-                                                <a href="/etapa1" target="_blank">LINK AQUI</a>
+                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a aplicação dos testes, com base na solução
+                                                reformulada, para os usuários que o grupo selecionou e realizar a documentação dos resultados obtidos com a aplicação dos testes.
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
@@ -1329,7 +1242,23 @@ export const Etapa3 = (props) => {
             </div>
 
             <div className="finalizar-etapa">
-                <button type="submit" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</button>
+                <button type="button" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</button>
+
+                <Modal
+                    open={openModal}
+                    onClose={handleCloseModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <BoxModal className="modal">
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Terceira Etapa Finalizada!
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Todas as atividades foram finalizadas. Agora sua equipe já pode iniciar a próxima etapa!
+                        </Typography>
+                    </BoxModal>
+                </Modal>
             </div>
 
         </Container>

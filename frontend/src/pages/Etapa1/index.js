@@ -7,14 +7,7 @@ import { TabPanel } from '../../shared/components/TabPanel'
 import { TabPanelInside } from '../../shared/components/TabPanelInside'
 import { Timer } from '../../shared/components/Timer'
 
-import BoardSprint from './components/BoardSprint'
-
-import { Tabs, Tab} from '@mui/material';
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import { FormControl, TextField } from "@mui/material";
-import { Button } from "@mui/material";
-
+import { Tabs, Tab, Accordion, AccordionDetails, AccordionSummary, Typography, FormControl, TextField, Button, Modal } from '@mui/material';
 
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -22,7 +15,9 @@ import 'reactjs-popup/dist/index.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
-import { Container } from "./styles";
+import { Container, BoxModal } from "./styles";
+
+import notification from '../../shared/assets/notification.wav'
 
 function a11yProps(index) {
     return {
@@ -38,6 +33,17 @@ function a22yProps(index) {
     };
 }
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
   
 export const Etapa1 = (props) => {
 
@@ -49,8 +55,10 @@ export const Etapa1 = (props) => {
     const [seConhecem, setSeConhecem] = useState(JSON.parse(localStorage.getItem('seConhecem')) ? JSON.parse(localStorage.getItem('seConhecem')) : false)
     const [facilitador, setFacilitador] = useState("")
     const [definidor, setDefinidor] = useState("")
-    const [responsavelTempo, setResponsavelTempo] = useState("")
-    const [nomeDaEquipe, setNomeDaEquipe] = useState("")
+    const [observador, setObservador] = useState("")
+    const [entrevistador, setEntrevistador] = useState("")
+    const [scrumMaster, setScrumMaster] = useState("")
+    const [nomeDaEquipe, setNomeDaEquipe] = useState(auth.user ? auth.user.username : "")
     const [quantidadeIntegrantes, setQuantidadeIntegrantes] = useState(0)
     const qualEtapaFinalizada = 'etapa1'
 
@@ -94,6 +102,9 @@ export const Etapa1 = (props) => {
     const [youtubeIDAquecimentoEquipe] = useState('sM7BrKIMNk4')
     const [youtubeIDDefinicaoPapeis] = useState('6xAvGshgwjI')
 
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
  
     useEffect(() => {
         localStorage.setItem('seConhecem', JSON.stringify(seConhecem))
@@ -162,9 +173,10 @@ export const Etapa1 = (props) => {
     const handleSeConhecem = (e) => {
         if(e.target.id === 'sim') {
             setSeConhecem(true)
-            handleFinalizar('aquecimentoEquipe')
+            handleFinalizarAquecimento('aquecimentoEquipe', true)
         } else {
             setSeConhecem(false)
+            handleFinalizarAquecimento('aquecimentoEquipe', false)
         }
     }
 
@@ -181,15 +193,18 @@ export const Etapa1 = (props) => {
     }
 
     const startNewChallenge = () => {
-        
+        const audio = new Audio(notification);
+        audio.load();
         if(Notification.permission == 'granted'){
             new Notification("Tempo para realizar a atividade finalizado ", {
                 body: `:) Já é possível iniciar as próximas atividades.`
             });
+            
+            audio.play()
         }
     }
 
-    const [linkRetrospectiva1, setLinkRetrospectiva] = useState("")
+    const [linkRetrospectiva, setLinkRetrospectiva] = useState("")
     
     const handleFinalizar = (boxName) => {
         setBoxState({
@@ -198,49 +213,62 @@ export const Etapa1 = (props) => {
         })
     }
 
-    const handleFinalizarEtapas = (e) => {
-        e.preventDefault()
-        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
+    const handleFinalizarAquecimento = (boxName, precisa) => {
+        setBoxState({
+            ...boxState,
+            [boxName]: precisa
+        })
+    }
+
+    const handleFinalizarEtapas = async () => {
+        const login = handleLoginNew()
+        handleOpenModal()
+        alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa' + nomeDaEquipe)
     }
 
     
-
-    const [datas, setDatas] = useState({})
-
     const [logarUser, setLogarUser] = useState(false)
 
     const handleInformacaoEquipe = async (e) => {
         e.preventDefault()
 
         const { data } = await axios.get(`/api/equipes/${nomeDaEquipe}`)
+
+        console.log('aqui')
                
         if(Object.keys(data).length !== 0) {
+            console.log('aqui')
             axios.post('/api/create-equipe', {
                 nomeDaEquipe: data.nomeDaEquipe ? data.nomeDaEquipe : nomeDaEquipe,
                 quantidadeIntegrantes: data.quantidadeIntegrantes ? data.quantidadeIntegrantes : quantidadeIntegrantes,
                 seConhecem: data.seConhecem ? data.seConhecem : seConhecem,
                 definidor: data.definidor ? data.definidor : definidor,
                 facilitador: data.facilitador ? data.facilitador : facilitador,
-                responsavelTempo: data.responsavelTempo ? data.responsavelTempo : responsavelTempo,
-                linkRetrospectiva1: data.linkRetrospectiva1 ? data.linkRetrospectiva1 : linkRetrospectiva1,
+                observador: data.observador ? data.observador : observador,
+                entrevistador: data.entrevistador ? data.entrevistador : entrevistador,
+                scrumMaster: data.scrumMaster ? data.scrumMaster : scrumMaster,
+                linkRetrospectiva1: data.linkRetrospectiva1 ? data.linkRetrospectiva1 : linkRetrospectiva,
                 linkRetrospectiva2: data.linkRetrospectiva2 ? data.linkRetrospectiva2 : "",
                 linkRetrospectiva3: data.linkRetrospectiva3 ? data.linkRetrospectiva3 : "",
                 linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : "",
                 etapaFinalizada: data.qualEtapaFinalizada ? data.qualEtapaFinalizada : qualEtapaFinalizada
             })
-        } else {
+        } 
+        else {
             axios.post('/api/create-equipe', {
                 nomeDaEquipe: nomeDaEquipe,
                 quantidadeIntegrantes: quantidadeIntegrantes,
                 seConhecem: seConhecem,
                 definidor: definidor,
                 facilitador: facilitador,
-                responsavelTempo: responsavelTempo,
-                linkRetrospectiva1:linkRetrospectiva1,
+                observador: observador,
+                entrevistador: entrevistador,
+                scrumMaster: scrumMaster,               
+                linkRetrospectiva1:"",
                 linkRetrospectiva2:"",
                 linkRetrospectiva3:"",
                 linkRetrospectiva4:"",
-                etapaFinalizada: qualEtapaFinalizada
+                etapaFinalizada: '',
             })
             setLogarUser(true)
         }
@@ -255,29 +283,6 @@ export const Etapa1 = (props) => {
         return logged
     }
 
-    useEffect(() => {
-
-        const handleLoginNew = async () => {
-
-            const logged = await auth.loginUser(nomeDaEquipe, nomeDaEquipe)
-
-            return logged
-        }
-
-        if(nomeDaEquipe !== '') {
-            
-            let interval =  setInterval(()=> {
-               
-                handleLoginNew()
-                setLogarUser(false)
-            }, 1200)
-
-            return ()=> clearInterval(interval)
-
-        }
-
-    }, [logarUser])
-
     return(
         <Container>
             <div className="wrapper">
@@ -285,9 +290,8 @@ export const Etapa1 = (props) => {
                 <div className="content-page">
 
                     <div className="content-info">
-                        <h1>Bem vindos a primeira etapa! {auth.user ? auth.user.username : ''}</h1>
+                        <h1>Bem vindos a primeira etapa{auth.user ? ", " + auth.user.username : "" }! </h1>
                     </div>
-
 
                     <div className="content-etapas">
                     
@@ -336,7 +340,8 @@ export const Etapa1 = (props) => {
 
                                         <div className="video-box">
 
-                                            <iframe className='video'
+                                            <iframe 
+                                                    className='video'
                                                     title='Atividade Separação da Equipe'
                                                     sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
                                                     allowFullScreen='allowFullScreen'
@@ -538,7 +543,7 @@ export const Etapa1 = (props) => {
                                         <div className="video-box">
 
                                             <iframe className='video'
-                                                    title='Atividade Separação da Equipe'
+                                                    title='Atividade Definição de Papéis'
                                                     sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
                                                     allowFullScreen='allowFullScreen'
                                                     src={`https://youtube.com/embed/${youtubeIDDefinicaoPapeis}?autoplay=0`}>
@@ -593,8 +598,7 @@ export const Etapa1 = (props) => {
                                                         </FormControl>
 
                                                     </form>
-                                                    
-                                                    
+
                                                 </div>
                                             </div>
                                         </TabPanelInside>
@@ -608,7 +612,7 @@ export const Etapa1 = (props) => {
                                             </h4>
                                             <div className="box-atv">
                                                 Nesta atividade vocês irão trabalhar em <strong>grupo</strong>. A equipe deve escolher, dentre os integrantes, um facilitador,
-                                                um definidor e o responsável pelo tempo.
+                                                um definidor, o observador, o entrevistador e o Scrum Master.
                                                 <br />
                                                 <br />
                                                 <div className="iniciar-atv">
@@ -625,7 +629,7 @@ export const Etapa1 = (props) => {
                                                             
                                                             <label className="text-papel" >Facilitador</label>
                                                             <Popup trigger={<QuestionMarkIcon className="icon-pop"></QuestionMarkIcon>} position="right center">
-                                                                <div>Responsável por guiar a equipe nas atividades realizadas.</div>
+                                                                <div>Responsável por guiar a equipe nas atividades realizadas. Controla o tempo e a próxima atividade.</div>
                                                             </Popup>
                                                             <TextField required onChange={(e) => setFacilitador(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
                                                             
@@ -635,11 +639,23 @@ export const Etapa1 = (props) => {
                                                             </Popup>
                                                             <TextField required onChange={(e) => setDefinidor(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
                                                             
-                                                            <label className="text-papel">Responsável pelo tempo</label>
+                                                            <label className="text-papel">Observador</label>
                                                             <Popup trigger={<QuestionMarkIcon className="icon-pop3"></QuestionMarkIcon>} position="right center">
-                                                                <div>Responsável por gerenciar o tempo de realização de cada atividade.</div>
+                                                                <div>Responsável por realizar anotações durante as entrevistas.</div>
                                                             </Popup>
-                                                            <TextField required onChange={(e) => setResponsavelTempo(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
+                                                            <TextField required onChange={(e) => setObservador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
+
+                                                            <label className="text-papel">Entrevistador</label>
+                                                            <Popup trigger={<QuestionMarkIcon className="icon-pop4"></QuestionMarkIcon>} position="right center">
+                                                                <div>Responsável por fazer perguntas nas atividades de entrevistas.</div>
+                                                            </Popup>
+                                                            <TextField required onChange={(e) => setEntrevistador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
+
+                                                            <label className="text-papel">Scrum Master</label>
+                                                            <Popup trigger={<QuestionMarkIcon className="icon-pop5"></QuestionMarkIcon>} position="right center">
+                                                                <div>Responsável por cobrar as atividades de planejamento, reuniões e controla a participação do definidor/cliente/dono do produto.</div>
+                                                            </Popup>
+                                                            <TextField required onChange={(e) => setScrumMaster(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
 
                                                             <Button type="submit" className="btn-formulario">Enviar Informações</Button>
                                                         </FormControl>
@@ -1344,7 +1360,23 @@ export const Etapa1 = (props) => {
             </div>
 
             <div className="finalizar-etapa">
-                <button type="submit" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</button>
+                <Button type="button" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</Button>
+
+                <Modal
+                    open={openModal}
+                    onClose={handleCloseModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <BoxModal className="modal">
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Primeira Etapa Finalizada!
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Todas as atividades foram finalizadas. Agora sua equipe já pode iniciar a próxima etapa!
+                        </Typography>
+                    </BoxModal>
+                </Modal>
             </div>
 
             

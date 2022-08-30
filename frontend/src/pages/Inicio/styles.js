@@ -80,6 +80,7 @@ export const Container = styled.div`
     }
 
     .btn-formulario {
+        width: 100%;
         margin-top: 15px;
         height: 25px;
         border-radius: 15px;
@@ -99,12 +100,25 @@ export const Container = styled.div`
         color: #f39601;
     }
 
+    .equipeExiste {
+        display: none;
+    }
+
+    .equipeNaoExiste {
+        color: red;
+        font-size: 14px;
+    }
+
+    .equipeNaoExisteInput {
+        border: 1px solid red;
+        border-radius: 8px;
+    }
+
     @media screen and (min-width: 2560px){
        .content {
             margin: 100% 0;
        }
    }
-
 
    @media screen and (max-width: 375px){
         .box-info {

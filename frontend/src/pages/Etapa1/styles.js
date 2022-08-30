@@ -221,8 +221,24 @@ export const Container = styled.div`
     .icon-pop3{
         width: 18px;
         position: absolute;
-        margin-left: 180px;
+        margin-left: 86px;
         margin-top: 195px;
+        cursor: pointer;
+    }
+
+    .icon-pop4{
+        width: 18px;
+        position: absolute;
+        margin-left: 102px;
+        margin-top: 286px;
+        cursor: pointer;
+    }
+
+    .icon-pop5{
+        width: 18px;
+        position: absolute;
+        margin-left: 102px;
+        margin-top: 378px;
         cursor: pointer;
     }
 
@@ -407,6 +423,18 @@ export const Container = styled.div`
         height: 409px;
     }
 
+    .modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        background-color: red;
+        border: 2px solid #000;
+        box-shadow: 5px 5px 5px 5px #000;
+        padding: 400px;
+    }
+
     @media screen and (max-width: 1440px){
         
         .content-page {
@@ -572,5 +600,24 @@ export const Container = styled.div`
             padding: 25px;
        }
    }
+
+`
+
+export const BoxModal = styled.div`
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 8px;
+    box-shadow:  5px 5px 10px 0px #d4d4d4;
+    padding: 10px;
+
+    @media screen and (max-width: 375px){
+        width: 95%;
+    }
 
 `

@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 
+import axios from 'axios'
+
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 
 import { TabPanel } from '../../shared/components/TabPanel'
@@ -7,14 +9,13 @@ import { TabPanelInside } from '../../shared/components/TabPanelInside'
 import { Timer } from '../../shared/components/Timer'
 
 import { Tabs, Tab} from '@mui/material';
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import { FormControl, TextField } from "@mui/material";
-import { Button } from "@mui/material";
-import Typography from '@mui/material/Typography';
+import { Accordion, AccordionDetails, AccordionSummary, Typography, FormControl, TextField, Button, Modal } from '@mui/material';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { Container } from "./styles";
+import { Container, BoxModal } from "./styles";
+
+import notification from '../../shared/assets/notification.wav'
 
 function a11yProps(index) {
     return {
@@ -66,6 +67,10 @@ export const Etapa2 = (props) => {
     }
     )
 
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -85,11 +90,14 @@ export const Etapa2 = (props) => {
     }
 
     const startNewChallenge = () => {
-        
+        const audio = new Audio(notification);
+        audio.load();
         if(Notification.permission == 'granted'){
             new Notification("Tempo para realizar a atividade finalizado ", {
                 body: `:) Já é possível iniciar as próximas atividades.`
             });
+            
+            audio.play()
         }
     }
     
@@ -103,37 +111,25 @@ export const Etapa2 = (props) => {
     const handleInformacaoEquipe = async (e) => {
         e.preventDefault()
 
-        // const { data } = await axios.get(`/api/view-equipe/${nomeDaEquipe}`)
+        const { data } = await axios.get(`/api/equipes/${auth.user.username}`)
        
-        // if(Object.keys(data).length !== 0) {
-        //     axios.post('/api/create-equipe', {
-        //         nomeDaEquipe: data.nomeDaEquipe ? data.nomeDaEquipe : nomeDaEquipe,
-        //         quantidadeIntegrantes: data.quantidadeIntegrantes ? data.quantidadeIntegrantes : quantidadeIntegrantes,
-        //         seConhecem: data.seConhecem ? data.seConhecem : seConhecem,
-        //         definidor: data.definidor ? data.definidor : definidor,
-        //         facilitador: data.facilitador ? data.facilitador : facilitador,
-        //         responsavelTempo: data.responsavelTempo ? data.responsavelTempo : responsavelTempo,
-        //         linkRetrospectiva1: data.linkRetrospectiva1 ? data.linkRetrospectiva1 : linkRetrospectiva1,
-        //         linkRetrospectiva2: data.linkRetrospectiva2 ? data.linkRetrospectiva2 : "",
-        //         linkRetrospectiva3: data.linkRetrospectiva3 ? data.linkRetrospectiva3 : "",
-        //         linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : "",
-        //         etapaFinalizada: data.qualEtapaFinalizada ? data.qualEtapaFinalizada : qualEtapaFinalizada
-        //     })
-        // } else {
-        //     axios.post('/api/create-equipe', {
-        //         nomeDaEquipe: nomeDaEquipe,
-        //         quantidadeIntegrantes: quantidadeIntegrantes,
-        //         seConhecem: seConhecem,
-        //         definidor: definidor,
-        //         facilitador: facilitador,
-        //         responsavelTempo: responsavelTempo,
-        //         linkRetrospectiva1:linkRetrospectiva1,
-        //         linkRetrospectiva2:"",
-        //         linkRetrospectiva3:"",
-        //         linkRetrospectiva4:"",
-        //         etapaFinalizada: qualEtapaFinalizada
-        //     })
-        // }
+        if(Object.keys(data).length !== 0) {
+            axios.post('/api/create-equipe', {
+                nomeDaEquipe: data.nomeDaEquipe,
+                quantidadeIntegrantes: data.quantidadeIntegrantes,
+                seConhecem: data.seConhecem,
+                definidor: data.definidor,
+                facilitador: data.facilitador,
+                observador: data.observador,
+                entrevistador: data.entrevistador,
+                scrumMaster: data.scrumMaster,
+                linkRetrospectiva1: data.linkRetrospectiva1,
+                linkRetrospectiva2: data.linkRetrospectiva2 ? data.linkRetrospectiva2 : linkRetrospectiva,
+                linkRetrospectiva3: data.linkRetrospectiva3 ? data.linkRetrospectiva3 : "",
+                linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : "",
+                etapaFinalizada: "etapa2"
+            })
+        } 
        
     }
 
@@ -186,8 +182,8 @@ export const Etapa2 = (props) => {
         Notification.requestPermission();
     }, []);
 
-    const handleFinalizarEtapas = (e) => {
-        e.preventDefault()
+    const handleFinalizarEtapas = () => {
+        handleOpenModal()
         alert('Tudo finalizado na primeira etapa, liberado para a segunda etapa')
     }
 
@@ -198,7 +194,7 @@ export const Etapa2 = (props) => {
                 <div className="content-page">
 
                     <div className="content-info">
-                        <h1>Bem vindos a segunda etapa! {auth.user ? auth.user.username : ''}</h1>
+                        <h1>Bem vindos a segunda etapa{auth.user ? ", " + auth.user.username : ''}!</h1>
                     </div>
 
 
@@ -954,6 +950,23 @@ export const Etapa2 = (props) => {
            
             <div className="finalizar-etapa">
                 <button type="submit" className={`btn-finalEtapa ${etapaFinalizada ? 'finalizada-etapa' : ''}`} onClick={handleFinalizarEtapas}>FINALIZAR ETAPA</button>
+
+                <Modal
+                    open={openModal}
+                    onClose={handleCloseModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <BoxModal className="modal">
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Segunda Etapa Finalizada!
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Todas as atividades foram finalizadas. Agora sua equipe já pode iniciar a próxima etapa!
+                        </Typography>
+                    </BoxModal>
+                </Modal>
+
             </div>
         </Container>
     )
