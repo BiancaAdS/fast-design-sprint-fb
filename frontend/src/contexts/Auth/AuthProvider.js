@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
 
     let loginUser = async (username, password )=> {
-        let response = await fetch('https://fast-design-sprint.vercel.app/api/token/', {
+        let response = await fetch('/api/token/', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
     let updateToken = async ()=> {
 
-        let response = await fetch('https://fast-design-sprint.vercel.app/api/token/refresh/', {
+        let response = await fetch('/api/token/refresh/', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
