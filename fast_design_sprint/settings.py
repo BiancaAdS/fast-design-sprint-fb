@@ -25,7 +25,7 @@ SECRET_KEY = '9nxl-95wsdi6i+1drrksz=h!8@#o3rjj&&j_v1mab*a&!%g19i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1']
+ALLOWED_HOSTS = ['fast-design-sprint-fb.vercel.app','.vercel.app', '.now.sh', '127.0.0.1']
 
 
 # Application definition
