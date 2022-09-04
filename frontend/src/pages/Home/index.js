@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Button } from '../../shared/components/Button'
-
 import { 
     Container,
     ContainerInside,
@@ -23,7 +21,6 @@ import {
     Features,
     HeadingContainer,
     TextP,
-    Video,   
     Text37
 } from "./styles"; 
 
@@ -35,6 +32,8 @@ export const Home = () => {
     const handleIniciarSprint = () => {
         navigate('/etapa1', { replace: true })
     }
+
+    const youtubeIDApresentacaoPlataforma = '32n6EF1tOJE'
 
     return (
             <Container>            
@@ -124,12 +123,20 @@ export const Home = () => {
                     <HeadingContainer>
                         <Text10>Como funciona?</Text10>
                         <Text37>
-                        Abaixo contém um vídeo que resume o funcionamento da aplicação.
+                            Abaixo contém um vídeo que resume o funcionamento da aplicação.
                         </Text37>
                     </HeadingContainer>
-                    <Video
-                        src=""
-                        poster="https://play.teleporthq.io/static/svg/videoposter.svg"></Video>
+                        <div className="video-box">
+
+                                <iframe 
+                                        className='video'
+                                        title='Apresentação da Plataforma - FDS'
+                                        sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                        allowFullScreen='allowFullScreen'
+                                        src={`https://youtube.com/embed/${youtubeIDApresentacaoPlataforma}?autoplay=0`}>
+                                </iframe>
+
+                            </div>
 
                         <div className="box-btnIniciar">
 

@@ -1,15 +1,51 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
 
-    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 80px auto;
+
+    .box-step {
+        padding: 32px;
+    }
+
+    .step .Mui-completed {
+        color: green;
+    }
+
+    .completedStep {
+        color: green;
+      
+        font-weight: 700;
+    }
+
+    .notCompletedStep {
+        font-weight: 700;
+    }
+
+    .atividades-box {
+
+        width: 100%;
+
+        margin: 50px auto;
+        border: 2px solid #f39601;
+        border-radius: 8px;
+        padding: 25px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
 
     .content-info {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        margin: 50px 0;
     }
 
     .tab-box {
@@ -59,19 +95,23 @@ export const Container = styled.div`
     }
 
     .aprimoramento-solucao {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .apresentacao-solucao {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .revisao-processo {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .metodos-avaliacao {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .text-title-etapa {
@@ -99,7 +139,7 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: flex-end;
-       
+    
         margin-right: 5px;
     }
 
@@ -119,6 +159,12 @@ export const Container = styled.div`
 
     .atv-container {
         padding: 35px;
+        text-align: justify;
+    }
+
+    .atv-containerOnly {
+        padding: 10px;
+        text-align: justify;
     }
 
     .box-atv {
@@ -310,6 +356,32 @@ export const Container = styled.div`
         height: 409px;
     }
 
+    .mobile {
+        display: none;
+    }
+
+    .center {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .counter {
+        width: 35px;
+        height: 30px;
+        background-color: #1565c0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        border-radius: 90%;
+    }
+
+    .counter-completed {
+        width: 40px;
+        background-color: green;
+    }
+
     @media screen and (max-width: 1440px){
         
         .content-page {
@@ -332,10 +404,15 @@ export const Container = styled.div`
 
     @media screen and (max-width: 768px){
         
+        
         .content-page {
             margin: 42px;
         }
 
+        .box-step {
+            padding: 10px;
+        }
+       
         .tab-box {
             width: 100%;
             display: flex;
@@ -348,12 +425,23 @@ export const Container = styled.div`
         .tab-etapas {
             width: 20%;
         }
+
     }
 
     @media screen and (max-width: 425px){
         
         .content-page {
-            margin: 32px;
+            margin: 0px;
+        }
+
+        .content-info {
+            margin: 0px 35px;
+        }
+
+        .atividades-box {
+            margin: 50px 35px;
+            padding: 15px;
+            width: 85%;
         }
 
         .timer-box {
@@ -373,22 +461,6 @@ export const Container = styled.div`
             border-radius: 0;
         }
 
-        .aprimoramento-solucao {
-            padding: 40px;
-        }
-
-        .apresentacao-solucao {
-            padding: 40px;
-        }
-
-        .revisao-processo {
-            padding: 40px;
-        }
-
-        .metodos-avaliacao {
-            padding: 40px;
-        }
-
         .btn-Box {
             justify-content: center;
         }
@@ -396,26 +468,15 @@ export const Container = styled.div`
     }
 
     @media screen and (max-width: 375px){
-       
-        .aprimoramento-solucao {
-            padding: 30px;
-        }
 
-        .apresentacao-solucao {
-            padding: 30px;
-        }
-
-        .revisao-processo {
-            padding: 30px;
-        }
-
-        .metodos-avaliacao {
-            padding: 30px;
+          
+        .atividades-box {
+            width: 80%;
         }
     }
 
     @media screen and (max-width: 320px){
-       
+    
         .atv-container {
             padding: 15px;
         }
@@ -424,47 +485,18 @@ export const Container = styled.div`
             width: 100%;
         }
 
+        .atividades-box {
+            margin: 50px 25px;
+        }
+
         .btn-formulario {
             font-size: 12px;
         }
 
-        .aprimoramento-solucao {
-            padding: 25px;
-        }
-
-        .apresentacao-solucao {
-            padding: 25px;
-        }
-
-        .revisao-processo {
-            padding: 25px;
-        }
-
-        .metodos-avaliacao {
-            padding: 25px;
-        }
-
         .btn-proxAtv {
             height: 40px;
-       }
-   }
-
-`
-
-export const BoxModal = styled.div`
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    background-color: white;
-    border: 2px solid #000;
-    border-radius: 8px;
-    box-shadow:  5px 5px 10px 0px #d4d4d4;
-    padding: 10px;
-
-    @media screen and (max-width: 375px){
-        width: 95%;
     }
+}
+
 `
+

@@ -7,6 +7,28 @@ export const Container = styled.div`
   min-height: 100vh;
   align-items: center;
   flex-direction: column;
+
+  .video-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 0;
+    }
+
+    .video {
+        width: 727px;
+        height: 409px;
+    }
+
+  @media screen and (max-width: 425px){
+      
+    .video {
+      width: calc(100%);
+      height: 409px;
+    }
+
+  }
+
 `
   
 export const ContainerInside = styled.div`
@@ -350,9 +372,4 @@ export  const TextP = styled.span`
   @media(max-width: 768px) {
     text-align: left;
   };
-`
-  
-export  const Video = styled.video`
-  width: 100%;
-  height: 339px;
 `

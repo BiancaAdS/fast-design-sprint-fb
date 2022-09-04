@@ -1,15 +1,51 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
 
-    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 80px auto;
+
+    .box-step {
+        padding: 32px;
+    }
+
+    .step .Mui-completed {
+        color: green;
+    }
+
+    .completedStep {
+        color: green;
+      
+        font-weight: 700;
+    }
+
+    .notCompletedStep {
+        font-weight: 700;
+    }
+
+    .atividades-box {
+
+        width: 100%;
+
+        margin: 50px auto;
+        border: 2px solid #f39601;
+        border-radius: 8px;
+        padding: 25px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
 
     .content-info {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        margin: 50px 0;
     }
 
     .tab-box {
@@ -59,37 +95,40 @@ export const Container = styled.div`
     }
 
     .aprimoramento-esboco {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .testagem {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .desenvolvimento-testagem {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .mentoria {
-        padding: 50px;
-    }
-
-    .validacao-solucao {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .aprimoramento-prototipo {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .revisao-processo {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .metodos-avaliacao {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
-    
+
     .text-title-etapa {
         margin-bottom: 15px;
     }
@@ -110,13 +149,13 @@ export const Container = styled.div`
             stroke: #f39601;
         }
     }
-
+        
     .timer-box {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-       
-        margin-right: 5px; 
+    
+        margin-right: 5px;
     }
 
     .content-timer {
@@ -135,16 +174,22 @@ export const Container = styled.div`
 
     .atv-container {
         padding: 35px;
+        text-align: justify;
+    }
+
+    .atv-containerOnly {
+        padding: 10px;
+        text-align: justify;
+    }
+
+    .box-atv {
+        margin-top: 15px;
     }
 
     .text-title-inside {
         margin: 5px 0;
         font-size: 16px;
         font-weight: 700;
-    }
-
-    .box-atv {
-        margin-top: 15px;
     }
 
     .iniciar-atv {
@@ -185,15 +230,10 @@ export const Container = styled.div`
         border: 1px solid gray;
     }
 
-    .btn-Box {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
     .papeis-etapa {
         width: 100%;
     }
+
     .papeis{
         width: 100%;
 
@@ -206,6 +246,12 @@ export const Container = styled.div`
 
         font-size: 14px;
         font-weight: 700;
+    }
+
+    .btn-Box {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
 
     .btn-proxAtv {
@@ -325,15 +371,30 @@ export const Container = styled.div`
         height: 409px;
     }
 
-    @media screen and (max-width: 2560px){
-        .tab-etapas {
-            width: 12.5%;
-        }
+    .mobile {
+        display: none;
+    }
 
-        .tab-etapasInside {
-            width: 25%;
-        }
+    .center {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 
+    .counter {
+        width: 35px;
+        height: 30px;
+        background-color: #1565c0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        border-radius: 90%;
+    }
+
+    .counter-completed {
+        width: 40px;
+        background-color: green;
     }
 
     @media screen and (max-width: 1440px){
@@ -341,35 +402,44 @@ export const Container = styled.div`
         .content-page {
             margin: 62px;
         }
-
-        .tab-etapas {
-            width: 12.5%;
-
-        }
     }
 
     @media screen and (max-width: 1024px){
         .tab-etapas {
             padding: 5px;
-            width: 12.5%;
-            font-size: 0.68em;
         }
     }
 
     @media screen and (max-width: 975px){
         
         .tab-etapas {
-            width: 12.5%;
-            font-size: 0.65em
+            width: 20%;
+        }
+    }
+
+    @media screen and (max-width: 820px){
+
+        .content-page {
+            margin: 20px;
+        }
+        
+        .atividades-box {
+            padding: 0;
+            padding-top: 25px;
         }
     }
 
     @media screen and (max-width: 768px){
         
+        
         .content-page {
             margin: 42px;
         }
 
+        .box-step {
+            padding: 10px;
+        }
+       
         .tab-box {
             width: 100%;
             display: flex;
@@ -378,18 +448,27 @@ export const Container = styled.div`
 
             flex-wrap: wrap;
         }
-
+      
         .tab-etapas {
-            width: 50%;
-            border-radius: 0;
-            font-size: 12px;
+            width: 20%;
         }
     }
 
     @media screen and (max-width: 425px){
         
         .content-page {
-            margin: 32px;
+            margin: 0px;
+        }
+
+        .content-info {
+            margin: 0px 35px;
+        }
+
+         
+        .atividades-box {
+            margin: 50px 35px;
+            padding: 15px;
+            width: 85%;
         }
 
         .timer-box {
@@ -399,7 +478,9 @@ export const Container = styled.div`
         .tab-box {
             width: 100%;
             display: flex;
-            
+        }
+        .atv-container {
+            padding: 20px;
         }
 
         .tab-etapas {
@@ -407,85 +488,21 @@ export const Container = styled.div`
             border-radius: 0;
         }
 
-        .atv-container {
-            padding: 20px;
-        }
-
-        .aprimoramento-esboco {
-            padding: 40px;
-        }
-
-        .testagem {
-            padding: 40px;
-        }
-
-        .desenvolvimento-testagem {
-            padding: 40px;
-        }
-
-        .mentoria {
-            padding: 40px;
-        }
-
-        .validacao-solucao {
-            padding: 40px;
-        }
-
-        .aprimoramento-prototipo {
-            padding: 40px;
-        }
-
-        .revisao-processo {
-            padding: 40px;
-        }
-
-        .metodos-avaliacao {
-            padding: 40px;
-        }
-
         .btn-Box {
             justify-content: center;
         }
+
     }
 
     @media screen and (max-width: 375px){
-       
-        .aprimoramento-esboco {
-            padding: 30px;
-        }
-
-        .testagem {
-            padding: 30px;
-        }
-
-        .desenvolvimento-testagem {
-            padding: 30px;
-        }
-
-        .mentoria {
-            padding: 30px;
-        }
-
-        .validacao-solucao {
-            padding: 30px;
-        }
-
-        .aprimoramento-prototipo {
-            padding: 30px;
-        }
-
-        .revisao-processo {
-            padding: 30px;
-        }
-
-        .metodos-avaliacao {
-            padding: 30px;
+        .atividades-box {
+            width: 80%;
         }
     }
 
     @media screen and (max-width: 320px){
-      
-       .atv-container {
+    
+        .atv-container {
             padding: 15px;
         }
 
@@ -493,63 +510,18 @@ export const Container = styled.div`
             width: 100%;
         }
 
+        .atividades-box {
+            margin: 50px 25px;
+        }
+
         .btn-formulario {
             font-size: 12px;
         }
 
-        .aprimoramento-esboco {
-            padding: 25px;
-        }
-
-        .testagem {
-            padding: 25px;
-        }
-
-        .desenvolvimento-testagem {
-            padding: 25px;
-        }
-
-        .mentoria {
-            padding: 25px;
-        }
-
-        .validacao-solucao {
-            padding: 25px;
-        }
-
-        .aprimoramento-prototipo {
-            padding: 25px;
-        }
-
-        .revisao-processo {
-            padding: 25px;
-        }
-
-        .metodos-avaliacao {
-            padding: 25px;
-        }
-        
         .btn-proxAtv {
             height: 40px;
-       }
-   }
-
-`
-
-export const BoxModal = styled.div`
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    background-color: white;
-    border: 2px solid #000;
-    border-radius: 8px;
-    box-shadow:  5px 5px 10px 0px #d4d4d4;
-    padding: 10px;
-
-    @media screen and (max-width: 375px){
-        width: 95%;
+        }
     }
+
+
 `

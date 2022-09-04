@@ -6,10 +6,10 @@ import { RequireAuth } from './contexts/Auth/RequireAuth'
 import {
     Home,
     Inicio,
-    Etapa1,
-    Etapa2,
+    Etapa4,
     Etapa3,
-    Etapa4
+    Etapa2,
+    Etapa1,
 } from './pages'
 
 

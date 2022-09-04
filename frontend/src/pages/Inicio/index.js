@@ -7,6 +7,8 @@ import { AuthContext } from "../../contexts/Auth/AuthContext";
 
 import { FormControl, TextField, Button } from '@mui/material';
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 import { Container } from "./styles";
 
 
@@ -17,6 +19,8 @@ export const Inicio = () => {
 
     const [nomeDaEquipe, setNomeDaEquipe] = useState('')
     const [equipeNaoExiste, setEquipeNaoExiste] = useState(false)
+    const [proxEtapa, setProxEtapa] = useState(false)
+    const [iniciarSprint, setIniciarSprint] = useState(false)
 
     const navigate = useNavigate();
 
@@ -25,10 +29,13 @@ export const Inicio = () => {
 
         if(nomeDaEquipe) {
 
+            setProxEtapa(true)
+
             const existe = await axios.post("/api/login/", {
                 username: nomeDaEquipe,
                 password: nomeDaEquipe
               })
+              
 
             if(existe.data.authenticate) {
 
@@ -47,19 +54,34 @@ export const Inicio = () => {
                         else if (etapa === 'etapa4') newEtapa = etapa
                         else newEtapa = 'etapa1'
 
-                        navigate(`/${newEtapa}`, { replace: true })
+                        setTimeout(() => {
+                            navigate(`/${newEtapa}`, { replace: true })
+                            setProxEtapa(false)                
+                       }, 1000)
+
                     }
                 }
 
             } else {
                 setEquipeNaoExiste(true)
+                setProxEtapa(false)
+
             }
         }
 
     }
 
     const handleIniciarSprint = () => {
-        navigate('/home', { replace: true })
+        setIniciarSprint(true)
+
+       
+       setTimeout(() => {
+            navigate('/home', { replace: true })
+            setIniciarSprint(false)
+
+       }, 1500)
+       
+        
     }
       
     return(
@@ -82,7 +104,7 @@ export const Inicio = () => {
                         <div className={`${equipeNaoExiste ? 'equipeNaoExiste' : 'equipeExiste'}`} onMouseLeave={() => setEquipeNaoExiste(false)}>
                             Está equipe ainda não iniciou uma sprint.
                         </div>
-                        <Button type="submit" className="btn-formulario" onClick={hadleContinuarSprint}>Continuar Sprint</Button>
+                        <Button type="submit" className="btn-formulario" onClick={hadleContinuarSprint}>{proxEtapa ? <CircularProgress size={18} className='prox'/> : 'Continuar Sprint'}</Button>
                         
 
                         <div className="divider">
@@ -103,7 +125,7 @@ export const Inicio = () => {
 
                                 
                                     
-                                <Button type="submit" className="btn-formulario" onClick={handleIniciarSprint}>Iniciar Sprint</Button>
+                                <Button type="submit" className="btn-formulario" onClick={handleIniciarSprint}>{iniciarSprint ? <CircularProgress size={18} className='prox'/> : 'Iniciar Sprint'}</Button>
                                     
 
                                

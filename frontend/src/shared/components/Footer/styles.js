@@ -2,32 +2,41 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
 
-.linkPages {
-    text-decoration: none;
-    color: #FFFFFF;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin-top: 10%;
 
-    margin-top: 15px;
-    margin-bottom: 15px;
-    padding-left: 15px;
-    text-align: center;
-  }
+  .linkPages {
+      text-decoration: none;
+      color: #FFFFFF;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  @media screen and (max-width: 425px){
-    .linkPages {
+      margin-top: 15px;
+      margin-bottom: 15px;
       padding-left: 15px;
-      font-size: 15px;
+      text-align: center;
     }
-  }
 
-  @media screen and (max-width: 375px){
-    .linkPages {
-      font-size: 12px;
+    @media screen and (max-width: 768px){
+      margin-top: 20%;
+
     }
-  }
+
+    @media screen and (max-width: 425px){
+      margin-top: 60%;
+      
+      .linkPages {
+        padding-left: 15px;
+        font-size: 15px;
+      }
+    }
+
+    @media screen and (max-width: 375px){
+      .linkPages {
+        font-size: 12px;
+      }
+    }
 
 `
 

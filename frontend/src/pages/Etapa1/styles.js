@@ -1,15 +1,51 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
 
-    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 80px auto;
+
+    .box-step {
+        padding: 32px;
+    }
+
+    .step .Mui-completed {
+        color: green;
+    }
+
+    .completedStep {
+        color: green;
+      
+        font-weight: 700;
+    }
+
+    .notCompletedStep {
+        font-weight: 700;
+    }
+
+    .atividades-box {
+
+        width: 100%;
+
+        margin: 50px auto;
+        border: 2px solid #f39601;
+        border-radius: 8px;
+        padding: 25px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
 
     .content-info {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        margin: 50px 0;
     }
 
     .tab-box {
@@ -52,6 +88,25 @@ export const Container = styled.div`
         outline: none;
     }
 
+    .seConhecem {
+       margin-top: 5px;
+    }
+
+    .radio-n {
+        margin-left: 15px;
+    }
+    
+    .info-naoSeConhecem {
+        display: none;
+    }
+
+    .info-seConhecem {
+        margin-bottom: -20px;
+        font-size: 12px;
+        font-weight: 600;
+        color: orange;
+    }
+
     .border {
         border: 2px solid #f39601;
         border-radius: 0 0 8px 8px;
@@ -59,38 +114,61 @@ export const Container = styled.div`
     }
 
     .formacao-equipe {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .mapeamento-problema {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .mentoria {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .validacao-problema {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .revisao-processo {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .metodos-avaliacao {
-        padding: 50px;
+        margin: 35px auto;
+        padding: 15px;
     }
 
     .text-title-etapa {
         margin-bottom: 15px;
     }
 
+    .text-subtitle {
+        margin-bottom: 15px;
+        font-weight: 500;
+        text-align: justify;
+        line-height: 22px;
+    }   
+
+    .box-accordion {
+        margin: 25px 0;
+        border: 2px solid #f39601;
+
+        svg {
+            fill: #f39601;
+            stroke: #f39601;
+        }
+    }
+        
     .timer-box {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-       
+    
         margin-right: 5px;
     }
 
@@ -108,25 +186,18 @@ export const Container = styled.div`
         margin-bottom: 10px;
     }
 
-    .text-subtitle {
-        margin-bottom: 15px;
-        font-weight: 500;
-        text-align: justify;
-        line-height: 22px;
-    }  
-
-    .box-accordion {
-        margin: 25px 0;
-        border: 2px solid #f39601;
-
-        svg {
-            fill: #f39601;
-            stroke: #f39601;
-        }
-    }
-
     .atv-container {
         padding: 35px;
+        text-align: justify;
+    }
+
+    .atv-containerOnly {
+        padding: 10px;
+        text-align: justify;
+    }
+
+    .box-atv {
+        margin-top: 15px;
     }
 
     .text-title-inside {
@@ -135,8 +206,10 @@ export const Container = styled.div`
         font-weight: 700;
     }
 
-    .box-atv {
-        margin-top: 15px;
+    .iniciar-atv {
+        p {
+            margin-bottom: 15px;
+        }
     }
 
     .btn-atv {
@@ -171,31 +244,6 @@ export const Container = styled.div`
         border: 1px solid gray;
     }
 
-    .iniciar-atv {
-        p {
-            margin-bottom: 15px;
-        }
-    }
-
-    .seConhecem {
-       margin-top: 5px;
-    }
-
-    .radio-n {
-        margin-left: 15px;
-    }
-
-    .info-naoSeConhecem {
-        display: none;
-    }
-
-    .info-seConhecem {
-        margin-bottom: -20px;
-        font-size: 12px;
-        font-weight: 600;
-        color: orange;
-    }
-
     .papeis-etapa {
         width: 100%;
     }
@@ -212,47 +260,6 @@ export const Container = styled.div`
 
         font-size: 14px;
         font-weight: 700;
-        width: auto;
-    }
-
-    .icon-pop{
-        width: 18px;
-        position: absolute;
-        margin-left: 78px;
-        margin-top: 11px;
-        cursor: pointer;
-    }
-
-    .icon-pop2{
-        width: 18px;
-        position: absolute;
-        margin-left: 70px;
-        margin-top: 102px;
-        cursor: pointer;
-    }
-
-    .icon-pop3{
-        width: 18px;
-        position: absolute;
-        margin-left: 86px;
-        margin-top: 195px;
-        cursor: pointer;
-    }
-
-    .icon-pop4{
-        width: 18px;
-        position: absolute;
-        margin-left: 102px;
-        margin-top: 286px;
-        cursor: pointer;
-    }
-
-    .icon-pop5{
-        width: 18px;
-        position: absolute;
-        margin-left: 102px;
-        margin-top: 378px;
-        cursor: pointer;
     }
 
     .btn-Box {
@@ -303,22 +310,6 @@ export const Container = styled.div`
         background-color: #FFFFFF;
     }
 
-    .finalizada {
-        background-color: #88c425;
-        color:  #FFFFFF;
-        font-weight: bold;
-    }
-
-    .finalizarAtv {
-        margin-top: 10px;
-        label {
-            font-weight: 700;
-        }
-        input {
-            margin-left: 10px;
-        }
-    }
-
     .disabled {
         background-color: gray;
         color: #FFFFFF;
@@ -332,13 +323,29 @@ export const Container = styled.div`
         border: 1px solid gray;
     }
 
-    .finalizar-etapa{
+    .finalizada {
+        background-color: #88c425;
+        color:  #FFFFFF;
+        font-weight: bold;
+    }
+
+    .finalizarAtv {
+        margin: 10px;
+        label {
+            font-weight: 700;
+        }
+        input {
+            margin-left: 10px;
+        }
+    }
+
+    .finalizar-etapa {
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
 
-        margin: 50px 0;
+        margin: 70px 0;
     }
 
     .btn-finalEtapa {
@@ -378,6 +385,87 @@ export const Container = styled.div`
         height: 409px;
     }
 
+    .mobile {
+        display: none;
+    }
+
+    .center {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .counter {
+        width: 35px;
+        height: 30px;
+        background-color: #1565c0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        border-radius: 90%;
+    }
+
+    .counter-completed {
+        width: 40px;
+        background-color: green;
+    }
+
+    .icon-pop{
+        width: 18px;
+        position: absolute;
+        margin-left: 78px;
+        margin-top: 11px;
+        cursor: pointer;
+    }
+
+    .icon-pop2{
+        width: 18px;
+        position: absolute;
+        margin-left: 70px;
+        margin-top: 102px;
+        cursor: pointer;
+    }
+
+    .icon-pop3{
+        width: 18px;
+        position: absolute;
+        margin-left: 86px;
+        margin-top: 195px;
+        cursor: pointer;
+    }
+
+    .icon-pop4{
+        width: 18px;
+        position: absolute;
+        margin-left: 102px;
+        margin-top: 286px;
+        cursor: pointer;
+    }
+
+    .icon-pop5{
+        width: 18px;
+        position: absolute;
+        margin-left: 102px;
+        margin-top: 378px;
+        cursor: pointer;
+    }
+
+    .equipeNaoExiste {
+        display: none;
+    }
+
+    .equipeExiste {
+        color: red;
+        font-size: 14px;
+    }
+
+    .equipeExisteInput {
+        border: 1px solid red;
+        border-radius: 8px;
+    }
+
+
     @media screen and (max-width: 1440px){
         
         .content-page {
@@ -389,10 +477,6 @@ export const Container = styled.div`
         .tab-etapas {
             padding: 5px;
         }
-
-        .finalizar-etapa{
-            margin: 15px 0;
-        }
     }
 
     @media screen and (max-width: 975px){
@@ -402,13 +486,17 @@ export const Container = styled.div`
         }
     }
 
-
     @media screen and (max-width: 768px){
+        
         
         .content-page {
             margin: 42px;
         }
 
+        .box-step {
+            padding: 10px;
+        }
+       
         .tab-box {
             width: 100%;
             display: flex;
@@ -417,16 +505,32 @@ export const Container = styled.div`
 
             flex-wrap: wrap;
         }
-
+       
         .tab-etapas {
             width: 20%;
+        }
+
+        .video {
+            width: calc(100%);
+            height: 409px;
         }
     }
 
     @media screen and (max-width: 425px){
         
         .content-page {
-            margin: 32px;
+            margin: 0px;
+        }
+
+        .content-info {
+            margin: 0px 35px;
+        }
+
+         
+        .atividades-box {
+            margin: 50px 35px;
+            padding: 15px;
+            width: 85%;
         }
 
         .timer-box {
@@ -437,38 +541,18 @@ export const Container = styled.div`
             width: 100%;
             display: flex;
         }
+        .atv-container {
+            padding: 20px;
+        }
 
         .tab-etapas {
             width: 100%;
             border-radius: 0;
         }
 
-        .formacao-equipe {
-            padding: 40px;
-        }
 
-        .atv-container {
-            padding: 20px;
-        }
-
-        .mapeamento-problema {
-            padding: 40px;
-        }
-
-        .mapeamento-problema {
-            padding: 40px;
-        }
-
-        .validacao-problema {
-            padding: 40px;
-        }
-
-        .revisao-processo {
-            padding: 40px;
-        }
-
-        .metodos-avaliacao {
-            padding: 40px;
+        .btn-Box {
+            justify-content: center;
         }
 
         .video {
@@ -476,45 +560,20 @@ export const Container = styled.div`
             height: 409px;
         }
 
-        .btn-Box {
-            justify-content: center;
-        }
+
     }
 
     @media screen and (max-width: 375px){
-       
-        .formacao-equipe {
-            padding: 30px;
+          
+        .atividades-box {
+            width: 80%;
         }
-
-        .mapeamento-problema {
-            padding: 30px;
-        }
-
-        .mapeamento-problema {
-            padding: 30px;
-        }
-
-        .validacao-problema {
-            padding: 30px;
-        }
-
-        .revisao-processo {
-            padding: 30px;
-        }
-
-        .metodos-avaliacao {
-            padding: 30px;
-        }
+    
     }
 
     @media screen and (max-width: 320px){
-       
-       .formacao-equipe {
-           padding: 25px;
-       }
-
-       .atv-container {
+    
+        .atv-container {
             padding: 15px;
         }
 
@@ -522,52 +581,17 @@ export const Container = styled.div`
             width: 100%;
         }
 
+        .atividades-box {
+            margin: 50px 25px;
+        }
+
         .btn-formulario {
             font-size: 12px;
         }
 
-       .mapeamento-problema {
-           padding: 25px;
-       }
-
-       .mapeamento-problema {
-           padding: 25px;
-       }
-
-       .validacao-problema {
-           padding: 25px;
-       }
-
-       .revisao-processo {
-           padding: 25px;
-       }
-
-       .metodos-avaliacao {
-            padding: 25px;
-       }
-
-       .btn-proxAtv {
+        .btn-proxAtv {
             height: 40px;
-       }
-   }
-
-`
-
-export const BoxModal = styled.div`
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    background-color: white;
-    border: 2px solid #000;
-    border-radius: 8px;
-    box-shadow:  5px 5px 10px 0px #d4d4d4;
-    padding: 10px;
-
-    @media screen and (max-width: 375px){
-        width: 95%;
+        }
     }
 
 `

@@ -114,6 +114,10 @@ export const Container = styled.div`
         border-radius: 8px;
     }
 
+    .prox {
+        color: #FFFFFF;
+    }
+
     @media screen and (min-width: 2560px){
        .content {
             margin: 100% 0;
