@@ -258,9 +258,9 @@ export const Etapa2 = (props) => {
                     
 
                             <Box sx={{ width: '100%' }} className="box-step">
-                                <Stepper nonLinear alternativeLabel activeStep={activeStep} orientation={`${width <= 425 ? 'vertical' : 'horizontal'}`}  className={`${width <= 425  ? 'mobile' : ''}`}> 
+                                <Stepper nonLinear alternativeLabel activeStep={activeStep} orientation={`${width <= 625 ? 'vertical' : 'horizontal'}`}  className={`${width <= 625  ? 'mobile' : ''}`}> 
                                     {steps.map((label, index) => (
-                                    <Step key={label} completed={completed[index]} className={`step ${width <= 425  ? 'mobile' : ''}`} disabled={isActive}>
+                                    <Step key={label} completed={completed[index]} className={`step ${width <= 625  ? 'mobile' : ''}`} disabled={isActive}>
                                         <StepButton color="inherit" onClick={handleStep(index)}>
                                         {label}
                                         </StepButton>
@@ -292,7 +292,7 @@ export const Etapa2 = (props) => {
                                             pl: 2,
                                             bgcolor: 'background.default',
                                             }}
-                                            className={`step ${width <= 425  ? '' : 'mobile'}`}
+                                            className={`step ${width <= 625  ? '' : 'mobile'}`}
                                         >
                                   
                                             <Stepper activeStep={activeStep} className={`${completed[activeStep]? 'completedStep' : 'notCompletedStep'}`}> 
@@ -974,7 +974,7 @@ export const Etapa2 = (props) => {
 
 
                                         <MobileStepper
-                                            className={`step ${width > 425  ? 'mobile' : ''}`}
+                                            className={`step ${width > 625  ? 'mobile' : ''}`}
                                             variant="text"
                                             steps={maxSteps}
                                             position="static"
@@ -1005,24 +1005,24 @@ export const Etapa2 = (props) => {
                                             }
                                         />
 
-                                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}  className={`${width <= 425  ? 'center' : ''}`}>
+                                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}  className={`${width <= 625  ? 'center' : ''}`}>
                                             <Button
                                                 color="inherit"
                                                 disabled={activeStep === 0  || isActive}
                                                 onClick={handleBack}
                                                 sx={{ mr: 1 }}
-                                                className={`${width <= 425  ? 'mobile' : ''}`}
+                                                className={`${width <= 625  ? 'mobile' : ''}`}
                                                 
                                             >
                                                 Voltar
                                             </Button>
-                                            <Box sx={{ flex: '1 1 auto' }} className={`${width <= 425  ? 'mobile' : ''}`}/>
-                                            <Button onClick={handleNext} sx={{ mr: 1 }} className={`${width <= 425  ? 'mobile' : ''}`} disabled={isActive}>
+                                            <Box sx={{ flex: '1 1 auto' }} className={`${width <= 625  ? 'mobile' : ''}`}/>
+                                            <Button onClick={handleNext} sx={{ mr: 1 }} className={`${width <= 625  ? 'mobile' : ''}`} disabled={isActive}>
                                                 Próxima Atividade
                                             </Button>
                                             {activeStep !== steps.length &&
                                                 (completed[activeStep] ? (
-                                                <Typography variant="caption" sx={{ display: 'inline-block' }} className={`${width <= 425  ? 'center' : ''}`}>
+                                                <Typography variant="caption" sx={{ display: 'inline-block' }} className={`${width <= 625  ? 'center' : ''}`}>
                                                     Atividade de <b>{steps[activeStep]}</b> já foi finalizada
                                                 </Typography>
                                                 ) : (
