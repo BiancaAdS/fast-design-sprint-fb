@@ -305,7 +305,14 @@ export const Features = styled.div`
   padding: 60px;
   align-items: center;
   flex-direction: column;
-  background-color: #e7edea;
+
+  max-width: 1440px;
+
+  border-top: 1px dashed gray;
+
+  @media screen and (max-width: 1440px) {
+    max-width: 1100px;
+  }
 
   @media(max-width: 479px) {
       padding-top: 32px;

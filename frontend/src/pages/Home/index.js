@@ -117,32 +117,32 @@ export const Home = () => {
                         </Steps>
                         </Container03>
                     </Hero>
-                    </ContainerInside>
+                </ContainerInside>
 
-                    <Features>
+                <Features>
                     <HeadingContainer>
                         <Text10>Como funciona?</Text10>
                         <Text37>
                             Abaixo contém um vídeo que resume o funcionamento da aplicação.
                         </Text37>
                     </HeadingContainer>
-                        <div className="video-box">
+                    <div className="video-box">
 
-                                <iframe 
-                                        className='video'
-                                        title='Apresentação da Plataforma - FDS'
-                                        sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
-                                        allowFullScreen='allowFullScreen'
-                                        src={`https://youtube.com/embed/${youtubeIDApresentacaoPlataforma}?autoplay=0`}>
-                                </iframe>
+                        <iframe 
+                                className='video'
+                                title='Apresentação da Plataforma - FDS'
+                                sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                allowFullScreen='allowFullScreen'
+                                src={`https://youtube.com/embed/${youtubeIDApresentacaoPlataforma}?autoplay=0`}>
+                        </iframe>
 
-                            </div>
+                    </div>
 
-                        <div className="box-btnIniciar">
+                    <div className="box-btnIniciar">
 
-                            <button type="submit" className="btnIniciar" onClick={handleIniciarSprint}>Iniciar Sprint</button>
-                        </div>
-                    </Features>
+                        <button type="submit" className="btnIniciar" onClick={handleIniciarSprint}>Iniciar Sprint</button>
+                    </div>
+                </Features>
 
             </Container>
         )
