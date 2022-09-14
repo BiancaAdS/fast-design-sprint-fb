@@ -94,19 +94,127 @@ export const Container = styled.div`
         border-top: 0;    
     }
 
+    .container-accordion {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .contador-open {
+        align-items: flex-start;
+
+        span:first-child {
+            padding-top: 3%;
+        }   
+        
+        span {
+            padding-top: 5%;
+        }
+    }
+    
+    .contador {
+        margin-right: 15px;
+        counter-increment: section ;
+        margin: 0px;
+        margin-top: 0px;
+        margin-bottom: 4%;
+       
+        align-items: center;
+        position: relative;
+        display: block;
+    }
+
+    .contador:nth-child(even) {
+        margin-right: 30px;
+        padding-right: 0px;
+        margin-top: -5px;
+        margin-left: 18px;
+    }
+
+    .contador:nth-child(odd) {
+        margin-right: 30px;
+        padding-right: 0px;
+        margin-top: -5px;
+        margin-left: 18px;
+
+    }
+
     .aprimoramento-solucao {
         margin: 35px auto;
         padding: 15px;
+
+        counter-reset: section;
+    }
+
+    .aprimoramento-solucao .contador::before {
+        content: counter(section);
+
+        margin-left: -18px;
+        position: absolute;
+        border-radius: 50%;
+
+        margin-right: 15px;
+
+        text-align: center;
+        line-height: 32px;
+        font-weight: bold;
+        height: 34px;
+        width: 34px;
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        background-color: rgb(255, 152, 0);
     }
 
     .apresentacao-solucao {
         margin: 35px auto;
         padding: 15px;
+
+        counter-reset: section;
+    }
+
+    .apresentacao-solucao .contador::before {
+        content: counter(section);
+
+        margin-left: -18px;
+        position: absolute;
+        border-radius: 50%;
+
+        margin-right: 15px;
+
+        text-align: center;
+        line-height: 32px;
+        font-weight: bold;
+        height: 34px;
+        width: 34px;
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        background-color: rgb(255, 152, 0);
     }
 
     .revisao-processo {
         margin: 35px auto;
         padding: 15px;
+
+        counter-reset: section;
+    }
+
+    .revisao-processo .contador::before {
+        content: counter(section);
+
+        margin-left: -18px;
+        position: absolute;
+        border-radius: 50%;
+
+        margin-right: 15px;
+
+        text-align: center;
+        line-height: 32px;
+        font-weight: bold;
+        height: 34px;
+        width: 34px;
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        background-color: rgb(255, 152, 0);
     }
 
     .metodos-avaliacao {

@@ -311,7 +311,6 @@ export const Etapa3 = (props) => {
 
                                         <TabPanel value={activeStep} index={0} className="aprimoramento-esboco" >
 
-                
                                             <div className="info-etapa-text">
 
                                                 <h2 className="text-title-etapa">Aprimoramento do Esboço</h2>
@@ -324,20 +323,23 @@ export const Etapa3 = (props) => {
 
                                                 </h4>
                                             </div>
-                                            
-                                            <Accordion className={`box-accordion`} expanded={expanded === 'panel1a'} onChange={handleOpenBox('panel1a')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon className="icon-exp" />}
-                                                aria-controls="panel1bh-content"
-                                                id="panel1bh-header"
-                                                className={`${boxState['reformulacaoEsboco'] ? 'finalizada' : ''}`}>
-                                                <Typography className={`text-title ${boxState['reformulacaoEsboco'] ? 'finalizada' : ''}`}>
-                                                    Reformulação do esboço
-                                                </Typography>
-                                                
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                    
+
+                                            <div className={`container-accordion ${expanded === 'panel1a' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+
+                                                <Accordion className={`box-accordion`} expanded={expanded === 'panel1a'} onChange={handleOpenBox('panel1a')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon className="icon-exp" />}
+                                                    aria-controls="panel1bh-content"
+                                                    id="panel1bh-header"
+                                                    className={`${boxState['reformulacaoEsboco'] ? 'finalizada' : ''}`}>
+                                                    <Typography className={`text-title ${boxState['reformulacaoEsboco'] ? 'finalizada' : ''}`}>
+                                                        Reformulação do esboço
+                                                    </Typography>
+                                                    
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                        
                                                         <div className={`timer-box`}>
                                                             <div className="content-timer">
                                                                 <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />
@@ -367,27 +369,32 @@ export const Etapa3 = (props) => {
                                                         </TabPanelInside>
 
 
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['reformulacaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoEsboco')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
-                                            </Accordion>
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['reformulacaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoEsboco')} /> Sim
+                                                        </div>
+                                                    </AccordionDetails>
+                                                </Accordion>
+                                              
+                                            </div>
 
-                                            <Accordion className={`box-accordion`} expanded={expanded === 'panel2a'} onChange={handleOpenBox('panel2a')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon className="icon-exp" />}
-                                                aria-controls="panel1bh-content"
-                                                id="panel1bh-header"
-                                                className={`${boxState['revisaoEsboco'] ? 'finalizada' : ''}`}>
-                                                <Typography className={`text-title ${boxState['revisaoEsboco'] ? 'finalizada' : ''}`}>
-                                                    Revisão de esboço
-                                                </Typography>
-                                                
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                    
+                                            <div className={`container-accordion ${expanded === 'panel2a' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+
+                                                <Accordion className={`box-accordion`} expanded={expanded === 'panel2a'} onChange={handleOpenBox('panel2a')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon className="icon-exp" />}
+                                                    aria-controls="panel1bh-content"
+                                                    id="panel1bh-header"
+                                                    className={`${boxState['revisaoEsboco'] ? 'finalizada' : ''}`}>
+                                                    <Typography className={`text-title ${boxState['revisaoEsboco'] ? 'finalizada' : ''}`}>
+                                                        Revisão de esboço
+                                                    </Typography>
                                                     
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                        
+                                                        
                                                         <div className={`timer-box`}>
                                                             <div className="content-timer">
                                                                 <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />
@@ -417,15 +424,17 @@ export const Etapa3 = (props) => {
                                                                 
                                                             </div>
                                                         </TabPanelInside>
+                                                        
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['revisaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoEsboco')} /> Sim
+                                                        </div>
+                                                    </AccordionDetails>
                                                     
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['revisaoEsboco']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoEsboco')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
-                                                
-                                            </Accordion>
-
+                                                </Accordion>
+                                              
+                                            </div>
+                                            
                                         </TabPanel>
 
                                         <TabPanel value={activeStep} index={1} className="testagem">
@@ -441,102 +450,110 @@ export const Etapa3 = (props) => {
                                                 </h4>
                                             </div>
 
-                                            <Accordion className="box-accordion" expanded={expanded === 'panel1b'} onChange={handleOpenBox('panel1b')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel1bh-content"
-                                                id="panel1bh-header"
-                                                className={`${boxState['ferramentas'] ? 'finalizada' : ''}`}>
-                                                <Typography className={`text-title ${boxState['ferramentas'] ? 'finalizada' : ''}`}>
-                                                    Escolha de ferramentas para construção de protótipo
-                                                </Typography>
-                                                
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                                <div>
+                                            <div className={`container-accordion ${expanded === 'panel1b' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className="box-accordion" expanded={expanded === 'panel1b'} onChange={handleOpenBox('panel1b')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1bh-content"
+                                                    id="panel1bh-header"
+                                                    className={`${boxState['ferramentas'] ? 'finalizada' : ''}`}>
+                                                    <Typography className={`text-title ${boxState['ferramentas'] ? 'finalizada' : ''}`}>
+                                                        Escolha de ferramentas para construção de protótipo
+                                                    </Typography>
                                                     
-                                                    <div className={`timer-box`}>
-                                                        <div className="content-timer">
-                                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
-                                
-                                                        <h4 className="text-title-inside">
-                                                            Escolha de ferramenta para materializar solução ou protótipo ideado
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Nesta atividade vocês irão realizar a escolha da ferramenta que será utilizada 
-                                                            para realizar a construção solução ou protótipo. 
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                                    <div>
                                                         
-                                                            <br />
-                                                            <br />
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
-                                                            
+                                                        <div className={`timer-box`}>
+                                                            <div className="content-timer">
+                                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                                             </div>
-                                                            
                                                         </div>
-                                                    </TabPanelInside>
 
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['ferramentas']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('ferramentas')} /> Sim
-                                                    </div>
-                                                </div>
-                                                </AccordionDetails>
-                                            </Accordion>
 
-                                            <Accordion className="box-accordion" expanded={expanded === 'panel2b'} onChange={handleOpenBox('panel2b')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel2bh-content"
-                                                id="panel2bh-header"
-                                                className={`${boxState['preparacaoTestes'] ? 'finalizada' : ''}`}
-                                                >
-                                                <Typography className={`text-title ${boxState['preparacaoTestes'] ? 'finalizada' : ''}`}>Preparação de testes</Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                                    <div className={`timer-box`}>
-                                                        <div className="content-timer">
-                                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
-                                                    
-                                                        <h4 className="text-title-inside">
-                                                            Preparação de testes com usuários
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. A equipe será responsável por realizar o preparo dos testes a serem
-                                                            realizados no protótipo com os usuários escolhidos, sejam eles reais ou fictícios. Ficando a cargo da equipe o tipo de teste e a forma
-                                                            como o mesmo será aplicado.
-                                                                                                
-                                                            <br />
-                                                            <br />
-
+                                                        <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
+                                    
+                                                            <h4 className="text-title-inside">
+                                                                Escolha de ferramenta para materializar solução ou protótipo ideado
+                                                            </h4>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Nesta atividade vocês irão realizar a escolha da ferramenta que será utilizada 
+                                                                para realizar a construção solução ou protótipo. 
                                                             
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
+                                                                <br />
+                                                                <br />
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
+                                                                
+                                                                </div>
                                                                 
                                                             </div>
-                                                            
+                                                        </TabPanelInside>
+
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['ferramentas']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('ferramentas')} /> Sim
                                                         </div>
-                                                    </TabPanelInside>
-
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['preparacaoTestes']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('preparacaoTestes')} /> Sim
                                                     </div>
-                                                </AccordionDetails>
+                                                    </AccordionDetails>
+                                                </Accordion>
+                                              
+                                            </div>
 
-                                            
-                                            </Accordion>
+                                            <div className={`container-accordion ${expanded === 'panel2b' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className="box-accordion" expanded={expanded === 'panel2b'} onChange={handleOpenBox('panel2b')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel2bh-content"
+                                                    id="panel2bh-header"
+                                                    className={`${boxState['preparacaoTestes'] ? 'finalizada' : ''}`}
+                                                    >
+                                                    <Typography className={`text-title ${boxState['preparacaoTestes'] ? 'finalizada' : ''}`}>Preparação de testes</Typography>
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                                        <div className={`timer-box`}>
+                                                            <div className="content-timer">
+                                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
+                                                        
+                                                            <h4 className="text-title-inside">
+                                                                Preparação de testes com usuários
+                                                            </h4>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. A equipe será responsável por realizar o preparo dos testes a serem
+                                                                realizados no protótipo com os usuários escolhidos, sejam eles reais ou fictícios. Ficando a cargo da equipe o tipo de teste e a forma
+                                                                como o mesmo será aplicado.
+                                                                                                    
+                                                                <br />
+                                                                <br />
+
+                                                                
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
+                                                                    
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </TabPanelInside>
+
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['preparacaoTestes']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('preparacaoTestes')} /> Sim
+                                                        </div>
+                                                    </AccordionDetails>
+
+                                                
+                                                </Accordion>
+                                              
+                                            </div>
 
                                         </TabPanel>
 
@@ -555,204 +572,218 @@ export const Etapa3 = (props) => {
                                                 </h4>
                                             </div>
 
-                                            <Accordion className="box-accordion" expanded={expanded === 'panel1c'} onChange={handleOpenBox('panel1c')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel3bh-content"
-                                                id="panel3bh-header"
-                                                className={`${boxState['construcao'] ? 'finalizada' : ''}`}
-                                                >
-                                                <Typography className={`text-title ${boxState['construcao'] ? 'finalizada' : ''}`}>
-                                                    Construção de um modelo ou protótipo
-                                                </Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                                    <div className={`timer-box`}>
-                                                        <div className="content-timer">
-                                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
+                                            <div className={`container-accordion ${expanded === 'panel1c' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className="box-accordion" expanded={expanded === 'panel1c'} onChange={handleOpenBox('panel1c')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel3bh-content"
+                                                    id="panel3bh-header"
+                                                    className={`${boxState['construcao'] ? 'finalizada' : ''}`}
+                                                    >
+                                                    <Typography className={`text-title ${boxState['construcao'] ? 'finalizada' : ''}`}>
+                                                        Construção de um modelo ou protótipo
+                                                    </Typography>
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                                        <div className={`timer-box`}>
+                                                            <div className="content-timer">
+                                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <TabPanelInside value={valueInside} index={0} className="atv-containerOnly" >
+                                                        <TabPanelInside value={valueInside} index={0} className="atv-containerOnly" >
+                                                        
+
+                                                            <h4 className="text-title-inside">
+                                                                Construção de um modelo ou protótipo
+                                                            </h4>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong> ou <strong>individualmente</strong>. O grupo irá realizar a 
+                                                                construção do protótipo na ferramenta escolhida.
+                                                                <br />
+                                                                <br />
+                                                                
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>1 hora e 30 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(90)} disabled={isActive}>Iniciar Atividade</button>
+                                                                
+                                                                        
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </TabPanelInside>
+
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['construcao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('construcao')} /> Sim
+                                                        </div>
+                                                    </AccordionDetails>
+
+                                                    
+                                                </Accordion>
+                                              
+                                            </div>
+
+                                            <div className={`container-accordion ${expanded === 'panel2c' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className="box-accordion" expanded={expanded === 'panel2c'} onChange={handleOpenBox('panel2c')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel3bh-content"
+                                                    id="panel3bh-header"
+                                                    className={`${boxState['testagem'] ? 'finalizada' : ''}`}
+                                                    >
+                                                    <Typography className={`text-title ${boxState['testagem'] ? 'finalizada' : ''}`}>
+                                                        Testagem da solução ou protótipo
+                                                    </Typography>
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                                        <div className={`timer-box`}>
+                                                            <div className="content-timer">
+                                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        <TabPanelInside value={valueInside} index={0} className="atv-containerOnly" >
+                                                        
+
+                                                            <h4 className="text-title-inside">
+                                                                Testagem da solução ou protótipo
+                                                            </h4>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo irá realizar a aplicação dos testes preparados para os
+                                                                usuários que o grupo selecionou e realizar a documentação dos resultados obtidos com a aplicação dos testes.
+                                                                <br />
+                                                                <br />
+                                                                
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
+                                                                
+                                                                        
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </TabPanelInside>
+
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['testagem']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagem')} /> Sim
+                                                        </div>
+                                                    </AccordionDetails>
+
+                                                    
+                                                </Accordion>
+                                            </div>
+
+                                            <div className={`container-accordion ${expanded === 'panel3c' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className="box-accordion" expanded={expanded === 'panel3c'} onChange={handleOpenBox('panel3c')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel3bh-content"
+                                                    id="panel3bh-header"
+                                                    className={`${boxState['avaliacaoTestagem'] ? 'finalizada' : ''}`}
+                                                    >
+                                                    <Typography className={`text-title ${boxState['avaliacaoTestagem'] ? 'finalizada' : ''}`}>
+                                                        Avaliação dos resultados da testagem
+                                                    </Typography>
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                                        <div className={`timer-box`}>
+                                                            <div className="content-timer">
+                                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <TabPanelInside value={valueInside} index={0} className="atv-containerOnly" >
+                                                        
+
+                                                            <h4 className="text-title-inside">
+                                                                Avaliação dos resultados da testagem e Melhoria da solução ou protótipo
+                                                            </h4>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a análise dos resultados obtidos dos testes
+                                                                aplicados na etapa anterior.
+                                                                <br />
+                                                                <br />
+                                                                
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>40 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(40)} disabled={isActive}>Iniciar Atividade</button>
+                                                                
+                                                                        
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </TabPanelInside>
+
+                                                    
+                                                    <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['avaliacaoTestagem']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('avaliacaoTestagem')} /> Sim
+                                                        </div>
+                                                    </AccordionDetails>
+
+                                                </Accordion>
+                                              
+                                            </div>
+
+                                            <div className={`container-accordion ${expanded === 'panel4c' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className="box-accordion" expanded={expanded === 'panel4c'} onChange={handleOpenBox('panel4c')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel3bh-content"
+                                                    id="panel3bh-header"
+                                                    className={`${boxState['apresentacao'] ? 'finalizada' : ''}`}
+                                                    >
+                                                    <Typography className={`text-title ${boxState['apresentacao'] ? 'finalizada' : ''}`}>
+                                                        Preparação da apresentação
+                                                    </Typography>
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                                        <div className={`timer-box`}>
+                                                            <div className="content-timer">
+                                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
+                                                            </div>
+                                                        </div>
                                                     
 
-                                                        <h4 className="text-title-inside">
-                                                            Construção de um modelo ou protótipo
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong> ou <strong>individualmente</strong>. O grupo irá realizar a 
-                                                            construção do protótipo na ferramenta escolhida.
-                                                            <br />
-                                                            <br />
-                                                            
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>1 hora e 30 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(90)} disabled={isActive}>Iniciar Atividade</button>
-                                                            
-                                                                    
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </TabPanelInside>
+                                                        <TabPanelInside value={valueInside} index={0} className="atv-containerOnly" >
+                                                        
 
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['construcao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('construcao')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
+                                                            <h4 className="text-title-inside">
+                                                                Preparação da apresentação para a mentoria
+                                                            </h4>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a preparação da apresentação do seu grupo 
+                                                                para o mentor. A apresentação pode ser rápida, apenas para que o mentor saiba qual solução sua equipe desenvolveu e mostrar o
+                                                                protótipo desenvolvido.
+                                                                <br />
+                                                                <br />
+                                                                
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>20 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(20)} disabled={isActive}>Iniciar Atividade</button>
+                                                                
+                                                                        
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </TabPanelInside>
+
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['apresentacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('apresentacao')} /> Sim
+                                                        </div>
+                                                    </AccordionDetails>
 
                                                 
-                                            </Accordion>
-
-                                            <Accordion className="box-accordion" expanded={expanded === 'panel2c'} onChange={handleOpenBox('panel2c')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel3bh-content"
-                                                id="panel3bh-header"
-                                                className={`${boxState['testagem'] ? 'finalizada' : ''}`}
-                                                >
-                                                <Typography className={`text-title ${boxState['testagem'] ? 'finalizada' : ''}`}>
-                                                    Testagem da solução ou protótipo
-                                                </Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                                    <div className={`timer-box`}>
-                                                        <div className="content-timer">
-                                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                    <TabPanelInside value={valueInside} index={0} className="atv-containerOnly" >
-                                                    
-
-                                                        <h4 className="text-title-inside">
-                                                            Testagem da solução ou protótipo
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo irá realizar a aplicação dos testes preparados para os
-                                                            usuários que o grupo selecionou e realizar a documentação dos resultados obtidos com a aplicação dos testes.
-                                                            <br />
-                                                            <br />
-                                                            
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
-                                                            
-                                                                    
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </TabPanelInside>
-
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['testagem']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagem')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
-
-                                                
-                                            </Accordion>
-
-                                            <Accordion className="box-accordion" expanded={expanded === 'panel3c'} onChange={handleOpenBox('panel3c')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel3bh-content"
-                                                id="panel3bh-header"
-                                                className={`${boxState['avaliacaoTestagem'] ? 'finalizada' : ''}`}
-                                                >
-                                                <Typography className={`text-title ${boxState['avaliacaoTestagem'] ? 'finalizada' : ''}`}>
-                                                    Avaliação dos resultados da testagem
-                                                </Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                                    <div className={`timer-box`}>
-                                                        <div className="content-timer">
-                                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <TabPanelInside value={valueInside} index={0} className="atv-containerOnly" >
-                                                    
-
-                                                        <h4 className="text-title-inside">
-                                                            Avaliação dos resultados da testagem e Melhoria da solução ou protótipo
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a análise dos resultados obtidos dos testes
-                                                            aplicados na etapa anterior.
-                                                            <br />
-                                                            <br />
-                                                            
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>40 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(40)} disabled={isActive}>Iniciar Atividade</button>
-                                                            
-                                                                    
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </TabPanelInside>
-
-                                                
-                                                <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['avaliacaoTestagem']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('avaliacaoTestagem')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
-
-                                            </Accordion>
-
-                                            <Accordion className="box-accordion" expanded={expanded === 'panel4c'} onChange={handleOpenBox('panel4c')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel3bh-content"
-                                                id="panel3bh-header"
-                                                className={`${boxState['apresentacao'] ? 'finalizada' : ''}`}
-                                                >
-                                                <Typography className={`text-title ${boxState['apresentacao'] ? 'finalizada' : ''}`}>
-                                                    Preparação da apresentação
-                                                </Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                                    <div className={`timer-box`}>
-                                                        <div className="content-timer">
-                                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
-                                                        </div>
-                                                    </div>
-                                                   
-
-                                                    <TabPanelInside value={valueInside} index={0} className="atv-containerOnly" >
-                                                    
-
-                                                        <h4 className="text-title-inside">
-                                                            Preparação da apresentação para a mentoria
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a preparação da apresentação do seu grupo 
-                                                            para o mentor. A apresentação pode ser rápida, apenas para que o mentor saiba qual solução sua equipe desenvolveu e mostrar o
-                                                            protótipo desenvolvido.
-                                                            <br />
-                                                            <br />
-                                                            
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>20 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(20)} disabled={isActive}>Iniciar Atividade</button>
-                                                            
-                                                                    
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </TabPanelInside>
-
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['apresentacao']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('apresentacao')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
-
-                                            
-                                            </Accordion>
-
+                                                </Accordion>
+                                              
+                                            </div>
 
                                         </TabPanel>
 
@@ -769,107 +800,109 @@ export const Etapa3 = (props) => {
                                                     cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                                 </h4>
                                             </div>
+                                            <div className={`container-accordion ${expanded === 'panel1d' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
 
-                                            <Accordion className="box-accordion" expanded={expanded === 'panel1d'} onChange={handleOpenBox('panel1d')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel3bh-content"
-                                                id="panel3bh-header"
-                                                className={`${boxState['mentoria'] ? 'finalizada' : ''}`}
-                                                >
-                                                <Typography className={`text-title ${boxState['mentoria'] ? 'finalizada' : ''}`}>
-                                                    Agendamento da mentoria
-                                                </Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                                    <div className={`timer-box`}>
-                                                        <div className="content-timer">
-                                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
-                                                        </div>
-                                                    </div>
-                                                    <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
-                                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Apresentação para o mentor" {...a22yProps(0)} />
-                                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Retorno da Equipe" {...a22yProps(1)} />
-                                                        <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Apresentação para a turma" {...a22yProps(2)} />
-                                                    </Tabs>
-
-                                                    <TabPanelInside value={valueInside} index={0} className="atv-container border" >
-                                                    
-
-                                                        <h4 className="text-title-inside">
-                                                            Apresentação da equipe e do problema/ideia escolhido para o mentor
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, 
-                                                            seus integrantes e a solução que irá desenvolver) para o mentor. A apresentação pode ser rápida, 
-                                                            apenas para que o mentor saiba qual solução sua equipe irá desenvolver e mostrar como está o desenvolvimento do protótipo. Após a equipe
-                                                            realizar a apresentação, o grupo pode realizar a primeira validação da ideia com o mentor, fazendo perguntas sobre o tema escolhido 
-                                                            para desenvolver, sobre o protótipo desenvolvido, etc.
-                                                            <br />
-                                                            <br />
-                                                            
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>15 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(15)} disabled={isActive}>Iniciar Atividade</button>
-                                                            
-                                                                    
+                                                <Accordion className="box-accordion" expanded={expanded === 'panel1d'} onChange={handleOpenBox('panel1d')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel3bh-content"
+                                                    id="panel3bh-header"
+                                                    className={`${boxState['mentoria'] ? 'finalizada' : ''}`}
+                                                    >
+                                                    <Typography className={`text-title ${boxState['mentoria'] ? 'finalizada' : ''}`}>
+                                                        Agendamento da mentoria
+                                                    </Typography>
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                                        <div className={`timer-box`}>
+                                                            <div className="content-timer">
+                                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
                                                             </div>
-                                                            
                                                         </div>
-                                                    </TabPanelInside>
+                                                        <Tabs allowScrollButtonsMobile={true} sx={{ '& .MuiTabs-flexContainer': { flexWrap: 'wrap' } }} TabIndicatorProps={{ sx: { display: 'none' } }} value={valueInside} onChange={handleChangeInside} aria-label="basic tabs example" className="tab-box">
+                                                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Apresentação para o mentor" {...a22yProps(0)} />
+                                                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Retorno da Equipe" {...a22yProps(1)} />
+                                                            <Tab disabled={isActive} wrapped fullWidth className="text-title tab-etapas tab-etapasInside" label="Apresentação para a turma" {...a22yProps(2)} />
+                                                        </Tabs>
 
-                                                    <TabPanelInside value={valueInside} index={1} className="atv-container border">
-                                                    
+                                                        <TabPanelInside value={valueInside} index={0} className="atv-container border" >
+                                                        
 
-                                                        <h4 className="text-title-inside">
-                                                            Retorno da equipe
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Após a apresentação da solução definida para o mentor, 
-                                                            o grupo terá um tempo para se preparar para a próxima apresentação, que será feita para a turma.  
-                                                            <br />
-                                                            <br />
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button> 
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </TabPanelInside>
-                                                
-                                                    <TabPanelInside value={valueInside} index={2} className="atv-container border">
-                                                    
-
-                                                        <h4 className="text-title-inside">
-                                                        Apresentação da equipe e do problema/ideia escolhido para a turma
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma rápida apresentação do seu grupo 
-                                                            (informando o nome da equipe, seus integrantes e a solução que irá desenvolver) para a turma. A apresentação pode ser rápida, 
-                                                            apenas para que a turma conheça a solução que sua equipe irá desenvolver e mostrar mostrar o desenvolvimento do protótipo.
-                                                                                        
-                                                            <br />
-                                                            <br />
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
+                                                            <h4 className="text-title-inside">
+                                                                Apresentação da equipe e do problema/ideia escolhido para o mentor
+                                                            </h4>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, 
+                                                                seus integrantes e a solução que irá desenvolver) para o mentor. A apresentação pode ser rápida, 
+                                                                apenas para que o mentor saiba qual solução sua equipe irá desenvolver e mostrar como está o desenvolvimento do protótipo. Após a equipe
+                                                                realizar a apresentação, o grupo pode realizar a primeira validação da ideia com o mentor, fazendo perguntas sobre o tema escolhido 
+                                                                para desenvolver, sobre o protótipo desenvolvido, etc.
+                                                                <br />
+                                                                <br />
                                                                 
-                                                            
-                                                                    
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>15 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(15)} disabled={isActive}>Iniciar Atividade</button>
+                                                                
+                                                                        
+                                                                </div>
+                                                                
                                                             </div>
-                                                            
+                                                        </TabPanelInside>
+
+                                                        <TabPanelInside value={valueInside} index={1} className="atv-container border">
+                                                        
+
+                                                            <h4 className="text-title-inside">
+                                                                Retorno da equipe
+                                                            </h4>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. Após a apresentação da solução definida para o mentor, 
+                                                                o grupo terá um tempo para se preparar para a próxima apresentação, que será feita para a turma.  
+                                                                <br />
+                                                                <br />
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button> 
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </TabPanelInside>
+                                                    
+                                                        <TabPanelInside value={valueInside} index={2} className="atv-container border">
+                                                        
+
+                                                            <h4 className="text-title-inside">
+                                                            Apresentação da equipe e do problema/ideia escolhido para a turma
+                                                            </h4>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma rápida apresentação do seu grupo 
+                                                                (informando o nome da equipe, seus integrantes e a solução que irá desenvolver) para a turma. A apresentação pode ser rápida, 
+                                                                apenas para que a turma conheça a solução que sua equipe irá desenvolver e mostrar mostrar o desenvolvimento do protótipo.
+                                                                                            
+                                                                <br />
+                                                                <br />
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(5)} disabled={isActive}>Iniciar Atividade</button>
+                                                                    
+                                                                
+                                                                        
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </TabPanelInside>
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['mentoria']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('mentoria')} /> Sim
                                                         </div>
-                                                    </TabPanelInside>
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['mentoria']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('mentoria')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
+                                                    </AccordionDetails>
 
-                                            
-                                            </Accordion>
+                                                
+                                                </Accordion>
+                                            </div>
 
-                                        
                                         </TabPanel>
 
                                         <TabPanel value={activeStep} index={4} className="aprimoramento-prototipo" >
@@ -888,156 +921,167 @@ export const Etapa3 = (props) => {
                                                 </h4>
                                             </div>
 
-                                            <Accordion className={`box-accordion`} expanded={expanded === 'panel1f'} onChange={handleOpenBox('panel1f')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon className="icon-exp" />}
-                                                aria-controls="panel1bh-content"
-                                                id="panel1bh-header"
-                                                className={`${boxState['reformulacaoPrototipo'] ? 'finalizada' : ''}`}>
-                                                <Typography className={`text-title ${boxState['reformulacaoPrototipo'] ? 'finalizada' : ''}`}>
-                                                    Reformulação da solução ou protótipo com base na mentoria
-                                                </Typography>
-                                                
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                            <div className={`container-accordion ${expanded === 'panel1f' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className={`box-accordion`} expanded={expanded === 'panel1f'} onChange={handleOpenBox('panel1f')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon className="icon-exp" />}
+                                                    aria-controls="panel1bh-content"
+                                                    id="panel1bh-header"
+                                                    className={`${boxState['reformulacaoPrototipo'] ? 'finalizada' : ''}`}>
+                                                    <Typography className={`text-title ${boxState['reformulacaoPrototipo'] ? 'finalizada' : ''}`}>
+                                                        Reformulação da solução ou protótipo com base na mentoria
+                                                    </Typography>
+                                                    
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
 
+                                                            <div className={`timer-box`}>
+                                                                <div className="content-timer">
+                                                                    <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />
+                                                                </div>
+                                                            </div>
+
+                                                        
+                                                            <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
+                                                            
+
+                                                                <h4 className="text-title-inside">
+                                                                    Reformulação da solução ou protótipo com base nas respostas de pesquisas
+                                                                </h4>
+                                                                <div className="box-atv">
+                                                                    Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a reformulação de pontos obtidos na
+                                                                    reunião e apresentação para o mentor, realizando a análise se é viável ou não aplicar as melhorias que foram apontadas pelo mentor.
+                                                                
+                                                                    <br />
+                                                                    <br />
+                                                                    <div className="iniciar-atv">
+
+                                                                        <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>1 hora</strong> para finalizar a mesma.</p> 
+
+                                                                        <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(60)} disabled={isActive}>Iniciar Atividade</button>
+
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </TabPanelInside>
+                        
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['reformulacaoPrototipo']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoPrototipo')} /> Sim
+                                                        </div>
+                                                    </AccordionDetails>
+                                                </Accordion>
+                                            </div>
+
+                                            <div className={`container-accordion ${expanded === 'panel2f' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className={`box-accordion`} expanded={expanded === 'panel2f'} onChange={handleOpenBox('panel2f')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon className="icon-exp" />}
+                                                    aria-controls="panel1bh-content"
+                                                    id="panel1bh-header"
+                                                    className={`${boxState['revisaoPrototipo'] ? 'finalizada' : ''}`}>
+                                                    <Typography className={`text-title ${boxState['revisaoPrototipo'] ? 'finalizada' : ''}`}>
+                                                        Revisão da solução
+                                                    </Typography>
+                                                    
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+
+                                                        
                                                         <div className={`timer-box`}>
                                                             <div className="content-timer">
                                                                 <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />
                                                             </div>
                                                         </div>
 
-                                                       
+                                                        
                                                         <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
                                                         
-
                                                             <h4 className="text-title-inside">
-                                                                Reformulação da solução ou protótipo com base nas respostas de pesquisas
+                                                                Revisão da solução
                                                             </h4>
                                                             <div className="box-atv">
-                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a reformulação de pontos obtidos na
-                                                                reunião e apresentação para o mentor, realizando a análise se é viável ou não aplicar as melhorias que foram apontadas pelo mentor.
-                                                            
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a revisão da solução construída com base na 
+                                                                reformulação feita na atividade anterior, podendo levar em conta a análise feita, os comentários obtidos do mentor e novas ideias 
+                                                                que podem vim a surgir dos integrantes após essa rodada de validação.
                                                                 <br />
                                                                 <br />
                                                                 <div className="iniciar-atv">
 
-                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>1 hora</strong> para finalizar a mesma.</p> 
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
 
-                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(60)} disabled={isActive}>Iniciar Atividade</button>
+                                                                    <button className={`btn-atv ${ isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
 
                                                                 </div>
                                                                 
                                                             </div>
                                                         </TabPanelInside>
-                    
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['reformulacaoPrototipo']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('reformulacaoPrototipo')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
-                                            </Accordion>
-
-                                            <Accordion className={`box-accordion`} expanded={expanded === 'panel2f'} onChange={handleOpenBox('panel2f')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon className="icon-exp" />}
-                                                aria-controls="panel1bh-content"
-                                                id="panel1bh-header"
-                                                className={`${boxState['revisaoPrototipo'] ? 'finalizada' : ''}`}>
-                                                <Typography className={`text-title ${boxState['revisaoPrototipo'] ? 'finalizada' : ''}`}>
-                                                    Revisão da solução
-                                                </Typography>
-                                                
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-
-                                                    
-                                                    <div className={`timer-box`}>
-                                                        <div className="content-timer">
-                                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />
-                                                        </div>
-                                                    </div>
-
-                                                    
-                                                    <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
-                                                    
-                                                        <h4 className="text-title-inside">
-                                                            Revisão da solução
-                                                        </h4>
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a revisão da solução construída com base na 
-                                                            reformulação feita na atividade anterior, podendo levar em conta a análise feita, os comentários obtidos do mentor e novas ideias 
-                                                            que podem vim a surgir dos integrantes após essa rodada de validação.
-                                                            <br />
-                                                            <br />
-                                                            <div className="iniciar-atv">
-
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>30 minutos</strong> para finalizar a mesma.</p> 
-
-                                                                <button className={`btn-atv ${ isActive ? 'selected' : ''}`} onClick={() => setTimeClock(30)} disabled={isActive}>Iniciar Atividade</button>
-
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </TabPanelInside>
-                                                    
-
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['revisaoPrototipo']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoPrototipo')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
-                                            </Accordion>
-
-                                            <Accordion className={`box-accordion`} expanded={expanded === 'panel3f'} onChange={handleOpenBox('panel3f')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon className="icon-exp" />}
-                                                aria-controls="panel1bh-content"
-                                                id="panel1bh-header"
-                                                className={`${boxState['testagemReformulada'] ? 'finalizada' : ''}`}>
-                                                <Typography className={`text-title ${boxState['testagemReformulada'] ? 'finalizada' : ''}`}>
-                                                    Testagem da solução reformulada
-                                                </Typography>
-                                                
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-
-                                                        <div className={`timer-box`}>
-                                                            <div className="content-timer">
-                                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />
-                                                            </div>
-                                                        </div>
-
-                                                        <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
                                                         
 
-                                                            <h4 className="text-title-inside">
-                                                                Testagem da solução reformulada
-                                                            </h4>
-                                                            <div className="box-atv">
-                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a aplicação dos testes, com base na solução
-                                                                reformulada, para os usuários que o grupo selecionou e realizar a documentação dos resultados obtidos com a aplicação dos testes.
-                                                                <br />
-                                                                <br />
-                                                                <div className="iniciar-atv">
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['revisaoPrototipo']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('revisaoPrototipo')} /> Sim
+                                                        </div>
+                                                    </AccordionDetails>
+                                                </Accordion>
+                                              
+                                            </div>
 
-                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>15 minutos</strong> para finalizar a mesma.</p> 
-
-                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(15)} disabled={isActive}>Iniciar Atividade</button>
-
-                                                                </div>
-                                                                
-                                                            </div>
-                                                        </TabPanelInside>
-
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['testagemReformulada']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagemReformulada')} /> Sim
-                                                    </div>
+                                            <div className={`container-accordion ${expanded === 'panel3f' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className={`box-accordion`} expanded={expanded === 'panel3f'} onChange={handleOpenBox('panel3f')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon className="icon-exp" />}
+                                                    aria-controls="panel1bh-content"
+                                                    id="panel1bh-header"
+                                                    className={`${boxState['testagemReformulada'] ? 'finalizada' : ''}`}>
+                                                    <Typography className={`text-title ${boxState['testagemReformulada'] ? 'finalizada' : ''}`}>
+                                                        Testagem da solução reformulada
+                                                    </Typography>
                                                     
-                                                </AccordionDetails>
-                                            
-                                            </Accordion>
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+
+                                                            <div className={`timer-box`}>
+                                                                <div className="content-timer">
+                                                                    <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />
+                                                                </div>
+                                                            </div>
+
+                                                            <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
+                                                            
+
+                                                                <h4 className="text-title-inside">
+                                                                    Testagem da solução reformulada
+                                                                </h4>
+                                                                <div className="box-atv">
+                                                                    Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar a aplicação dos testes, com base na solução
+                                                                    reformulada, para os usuários que o grupo selecionou e realizar a documentação dos resultados obtidos com a aplicação dos testes.
+                                                                    <br />
+                                                                    <br />
+                                                                    <div className="iniciar-atv">
+
+                                                                        <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>15 minutos</strong> para finalizar a mesma.</p> 
+
+                                                                        <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(15)} disabled={isActive}>Iniciar Atividade</button>
+
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </TabPanelInside>
+
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['testagemReformulada']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('testagemReformulada')} /> Sim
+                                                        </div>
+                                                        
+                                                    </AccordionDetails>
+                                                
+                                                </Accordion>
+                                              
+                                            </div>
 
                                         </TabPanel>
 
@@ -1054,75 +1098,80 @@ export const Etapa3 = (props) => {
                                                 </h4>
                                             </div>
 
-                                            <Accordion className="box-accordion" expanded={expanded === 'panel1g'} onChange={handleOpenBox('panel1g')} disabled={isActive}>
-                                                <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon />}
-                                                aria-controls="panel3bh-content"
-                                                id="panel3bh-header"
-                                                className={`${boxState['retrospectiva'] ? 'finalizada' : ''}`}
-                                                >
-                                                <Typography className={`text-title ${boxState['retrospectiva'] ? 'finalizada' : ''}`}>
-                                                    Retrospectiva do processo
-                                                </Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
-                                                    <div className={`timer-box`}>
-                                                        <div className="content-timer">
-                                                            <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
+                                            <div className={`container-accordion ${expanded === 'panel1g' ? 'contador-open' : ''}`}>
+                                                <span className='contador'></span>
+                                                <Accordion className="box-accordion" expanded={expanded === 'panel1g'} onChange={handleOpenBox('panel1g')} disabled={isActive}>
+                                                    <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel3bh-content"
+                                                    id="panel3bh-header"
+                                                    className={`${boxState['retrospectiva'] ? 'finalizada' : ''}`}
+                                                    >
+                                                    <Typography className={`text-title ${boxState['retrospectiva'] ? 'finalizada' : ''}`}>
+                                                        Retrospectiva do processo
+                                                    </Typography>
+                                                    </AccordionSummary>
+                                                    <AccordionDetails className={`${!isOpenAccordion ? 'aberto' : ''}`}>
+                                                        <div className={`timer-box`}>
+                                                            <div className="content-timer">
+                                                                <Timer min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised}></Timer>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
-                                                    
-                                                        <h4 className="text-title-inside">
-                                                            Retrospectiva da Sprint
-                                                        </h4>
+                                                        <TabPanelInside value={valueInside} index={0} className="atv-containerOnly">
+                                                        
+                                                            <h4 className="text-title-inside">
+                                                                Retrospectiva da Sprint
+                                                            </h4>
 
-                                                        <div className="box-atv">
-                                                            Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma retrospectiva, ponderando e pensando sobre todas as atividades
-                                                            realizadas no dia e responder algumas questões, como: <strong> <em>O que tem funcionado?, O que não funcionou?, O que pode ser melhorado?</em> </strong>, sobre tudo que for realizado,
-                                                            em individual e em grupo, para que nas próximas etapas os pontos encontrados nessa retrospectiva sejam aplicados ou evitados nas atividades a seguir. 
-                                                            Para realizar essa atividade, é necessário clicar no link abaixo, vocês irão para uma plataforma especifica que contém essa perguntas, 
-                                                            o facilitador deverá ser responsável por guiar todos da equipe, na realização da tarefa. Tanto na plataforma terá um relógio para que a equipe 
-                                                            acompanhe o tempo.
-                                                            <br />
-                                                            <br />
-                                                            O modelo da Retrospectiva está disponível no link: <br />
-                                                            <a href="https://docs.google.com/drawings/d/1WWcMllAeZOwbzd_1VsRnoZHcBBUxnOYdbUMSq7UvPWQ/edit?usp=sharing" target="_blank">Clique aqui para abrir o modelo</a>
-                                                            <br />
-                                                            <br />
-                                                            
-                                                            <div className="iniciar-atv">
-                                                                <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
-                                                                <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(10)} disabled={isActive}>Iniciar Atividade</button>
+                                                            <div className="box-atv">
+                                                                Nesta atividade vocês deverão trabalhar em <strong>grupo</strong>. O grupo deve realizar uma retrospectiva, ponderando e pensando sobre todas as atividades
+                                                                realizadas no dia e responder algumas questões, como: <strong> <em>O que tem funcionado?, O que não funcionou?, O que pode ser melhorado?</em> </strong>, sobre tudo que for realizado,
+                                                                em individual e em grupo, para que nas próximas etapas os pontos encontrados nessa retrospectiva sejam aplicados ou evitados nas atividades a seguir. 
+                                                                Para realizar essa atividade, é necessário clicar no link abaixo, vocês irão para uma plataforma especifica que contém essa perguntas, 
+                                                                o facilitador deverá ser responsável por guiar todos da equipe, na realização da tarefa. Tanto na plataforma terá um relógio para que a equipe 
+                                                                acompanhe o tempo.
+                                                                <br />
+                                                                <br />
+                                                                O modelo da Retrospectiva está disponível no link: <br />
+                                                                <a href="https://docs.google.com/drawings/d/1WWcMllAeZOwbzd_1VsRnoZHcBBUxnOYdbUMSq7UvPWQ/edit?usp=sharing" target="_blank">Clique aqui para abrir o modelo</a>
+                                                                <br />
+                                                                <br />
+                                                                
+                                                                <div className="iniciar-atv">
+                                                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p> 
+                                                                    <button className={`btn-atv ${isActive ? 'selected' : ''}`} onClick={() => setTimeClock(10)} disabled={isActive}>Iniciar Atividade</button>
+                                                                
+                                                                </div>
+
+                                                                <br />
+                                                                <br />
+
+                                                                <form onSubmit={handleInformacaoEquipe}>
+
+                                                                    <FormControl fullWidth>
+                                                                        <label className="text-papel">Link da Retrospectiva preenchida</label>
+                                                                        <TextField required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
+                                                                        <Button disabled={atvCompleta} type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                                    </FormControl>
+
+                                                                </form>
                                                             
                                                             </div>
+                                                            
+                                                        </TabPanelInside>
 
-                                                            <br />
-                                                            <br />
-
-                                                            <form onSubmit={handleInformacaoEquipe}>
-
-                                                                <FormControl fullWidth>
-                                                                    <label className="text-papel">Link da Retrospectiva preenchida</label>
-                                                                    <TextField required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
-                                                                    <Button disabled={atvCompleta} type="submit" className="btn-formulario">Enviar Informações</Button>
-                                                                </FormControl>
-
-                                                            </form>
-                                                        
+                                                        <div className="finalizarAtv">
+                                                            <label>Finalizar Atividade?</label>
+                                                            <input checked={boxState['retrospectiva']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
                                                         </div>
-                                                        
-                                                    </TabPanelInside>
+                                                    </AccordionDetails>
+                                                
+                                                </Accordion>
 
-                                                    <div className="finalizarAtv">
-                                                        <label>Finalizar Atividade?</label>
-                                                        <input checked={boxState['retrospectiva']} className="checkbox-fin" type="checkbox" name="definicao-papeis" id="definicao-papeis" onChange={() => handleFinalizar('retrospectiva')} /> Sim
-                                                    </div>
-                                                </AccordionDetails>
-                                            
-                                            </Accordion>
-                                         
+                                            </div>
+
+                                           
                                         </TabPanel>
 
                                         <TabPanel value={activeStep} index={6} className="metodos-avaliacao">
