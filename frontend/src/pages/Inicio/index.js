@@ -30,6 +30,7 @@ export const Inicio = () => {
         if(nomeDaEquipe) {
 
             setProxEtapa(true)
+            
 
             const existe = await axios.post("/api/login/", {
                 username: nomeDaEquipe,
@@ -45,6 +46,8 @@ export const Inicio = () => {
                 if(isLogged) {
                     setEquipeNaoExiste(false)
                     if(data) {
+
+                        localStorage.setItem('novaSprint', JSON.stringify(false))
                        
                         let etapa = data.etapaFinalizada
                         let newEtapa
@@ -53,6 +56,8 @@ export const Inicio = () => {
                         else if (etapa === 'etapa3') newEtapa = etapa.replace("3", "4")
                         else if (etapa === 'etapa4') newEtapa = etapa
                         else newEtapa = 'etapa1'
+
+                        
 
                         setTimeout(() => {
                             navigate(`/${newEtapa}`, { replace: true })
@@ -73,6 +78,8 @@ export const Inicio = () => {
 
     const handleIniciarSprint = () => {
         setIniciarSprint(true)
+
+        localStorage.setItem('novaSprint', JSON.stringify(true))
 
        
        setTimeout(() => {

@@ -60,23 +60,17 @@ export const Etapa2 = (props) => {
 
     const maxSteps = steps.length;
 
-    const boxInitial = JSON.parse(localStorage.getItem('boxState3'))
+    const boxInitial = JSON.parse(localStorage.getItem('boxState2'))
 
     const [boxState, setBoxState] = useState(boxInitial ? boxInitial :{
-            reformulacaoEsboco: false,
-            revisaoEsboco: false,
-            ferramentas: false,
-            preparacaoTestes: false,
-            construcao: false,
-            testagem: false,
-            avaliacaoTestagem: false,
-            apresentacao: false,
+            discussao: false,
+            esbocoSolucao: false,
             mentoria: false,
             pesquisaValidacao: false,
-            reformulacaoPrototipo: false,
-            revisaoPrototipo: false,
-            testagemReformulada: false,
-            retrospectiva: false
+            preparacaoApresentacao: false,
+            reformulacaoEsboco: false,
+            retrospectiva: false,
+            revisaoEsboco: false,
         }
     )
 
@@ -88,7 +82,7 @@ export const Etapa2 = (props) => {
     }
 
     useEffect(() => {
-        localStorage.setItem('boxState4', JSON.stringify(boxState))
+        localStorage.setItem('boxState2', JSON.stringify(boxState))
     }, [boxState])
 
     const handleChangeInside = (event, newValue) => {

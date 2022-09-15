@@ -64,20 +64,19 @@ export const Etapa3 = (props) => {
     const boxInitial = JSON.parse(localStorage.getItem('boxState3'))
 
     const [boxState, setBoxState] = useState(boxInitial ? boxInitial :{
-            reformulacaoEsboco: false,
-            revisaoEsboco: false,
-            ferramentas: false,
-            preparacaoTestes: false,
-            construcao: false,
-            testagem: false,
-            avaliacaoTestagem: false,
             apresentacao: false,
+            avaliacaoTestagem: false,
+            construcao: false,
+            ferramentas: false,
             mentoria: false,
-            pesquisaValidacao: false,
+            preparacaoTestes: false,
+            reformulacaoEsboco: false,
             reformulacaoPrototipo: false,
+            retrospectiva: false,
+            revisaoEsboco: false,
             revisaoPrototipo: false,
+            testagem: false,
             testagemReformulada: false,
-            retrospectiva: false
         }
     )
 
@@ -89,7 +88,7 @@ export const Etapa3 = (props) => {
     }
 
     useEffect(() => {
-        localStorage.setItem('boxState4', JSON.stringify(boxState))
+        localStorage.setItem('boxState3', JSON.stringify(boxState))
     }, [boxState])
 
     const handleChangeInside = (event, newValue) => {

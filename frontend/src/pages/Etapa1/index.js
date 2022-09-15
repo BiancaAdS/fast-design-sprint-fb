@@ -99,8 +99,27 @@ export const Etapa1 = (props) => {
     const [atvCompleta2, setAtvCompleta2] = useState(false)
     const [atvCompleta3, setAtvCompleta3] = useState(false)
 
+    useEffect(() => {
+        const nova = localStorage.getItem('novaSprint')
+        if(JSON.parse(nova) === true) {
+            auth.logoutUser()
 
- 
+            setBoxState({
+                separacaoEquipe: false,
+                aquecimentoEquipe: false,
+                definicaoPapeis: false,
+                primeiraPesquisa: false,
+                definicaoProblema: false,
+                segundaPesquisa: false,
+                definicaoEquipeProblema: false,
+                mentoria: false,
+                pesquisaRapida: false,
+                discussaoValidacao: false,
+                retrospectiva: false
+            })
+        }
+    }, [])
+
     useEffect(() => {
         localStorage.setItem('seConhecem', JSON.stringify(seConhecem))
     }, [seConhecem])
@@ -188,7 +207,7 @@ export const Etapa1 = (props) => {
     }
 
     useEffect(() => {
-        localStorage.setItem('boxState4', JSON.stringify(boxState))
+        localStorage.setItem('boxState', JSON.stringify(boxState))
     }, [boxState])
 
     const handleChangeInside = (event, newValue) => {
@@ -300,6 +319,7 @@ export const Etapa1 = (props) => {
                     handleLoginNew()      
                }, 1000)
                 setIsLogged(true)
+                localStorage.setItem('novaSprint', JSON.stringify(false))
             }
             handleFinalizarAtividade1()
         }
