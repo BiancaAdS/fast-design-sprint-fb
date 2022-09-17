@@ -68,6 +68,7 @@ export const Etapa4 = (props) => {
         }
     )
 
+
     const handleFinalizar = (boxName) => {
         setBoxState({
             ...boxState,
@@ -223,6 +224,21 @@ export const Etapa4 = (props) => {
         }
     }
 
+    useEffect(() => {
+
+        const handleInfoPreenchida = async () => {
+            if(auth.user) {
+                const { data } = await axios.get(`/api/equipes/${auth.user.username}`)
+                 
+                if(JSON.parse(localStorage.getItem('novaSprint')) !== true) {
+                    setLinkRetrospectiva(data.linkRetrospectiva4)
+                }
+            }
+        }
+        handleInfoPreenchida()
+       
+
+    }, [atvCompleta])
 
 
     return (
@@ -607,7 +623,7 @@ export const Etapa4 = (props) => {
 
                                                                     <FormControl fullWidth>
                                                                         <label className="text-papel">Link da Retrospectiva preenchida</label>
-                                                                        <TextField required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
+                                                                        <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
                                                                         <Button disabled={atvCompleta} type="submit" className="btn-formulario">Enviar Informações</Button>
                                                                     </FormControl>
 

@@ -277,13 +277,9 @@ export const Etapa1 = (props) => {
 
         if(existe.data.authenticate) {
             return true
-           
-
         } else {
             return false
-           
         }
-
     }
 
     const [equipeExiste, setEquipeExiste] = useState(false)
@@ -325,6 +321,8 @@ export const Etapa1 = (props) => {
         }
     }
 
+    const [carregar, setCarregar] = useState(false)
+
     const handleInformacaoEquipe = async (e) => {
         e.preventDefault()
 
@@ -350,6 +348,12 @@ export const Etapa1 = (props) => {
         
         handleFinalizarAtividade2()
         handleFinalizarAtividade3()
+        if(carregar) {
+            setCarregar(false)
+        } else {
+            setCarregar(true)
+        }
+        
     }
 
     const handleNextEtapa = () => {
@@ -402,10 +406,31 @@ export const Etapa1 = (props) => {
     }
 
 
+    useEffect(() => {
+
+        const handleInfoPreenchida = async () => {
+            
+            if(auth.user) {
+                const { data } = await axios.get(`/api/equipes/${auth.user.username}`)
+
+                if(JSON.parse(localStorage.getItem('novaSprint')) !== true) {
+                    setDefinidor(data.definidor)
+                    setFacilitador(data.facilitador)
+                    setObservador(data.observador)
+                    setEntrevistador(data.entrevistador)
+                    setScrumMaster(data.scrumMaster)
+                    setLinkRetrospectiva(data.linkRetrospectiva1)
+                    setQuantidadeIntegrantes(data.quantidadeIntegrantes)
+                    setNomeDaEquipe(data.nomeDaEquipe)
+                }
+            }
+        }
+        handleInfoPreenchida()
+       
+    }, [carregar])
 
     return (
             <Container>
-
                 <div className='wrapper'>
 
                     <div className="content-page">
@@ -743,12 +768,12 @@ export const Etapa1 = (props) => {
 
                                                                             <FormControl fullWidth>
                                                                                 <label className="text-papel">Nome da Equipe</label>
-                                                                                <TextField onMouseLeave={() => setEquipeExiste(false)} required type={'text'} onChange={(e) => setNomeDaEquipe(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className={`input-text ${equipeExiste ? 'equipeExisteInput' : ''}`} />
+                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && nomeDaEquipe !== ''? nomeDaEquipe : ''}`} onMouseLeave={() => setEquipeExiste(false)} required type={'text'} onChange={(e) => setNomeDaEquipe(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className={`input-text ${equipeExiste ? 'equipeExisteInput' : ''}`} />
                                                                                 <div className={`${equipeExiste ? 'equipeExiste' : 'equipeNaoExiste'}`} onMouseLeave={() => setEquipeExiste(false)}>
                                                                                     Nome de Equipe já existe.
                                                                                 </div>
                                                                                 <label className="text-papel">Quantidade de Integrantes</label>
-                                                                                <TextField required onChange={(e) => setQuantidadeIntegrantes(e.target.value)} type={'number'} fullWidth margin="normal" size="small" placeholder="Informe a quantidade de integrantes" variant="outlined" className="input-text" />
+                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && quantidadeIntegrantes !== 0 ? quantidadeIntegrantes : ''}`}  required onChange={(e) => setQuantidadeIntegrantes(e.target.value)} type={'number'} fullWidth margin="normal" size="small" placeholder="Informe a quantidade de integrantes" variant="outlined" className="input-text" />
                                                                                 
                                                                                 <Button disabled={atvCompleta1} type="submit" className="btn-formulario">Enviar Informações</Button>
 
@@ -788,31 +813,31 @@ export const Etapa1 = (props) => {
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por guiar a equipe nas atividades realizadas. Controla o tempo e a próxima atividade.</div>
                                                                                 </Popup>
-                                                                                <TextField required onChange={(e) => setFacilitador(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
+                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && facilitador !== '' ? facilitador : ''}`} required onChange={(e) => setFacilitador(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
                                                                                 
                                                                                 <label className="text-papel">Definidor</label>
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop2"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por realizar as decisões mais importantes de cada atividade.</div>
                                                                                 </Popup>
-                                                                                <TextField required onChange={(e) => setDefinidor(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
+                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && definidor !== '' ? definidor : ''}`} required onChange={(e) => setDefinidor(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
                                                                                 
                                                                                 <label className="text-papel">Observador</label>
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop3"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por realizar anotações durante as entrevistas.</div>
                                                                                 </Popup>
-                                                                                <TextField required onChange={(e) => setObservador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
+                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && observador !== '' ? observador : ''}`} required onChange={(e) => setObservador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
 
                                                                                 <label className="text-papel">Entrevistador</label>
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop4"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por fazer perguntas nas atividades de entrevistas.</div>
                                                                                 </Popup>
-                                                                                <TextField required onChange={(e) => setEntrevistador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
+                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && entrevistador !== '' ? entrevistador : ''}`} required onChange={(e) => setEntrevistador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
 
                                                                                 <label className="text-papel">Scrum Master</label>
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop5"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por cobrar as atividades de planejamento, reuniões e controla a participação do definidor/cliente/dono do produto.</div>
                                                                                 </Popup>
-                                                                                <TextField required onChange={(e) => setScrumMaster(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
+                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && scrumMaster !== '' ? scrumMaster : ''}`} required onChange={(e) => setScrumMaster(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
 
                                                                                 <Button disabled={atvCompleta2} type="submit" className="btn-formulario">Enviar Informações</Button>
                                                                             </FormControl>
@@ -1442,7 +1467,7 @@ export const Etapa1 = (props) => {
 
                                                                     <FormControl fullWidth>
                                                                         <label className="text-papel">Link da Retrospectiva preenchida</label>
-                                                                        <TextField required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
+                                                                        <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da restrospectiva" variant="outlined" className="input-text" />                                                  
                                                                         <Button disabled={atvCompleta3} type="submit" className="btn-formulario">Enviar Informações</Button>
                                                                     </FormControl>
 

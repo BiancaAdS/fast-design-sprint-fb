@@ -158,7 +158,6 @@ export const Container = styled.div`
         padding-right: 0px;
         margin-top: -5px;
         margin-left: 18px;
-
     }
 
     .formacao-equipe {
@@ -534,7 +533,7 @@ export const Container = styled.div`
     }
 
     .video {
-        width: 727px;
+        width: calc(100%);
         height: 409px;
     }
 
@@ -721,7 +720,10 @@ export const Container = styled.div`
         .atividades-box {
             width: 80%;
         }
-    
+
+        .contador {
+            display: none;
+        }
     }
 
     @media screen and (max-width: 320px){
@@ -735,7 +737,7 @@ export const Container = styled.div`
         }
 
         .atividades-box {
-            margin: 50px 25px;
+            margin: 50px 15px;
         }
 
         .btn-formulario {

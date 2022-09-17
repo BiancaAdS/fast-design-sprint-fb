@@ -21,6 +21,10 @@ export const Container = styled.div`
     @media screen and (max-width: 768px){
       margin-top: 20%;
 
+      .linkPages {
+        text-align: center;
+      }
+
     }
 
     @media screen and (max-width: 425px){
