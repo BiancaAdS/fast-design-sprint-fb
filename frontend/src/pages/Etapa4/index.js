@@ -224,6 +224,9 @@ export const Etapa4 = (props) => {
         }
     }
 
+    const [infoRetrospectivaPreenchida, setInfoRetrospectivaPreenchida] = useState(false)
+
+
     useEffect(() => {
 
         const handleInfoPreenchida = async () => {
@@ -232,6 +235,10 @@ export const Etapa4 = (props) => {
                  
                 if(JSON.parse(localStorage.getItem('novaSprint')) !== true) {
                     setLinkRetrospectiva(data.linkRetrospectiva4)
+
+                    if(data.linkRetrospectiva4.length !== 0 ) {
+                        setInfoRetrospectivaPreenchida(true)
+                    }
                 }
             }
         }
@@ -623,8 +630,8 @@ export const Etapa4 = (props) => {
 
                                                                     <FormControl fullWidth>
                                                                         <label className="text-papel">Link da Retrospectiva preenchida</label>
-                                                                        <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className="input-text" />                                                  
-                                                                        <Button disabled={atvCompleta} type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                                        <TextField disabled={infoRetrospectivaPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
+                                                                        <Button disabled={atvCompleta || infoRetrospectivaPreenchida} type="submit" className="btn-formulario">Enviar Informações</Button>
                                                                     </FormControl>
 
                                                                 </form>

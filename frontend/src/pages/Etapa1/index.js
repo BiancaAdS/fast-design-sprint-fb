@@ -405,6 +405,9 @@ export const Etapa1 = (props) => {
         }
     }
 
+    const [infoPapeisPreenchida, setInfoPapeisPreenchida] = useState(false)
+    const [infoPrincipalPreenchida, setInfoPrincipalPreenchida] = useState(false)
+    const [infoRetrospectivaPreenchida, setInfoRetrospectivaPreenchida] = useState(false)
 
     useEffect(() => {
 
@@ -422,6 +425,19 @@ export const Etapa1 = (props) => {
                     setLinkRetrospectiva(data.linkRetrospectiva1)
                     setQuantidadeIntegrantes(data.quantidadeIntegrantes)
                     setNomeDaEquipe(data.nomeDaEquipe)
+
+                    if(data.definidor.length !== 0 && data.facilitador.length !== 0 && data.observador.length !== 0 && data.entrevistador.length !== 0 && data.scrumMaster.length !== 0 ) {
+                        setInfoPapeisPreenchida(true)
+                    }
+            
+                    if(data.linkRetrospectiva1.length !== 0 ) {
+                        setInfoRetrospectivaPreenchida(true)
+                    }
+                    
+                    if(data.nomeDaEquipe !== "" && data.quantidadeIntegrantes !== "") {
+                        setInfoPrincipalPreenchida(true)
+                    }
+
                 }
             }
         }
@@ -429,10 +445,11 @@ export const Etapa1 = (props) => {
        
     }, [carregar])
 
+    
+
     return (
             <Container>
                 <div className='wrapper'>
-
                     <div className="content-page">
 
                         <div className="content-info">
@@ -768,14 +785,14 @@ export const Etapa1 = (props) => {
 
                                                                             <FormControl fullWidth>
                                                                                 <label className="text-papel">Nome da Equipe</label>
-                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && nomeDaEquipe !== ''? nomeDaEquipe : ''}`} onMouseLeave={() => setEquipeExiste(false)} required type={'text'} onChange={(e) => setNomeDaEquipe(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className={`input-text ${equipeExiste ? 'equipeExisteInput' : ''}`} />
+                                                                                <TextField disabled={infoPrincipalPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && nomeDaEquipe !== ''? nomeDaEquipe : ''}`} onMouseLeave={() => setEquipeExiste(false)} required type={'text'} onChange={(e) => setNomeDaEquipe(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome da equipe" variant="outlined" className={`input-text ${equipeExiste ? 'equipeExisteInput' : ''}`} />
                                                                                 <div className={`${equipeExiste ? 'equipeExiste' : 'equipeNaoExiste'}`} onMouseLeave={() => setEquipeExiste(false)}>
                                                                                     Nome de Equipe já existe.
                                                                                 </div>
                                                                                 <label className="text-papel">Quantidade de Integrantes</label>
-                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && quantidadeIntegrantes !== 0 ? quantidadeIntegrantes : ''}`}  required onChange={(e) => setQuantidadeIntegrantes(e.target.value)} type={'number'} fullWidth margin="normal" size="small" placeholder="Informe a quantidade de integrantes" variant="outlined" className="input-text" />
+                                                                                <TextField disabled={infoPrincipalPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && quantidadeIntegrantes !== 0 ? quantidadeIntegrantes : ''}`}  required onChange={(e) => setQuantidadeIntegrantes(e.target.value)} type={'number'} fullWidth margin="normal" size="small" placeholder="Informe a quantidade de integrantes" variant="outlined" className="input-text" />
                                                                                 
-                                                                                <Button disabled={atvCompleta1} type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                                                <Button disabled={atvCompleta1 || infoPrincipalPreenchida} type="submit" className="btn-formulario">Enviar Informações</Button>
 
                                                                             </FormControl>
 
@@ -813,33 +830,33 @@ export const Etapa1 = (props) => {
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por guiar a equipe nas atividades realizadas. Controla o tempo e a próxima atividade.</div>
                                                                                 </Popup>
-                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && facilitador !== '' ? facilitador : ''}`} required onChange={(e) => setFacilitador(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
+                                                                                <TextField disabled={infoPapeisPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && facilitador !== '' ? facilitador : ''}`} required onChange={(e) => setFacilitador(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
                                                                                 
                                                                                 <label className="text-papel">Definidor</label>
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop2"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por realizar as decisões mais importantes de cada atividade.</div>
                                                                                 </Popup>
-                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && definidor !== '' ? definidor : ''}`} required onChange={(e) => setDefinidor(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
+                                                                                <TextField disabled={infoPapeisPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && definidor !== '' ? definidor : ''}`} required onChange={(e) => setDefinidor(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text" />
                                                                                 
                                                                                 <label className="text-papel">Observador</label>
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop3"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por realizar anotações durante as entrevistas.</div>
                                                                                 </Popup>
-                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && observador !== '' ? observador : ''}`} required onChange={(e) => setObservador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
+                                                                                <TextField disabled={infoPapeisPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && observador !== '' ? observador : ''}`} required onChange={(e) => setObservador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
 
                                                                                 <label className="text-papel">Entrevistador</label>
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop4"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por fazer perguntas nas atividades de entrevistas.</div>
                                                                                 </Popup>
-                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && entrevistador !== '' ? entrevistador : ''}`} required onChange={(e) => setEntrevistador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
+                                                                                <TextField disabled={infoPapeisPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && entrevistador !== '' ? entrevistador : ''}`} required onChange={(e) => setEntrevistador(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
 
                                                                                 <label className="text-papel">Scrum Master</label>
                                                                                 <Popup trigger={<QuestionMarkIcon className="icon-pop5"></QuestionMarkIcon>} position="right center">
                                                                                     <div>Responsável por cobrar as atividades de planejamento, reuniões e controla a participação do definidor/cliente/dono do produto.</div>
                                                                                 </Popup>
-                                                                                <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && scrumMaster !== '' ? scrumMaster : ''}`} required onChange={(e) => setScrumMaster(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
+                                                                                <TextField disabled={infoPapeisPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && scrumMaster !== '' ? scrumMaster : ''}`} required onChange={(e) => setScrumMaster(e.target.value)} fullWidth margin="normal" size="small" placeholder="Informe o nome do integrante" variant="outlined" className="input-text"  />
 
-                                                                                <Button disabled={atvCompleta2} type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                                                <Button disabled={atvCompleta2 || infoPapeisPreenchida} type="submit" className="btn-formulario">Enviar Informações</Button>
                                                                             </FormControl>
 
                                                                         </form>
@@ -1467,8 +1484,8 @@ export const Etapa1 = (props) => {
 
                                                                     <FormControl fullWidth>
                                                                         <label className="text-papel">Link da Retrospectiva preenchida</label>
-                                                                        <TextField defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da restrospectiva" variant="outlined" className="input-text" />                                                  
-                                                                        <Button disabled={atvCompleta3} type="submit" className="btn-formulario">Enviar Informações</Button>
+                                                                        <TextField disabled={infoRetrospectivaPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da restrospectiva" variant="outlined" className="input-text" />
+                                                                        <Button disabled={atvCompleta3 || infoRetrospectivaPreenchida} type="submit" className="btn-formulario">Enviar Informações</Button>
                                                                     </FormControl>
 
                                                                 </form>
