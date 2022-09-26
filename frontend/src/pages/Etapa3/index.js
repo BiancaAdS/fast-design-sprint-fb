@@ -1173,7 +1173,7 @@ export const Etapa3 = (props) => {
 
                                                                     <FormControl fullWidth>
                                                                         <label className="text-papel">Link da Retrospectiva preenchida</label>
-                                                                        <TextField disabled={infoRetrospectivaPreenchida} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da restrospectiva" variant="outlined" className="input-text" />
+                                                                        <TextField disabled={infoRetrospectivaPreenchida} value={linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da restrospectiva" variant="outlined" className="input-text" />
                                                                         <Button disabled={atvCompleta || infoRetrospectivaPreenchida} type="submit" className="btn-formulario">Enviar Informações</Button>
                                                                     </FormControl>
 
