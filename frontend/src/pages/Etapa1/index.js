@@ -514,8 +514,8 @@ export const Etapa1 = (props) => {
 
                                                 <h2 className="text-title-etapa">Definição de equipe</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar atividades que tem como objetivo realizar a formação da equipe. 
-                                                    Contendo atividades que visam, aproximar os integrantes da equipe e definir seus papéis. <br /> <strong>Lembrem-se</strong>, cada atividade
+                                                    Nesta etapa vocês irão realizar atividades que tem como objetivo iniciar a formação/aproximação de sua equipe.
+                                                    Contendo atividades que visam, aproximar vocês e definir seus papéis na equipes. <br /> <strong>Lembrem-se</strong>, cada atividade
                                                     possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade e para acompanhar esse tempo
                                                     lembre sempre de olhar para o relógio.
 
@@ -758,8 +758,6 @@ export const Etapa1 = (props) => {
 
                                                             </Tabs>
 
-                                                            
-
                                                             <TabPanelInside value={valueInside} index={0} className="atv-container border" >
                                                                 <h4 className="text-title-inside">
                                                                     Definição de informações da equipe
@@ -877,12 +875,6 @@ export const Etapa1 = (props) => {
                                                 </Accordion>
 
                                             </div>
-
-                                            
-                                           
-
-                                           
-
                                         </TabPanel>
 
                                         <TabPanel value={activeStep} index={1} className="mapeamento-problema">
@@ -890,9 +882,9 @@ export const Etapa1 = (props) => {
 
                                                 <h2 className="text-title-etapa">Mapeamento do Problema</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar atividades que tem como objetivo iniciar a preparação do problema/ideia a ser solucionado. 
-                                                    Contendo atividades que visam, fazer pesquisas individuais e em grupo, além de incentivar momentos de discussões entre os integrantes da equipe 
-                                                    para realizar a escolha da ideia. <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
+                                                    Nesta etapa vocês irão realizar atividades que permitem que vocês possam iniciar a preparação do problema/ideia a ser solucionado. 
+                                                    Ou seja, vocês irão fazer atividades que os permitam fazer pesquisas individuais e em grupo, 
+                                                    além de incentivar momentos de discussões entre vocês para que a escolha da da ideia possa ser feita. <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
                                                     cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                                 </h4>
                                             </div>
@@ -1173,9 +1165,10 @@ export const Etapa1 = (props) => {
 
                                                 <h2 className="text-title-etapa">Mentoria</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar o agendamento de uma reunião com o mentor responsável pela equipe. Esta etapa tem como objetivo 
-                                                    iniciar o processo de validação da ideia, pois contém atividades que incentivam a apresentação ao mentor e com isso gerar possíveis melhorias à
-                                                    serem aplicadas na solução/problema mapeado. <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
+                                                    Nesta etapa vocês irão realizar o agendamento de uma reunião com o mentor responsável pela sua equipe. Esta etapa tem como 
+                                                    objetivo permitir que vocês iniciem o processo de validação da ideia, pois irá conter atividades que incentivam a 
+                                                    apresentação ao mentor e com isso gerar possíveis melhorias à serem aplicadas na solução/problema mapeado. 
+                                                    <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
                                                     cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                                 </h4>
                                             </div>
@@ -1305,8 +1298,9 @@ export const Etapa1 = (props) => {
 
                                                 <h2 className="text-title-etapa">Validação do Problema</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar a validação do problema/solução mapeado nas etapas anteriores. Esta etapa utiliza as respostas obtidas
-                                                    da reunião com o mentor como possíveis melhorias. A etapa possui atividades que visam incentivar momentos de discussões entre os integrantes da equipe sobre o problema mapeado
+                                                    Nesta etapa vocês irão realizar a validação do problema/solução que foi mapeado nas etapas anteriores. 
+                                                    Ao iniciar esta etapa, vocês irão utilizar as respostas e feedbacks obtidos da reunião com o mentor como possíveis melhorias. 
+                                                    A etapa possui atividades para incentivar momentos de discussões entre vocês sobre o problema mapeado
                                                     e se é houver melhorias e aplica-las na solução.<br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
                                                     cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                                 </h4>
@@ -1425,8 +1419,8 @@ export const Etapa1 = (props) => {
 
                                                 <h2 className="text-title-etapa">Revisão do Processo</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar a revisão do processo. Esta etapa possui atividades que disponibilizam momentos para os integrantes 
-                                                    das equipes analisarem tudo que foi feito nas atividades das etapas anteriores e se necessário realize melhorias para as próximas etapas.
+                                                    Nesta etapa vocês irão realizar a revisão do processo. Sua equipe irá realizar atividades que disponibilizam momentos para que vocês
+                                                    possam analisar tudo que foi feito nas atividades das etapas anteriores e se necessário realize as melhorias necessárias para as próximas etapas.
                                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade 
                                                     e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                                 </h4>
@@ -1513,9 +1507,9 @@ export const Etapa1 = (props) => {
 
                                                 <h2 className="text-title-etapa">Avaliação</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar a avaliação das atividades realizadas. Esta etapa possui um link para uma avaliação
-                                                    que deve ser respondida de forma individual. Lembre-se o questionário não é obrigatório, contudo sua resposta pode ajudar a melhorar as etapas 
-                                                    e as atividades realizadas.
+                                                    Nesta etapa vocês irão realizar a avaliação das atividades realizadas. Esta etapa possui um link para uma avaliação
+                                                    que deve ser respondida de forma individual. Lembre-se o questionário não é obrigatório, contudo sua resposta pode ajudar a
+                                                    melhorar as etapas, as atividades realizadas e até a aplicação.
                                                 </h4>
                                             </div>
 

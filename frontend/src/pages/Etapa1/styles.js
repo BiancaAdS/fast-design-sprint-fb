@@ -168,7 +168,7 @@ export const Container = styled.div`
     }
 
     .formacao-equipe .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -194,7 +194,7 @@ export const Container = styled.div`
     }
 
     .mapeamento-problema  .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -220,7 +220,7 @@ export const Container = styled.div`
     }
 
     .mentoria .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -246,7 +246,7 @@ export const Container = styled.div`
     }
 
     .validacao-problema .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -272,7 +272,7 @@ export const Container = styled.div`
     }
 
     .revisao-processo .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;

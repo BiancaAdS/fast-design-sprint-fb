@@ -147,7 +147,7 @@ export const Container = styled.div`
     }
 
     .aprimoramento-esboco .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -173,7 +173,7 @@ export const Container = styled.div`
     }
 
     .testagem .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -199,7 +199,7 @@ export const Container = styled.div`
     }
 
     .desenvolvimento-testagem .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -225,7 +225,7 @@ export const Container = styled.div`
     }
 
     .mentoria .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -251,7 +251,7 @@ export const Container = styled.div`
     }
 
     .aprimoramento-prototipo .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -277,7 +277,7 @@ export const Container = styled.div`
     }
 
     .revisao-processo .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;

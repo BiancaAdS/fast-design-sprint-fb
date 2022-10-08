@@ -147,7 +147,7 @@ export const Container = styled.div`
     }
 
     .aprimoramento-solucao .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -173,7 +173,7 @@ export const Container = styled.div`
     }
 
     .apresentacao-solucao .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;
@@ -199,7 +199,7 @@ export const Container = styled.div`
     }
 
     .revisao-processo .contador::before {
-        content: counter(section);
+        content: counter(section, lower-alpha);
 
         margin-left: -18px;
         position: absolute;

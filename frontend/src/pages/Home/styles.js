@@ -39,6 +39,8 @@ export const ContainerInside = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 60px;
+  padding-top: 35px;
+  padding-bottom: 0;
 
   @media(max-width: 479px) {
     padding: 0px;
@@ -49,6 +51,7 @@ export  const Hero = styled.div`
   width: 100%;
   height: 100%;
   margin: 30px;
+  margin-bottom: 0;
   display: flex;
   padding: 25px;
   min-width: 100%;
@@ -111,6 +114,8 @@ export const Steps = styled.div`
   width: 100%;
   display: flex;
   padding: 48px;
+  padding-bottom: 0;
+  padding-top: 24px;
   max-width: 1400px;
   align-items: center;
   flex-direction: column;
@@ -198,7 +203,7 @@ export  const ContainerIcon = styled.div`
   };
 `
  
-export  const Line = styled.div`
+export const Line = styled.div`
     flex: 1;
     height: 0px;
     display: flex;
@@ -303,22 +308,19 @@ export const Features = styled.div`
   width: 100%;
   display: flex;
   padding: 60px;
+  padding-top: 0;
   align-items: center;
   flex-direction: column;
 
   max-width: 1440px;
-
-  border-top: 1px dashed gray;
 
   @media screen and (max-width: 1440px) {
     max-width: 1100px;
   }
 
   @media(max-width: 479px) {
-      padding-top: 32px;
-      padding-bottom: 32px;
-      padding-left: 25px;
-      padding-right: 25px;
+      padding: 32px 25px;
+      padding-top: 0;
   };
 
   @media(max-width: 320px) {
@@ -356,6 +358,7 @@ export const HeadingContainer = styled.div`
   width: 100%;
   display: flex;
   margin: 25px;
+  margin-top: 0;
   align-items: center;
   flex-direction: column;
   @media(max-width: 768px) {

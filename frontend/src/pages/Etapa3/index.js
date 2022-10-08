@@ -337,7 +337,7 @@ export const Etapa3 = (props) => {
 
                                                 <h2 className="text-title-etapa">Aprimoramento do Esboço</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão fazer atividades que tem como objetivo realizar a aplicação de melhorias no esboço da solução com base
+                                                    Nesta etapa vocês irão fazer atividades que tem como objetivo realizar a aplicação de melhorias no esboço da solução com base
                                                     nas respostas obtidas das validações/questionários aplicados para possíveis usuários realizados nas atividades da segunda etapa.
                                                     Esta etapa contém atividades que permitem o aprimoramento do esboço e a revisão do esboço.
                                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade 
@@ -465,8 +465,8 @@ export const Etapa3 = (props) => {
 
                                                 <h2 className="text-title-etapa">Organização da testagem da solução ou protótipo</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes os participantes são responsáveis por realizar a escolha da forma de materializar a solução/protótipo ideado,
-                                                    e após a escolha, as equipes irão iniciar as atividades para a preparação dos testes com usuários.
+                                                    Nesta etapa vocês são responsáveis por realizar a escolha da forma de materializar a solução/protótipo ideado,
+                                                    e após a escolha, vocês irão iniciar as atividades de preparação dos testes com usuários.
                                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
                                                     cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                                 </h4>
@@ -585,8 +585,8 @@ export const Etapa3 = (props) => {
 
                                                 <h2 className="text-title-etapa">Desenvolvimento e testagem da solução ou protótipo</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão iniciar a confecção do protótipo na ferramenta escolhida na etapa anterior, após finalizar a construção 
-                                                    do protótipo, a equipe iniciará atividades de aplicação dos testes com usuários. Esta etapa tem como objetivo 
+                                                    Nesta etapa vocês irão iniciar a confecção do protótipo na ferramenta escolhida na etapa anterior. Após finalizar a construção 
+                                                    do protótipo, vocês podem iniciar atividades de aplicação dos testes com usuários. Esta etapa tem como objetivo 
                                                     iniciar o processo de confecção do protótipo e realizar a testagem desse protótipo. <br /> <strong>Lembrem-se</strong>, 
                                                     cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade e para acompanhar esse 
                                                     tempo lembre sempre de olhar para o relógio.
@@ -815,9 +815,9 @@ export const Etapa3 = (props) => {
 
                                                 <h2 className="text-title-etapa">Mentoria</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar o agendamento de uma reunião com o mentor responsável pela equipe. Esta etapa tem como objetivo 
-                                                    iniciar o processo de validação da ideia, pois contém atividades que incentivam a apresentação ao mentor e com isso gerar possíveis melhorias à
-                                                    serem aplicadas no desenvolvimento do protótipo da solução/problema mapeado. 
+                                                    Nesta etapa vocês irão realizar o agendamento de uma reunião com o mentor responsável pela sua equipe. Esta etapa tem como 
+                                                    objetivo permitir que vocês iniciem o processo de validação do esboço/protótipo, pois irá conter atividades que incentivam a 
+                                                    apresentação ao mentor e com isso gerar possíveis melhorias à serem aplicadas no esboço/protótipo desenvolvido. 
                                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
                                                     cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                                 </h4>
@@ -933,7 +933,7 @@ export const Etapa3 = (props) => {
 
                                                 <h2 className="text-title-etapa">Aprimoramento da solução ou protótipo</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão fazer atividades que tem como objetivo realizar a aplicação de melhorias no protótipo da solução com base
+                                                    Nesta etapa vocês irão fazer atividades que tem como objetivo realizar a aplicação de melhorias no protótipo da solução com base
                                                     nas respostas obtidas das validações realizadas nas etapas anteriores.
                                                     Esta etapa contém atividades que permitem o aprimoramento do protótipo e a revisão do protótipo, além de conter atividades de testagem do 
                                                     protótipo melhorado, se necessário.
@@ -1113,8 +1113,8 @@ export const Etapa3 = (props) => {
 
                                                 <h2 className="text-title-etapa">Revisão do Processo</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar a revisão do processo. Esta etapa possui atividades que disponibilizam momentos para os integrantes 
-                                                    das equipes analisarem tudo que foi feito nas atividades das etapas anteriores e se necessário realize melhorias para as próximas etapas.
+                                                Nesta etapa vocês irão realizar a revisão do processo. Sua equipe irá realizar atividades que disponibilizam momentos para que vocês
+                                                    possam analisar tudo que foi feito nas atividades das etapas anteriores e se necessário realize as melhorias necessárias para as próximas etapas.
                                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade 
                                                     e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                                 </h4>
@@ -1201,9 +1201,9 @@ export const Etapa3 = (props) => {
 
                                                 <h2 className="text-title-etapa">Avaliação</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar a avaliação das atividades realizadas. Esta etapa possui um link para uma avaliação
-                                                    que deve ser respondida de forma individual. Lembre-se o questionário não é obrigatório, contudo sua resposta pode ajudar a melhorar as etapas 
-                                                    e as atividades realizadas.
+                                                    Nesta etapa vocês irão realizar a avaliação das atividades realizadas. Esta etapa possui um link para uma avaliação
+                                                    que deve ser respondida de forma individual. Lembre-se o questionário não é obrigatório, contudo sua resposta pode ajudar a
+                                                    melhorar as etapas, as atividades realizadas e até a aplicação.
                                                 </h4>
                                             </div>
                                             <Accordion className="box-accordion" expanded={expanded === 'panel1h'} onChange={handleOpenBox('panel1h')} disabled={isActive}>

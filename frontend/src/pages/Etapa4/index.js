@@ -318,7 +318,7 @@ export const Etapa4 = (props) => {
 
                                                 <h2 className="text-title-etapa">Aprimoramento da solução ou protótipo</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão fazer atividades que tem como objetivo realizar a aplicação de melhorias no protótipo da solução com base
+                                                    Nesta etapa vocês irão fazer atividades que tem como objetivo realizar a aplicação de melhorias no protótipo da solução com base
                                                     nas respostas obtidas das validações/questionários aplicados para possíveis usuários realizados nas atividades da terceira etapa.
                                                     Esta etapa contém atividades que permitem o aprimoramento do protótipo e a revisão do protótipo.
                                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade 
@@ -451,8 +451,8 @@ export const Etapa4 = (props) => {
 
                                                 <h2 className="text-title-etapa">Apresentação da Solução</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar o agendamento de uma reunião com o mentor responsável pela equipe. Esta etapa tem como objetivo 
-                                                    finalizar o processo de desenvolvimento da solução, contendo atividades de apresentação da solução, para que a equipe mostre para o 
+                                                    Nesta etapa vocês irão realizar o agendamento de uma reunião com o mentor responsável pela sua equipe. Esta etapa tem como objetivo 
+                                                    finalizar o processo de desenvolvimento da solução, contendo atividades de apresentação da solução, para que vocês possam mostrar para o 
                                                     mentor e a turma o protótipo confeccionado. 
                                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em 
                                                     cada atividade e para acompanhar esse tempo lembre sempre de olhar para o relógio.
@@ -564,8 +564,8 @@ export const Etapa4 = (props) => {
 
                                                 <h2 className="text-title-etapa">Revisão do Processo</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar a revisão do processo. Esta etapa possui atividades que disponibilizam momentos para os integrantes 
-                                                    das equipes analisarem tudo que foi feito nas atividades das etapas anteriores e se necessário realize melhorias para as próximas etapas.
+                                                    Nesta etapa vocês irão realizar a revisão do processo. Sua equipe irá realizar atividades que disponibilizam momentos para que vocês
+                                                    possam analisar tudo que foi feito nas atividades das etapas anteriores e se necessário realize as melhorias necessárias para as próximas etapas.
                                                     <br /> <strong>Lembrem-se</strong>, cada atividade possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade 
                                                     e para acompanhar esse tempo lembre sempre de olhar para o relógio.
                                                 </h4>
@@ -656,9 +656,9 @@ export const Etapa4 = (props) => {
 
                                                 <h2 className="text-title-etapa">Avaliação</h2>
                                                 <h4 className="text-subtitle">
-                                                    Etapa em que os participantes irão realizar a avaliação das atividades realizadas. Esta etapa possui um link para uma avaliação
-                                                    que deve ser respondida de forma individual. Lembre-se o questionário não é obrigatório, contudo sua resposta pode ajudar a melhorar as etapas 
-                                                    e as atividades realizadas.
+                                                    Nesta etapa vocês irão realizar a avaliação das atividades realizadas. Esta etapa possui um link para uma avaliação
+                                                    que deve ser respondida de forma individual. Lembre-se o questionário não é obrigatório, contudo sua resposta pode ajudar a
+                                                    melhorar as etapas, as atividades realizadas e até a aplicação.
                                                 </h4>
                                             </div>
                                             <Accordion className="box-accordion" expanded={expanded === 'panel1h'} onChange={handleOpenBox('panel1h')} disabled={isActive}>
