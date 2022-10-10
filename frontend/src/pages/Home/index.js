@@ -42,7 +42,9 @@ export const Home = () => {
                         <Container03>
                         <Heading2>Bem-vindos ao Fast Design Sprint!</Heading2>
                         <Steps>
-                            <Text10>Nosso processo</Text10>
+                            <div className="box-btnIniciar">
+                                <button type="submit" className="btnIniciar" onClick={handleIniciarSprint}>Iniciar Sprint</button>
+                            </div>
                             <ContainerBox>
                             <Step>
                                 <ContainerIcon>
@@ -122,9 +124,6 @@ export const Home = () => {
                 <Features>
                     <HeadingContainer>
                         <Text10>Como funciona?</Text10>
-                        <Text37>
-                            Abaixo contém um vídeo que resume o funcionamento da aplicação.
-                        </Text37>
                     </HeadingContainer>
                     <div className="video-box">
 
@@ -138,10 +137,7 @@ export const Home = () => {
 
                     </div>
 
-                    <div className="box-btnIniciar">
-
-                        <button type="submit" className="btnIniciar" onClick={handleIniciarSprint}>Iniciar Sprint</button>
-                    </div>
+                    
                 </Features>
 
             </Container>

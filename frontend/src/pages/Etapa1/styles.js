@@ -31,7 +31,7 @@ export const Container = styled.div`
 
         width: 100%;
 
-        margin: 50px auto;
+        margin: 0px auto;
         border: 2px solid #f39601;
         border-radius: 8px;
         padding: 25px;
@@ -621,7 +621,7 @@ export const Container = styled.div`
     @media screen and (max-width: 1440px){
         
         .content-page {
-            margin: 62px;
+            margin: 0 62px;
         }
     }
 
@@ -680,7 +680,7 @@ export const Container = styled.div`
 
          
         .atividades-box {
-            margin: 50px 35px;
+            margin: 0px 35px;
             padding: 15px;
             width: 85%;
         }
@@ -737,7 +737,7 @@ export const Container = styled.div`
         }
 
         .atividades-box {
-            margin: 50px 15px;
+            margin: 0px 25px;
         }
 
         .btn-formulario {

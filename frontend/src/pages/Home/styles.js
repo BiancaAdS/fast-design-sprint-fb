@@ -12,7 +12,7 @@ export const Container = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 30px 0;
+        margin: 0 0;
     }
 
     .video {
@@ -120,6 +120,27 @@ export const Steps = styled.div`
   align-items: center;
   flex-direction: column;
 
+  .btnIniciar {
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #0a8005;
+    border: 1px solid #0a8005;
+
+    color: #FFFFFF;
+    font-weight: 700;
+    cursor: pointer;
+
+  }
+
+  .btnIniciar:hover {
+    background-color: #FFFFFF;
+    border: 1px solid #0a8005;
+    transition: all .5s;
+
+    color: #0a8005;
+  }
+
   @media(max-width: 768px) {
     padding: 0;
     padding-top: 25px;
@@ -139,7 +160,6 @@ export const Steps = styled.div`
 
 export  const Text10 = styled.h1`
   color: black;
-  margin: 25px 0;
   font-size: 2rem;
     
   @media(max-width: 991px) {

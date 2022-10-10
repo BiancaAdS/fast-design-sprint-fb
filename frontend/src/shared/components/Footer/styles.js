@@ -2,8 +2,6 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
 
-  margin-top: 10%;
-
   .linkPages {
       text-decoration: none;
       color: #FFFFFF;
@@ -12,6 +10,8 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
 
+      text-align: center;
+
       margin-top: 15px;
       margin-bottom: 15px;
       padding-left: 15px;
@@ -19,7 +19,6 @@ export const Container = styled.div`
     }
 
     @media screen and (max-width: 768px){
-      margin-top: 20%;
 
       .linkPages {
         text-align: center;
@@ -28,7 +27,7 @@ export const Container = styled.div`
     }
 
     @media screen and (max-width: 425px){
-      margin-top: 60%;
+      /* margin-top: 60%; */
       
       .linkPages {
         padding-left: 15px;

@@ -275,11 +275,6 @@ export const Etapa3 = (props) => {
 
                     <div className="content-page">
 
-                        <div className="content-info">
-                            <h1>Bem vindos a terceira etapa{auth.user ? ", " + auth.user.username : ''}!</h1>
-                        </div>
-
-
                         <div className="atividades-box">
                     
 

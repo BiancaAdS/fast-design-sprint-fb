@@ -42,8 +42,13 @@ export const Header = (props) => {
             <NavbarContainer data-role="Header">
             <Navbar>
               <Heading projVariant="cardHeading">
-                <Link className="linkPages" to="/home">Fast Design Sprint</Link>
+                <div className="box-infoUser">
+                  <Link className="linkPages" to="/home">Fast Design Sprint</Link> 
+                  <p className="nome-user">{auth.user ? auth.user.username : ''}</p>
+                </div>
+                
               </Heading>
+              
               <LinksContainer>
                 <Link className="linkPages" to="/home">Inicio</Link>
                 <Link className="linkPages" to="/etapa1">Etapa 1</Link>

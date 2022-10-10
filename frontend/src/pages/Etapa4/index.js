@@ -255,11 +255,6 @@ export const Etapa4 = (props) => {
 
                     <div className="content-page">
 
-                        <div className="content-info">
-                            <h1>Bem vindos a quarta etapa{auth.user ? ", " + auth.user.username : ''}!</h1>
-                        </div>
-
-
                         <div className="atividades-box">
                     
 
@@ -282,7 +277,6 @@ export const Etapa4 = (props) => {
                                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                         <Box sx={{ flex: '1 1 auto' }} />
                                         <Button onClick={handleReset}>Recomeçar Atividades</Button>
-                                        {/* <Button onClick={handleReset}>Ir para a próxima etapa</Button> */}
                                         </Box>
                                     </React.Fragment>
                                     ) : (
