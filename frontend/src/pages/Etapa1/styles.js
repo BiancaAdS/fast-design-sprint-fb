@@ -7,91 +7,29 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
 
-    margin: 80px auto;
-
-    .box-step {
-        padding: 32px;
-    }
-
-    .step .Mui-completed {
-        color: green;
-    }
-
-    .completedStep {
-        color: green;
-      
-        font-weight: 700;
-    }
-
-    .notCompletedStep {
-        font-weight: 700;
-    }
-
-    .atividades-box {
-
-        width: 100%;
-
-        margin: 0px auto;
-        border: 2px solid #f39601;
-        border-radius: 8px;
+    .bloco-atvFinalizada {
+        margin: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid #127899;
         padding: 25px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-
-    .content-info {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .tab-box {
-        border: 2px solid #f39601;
-        border-top: 0;
-        border-left: 0;
-        border-right: 0;
-        color: #f39601;
-        
-        width: 100%;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-    }
-
-    .tab-box .Mui-selected {
-        background-color: #feca74;
-        color: #FFFFFF;
-    }
-
-    .tab-etapas {
-        color: #f39601;
-
-        border: 2px solid #f39601;
-        border-bottom: 0;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .tab-etapas:hover {
-        background-color: #f39601;
-        color: #FFFFFF;
-        transition: all .5s;
-    }
-
-    .text-title {
-        font-weight: bold;
-        color: #f39601;
-        outline: none;
+        border-radius: 8px;
     }
 
     .seConhecem {
-       margin-top: 5px;
+       margin-top: 25px;
+       margin-bottom: -25px;
     }
 
+    .atvAnt {
+        display: none;
+    }
+
+    .atvAtual {
+        display: block;
+    }
+    
     .radio-n {
         margin-left: 15px;
     }
@@ -101,202 +39,12 @@ export const Container = styled.div`
     }
 
     .info-seConhecem {
-        margin-bottom: -20px;
+        margin: 65px;
+        margin-bottom: 0;
         font-size: 12px;
         font-weight: 600;
         color: orange;
-    }
-
-    .border {
-        border: 2px solid #f39601;
-        border-radius: 0 0 8px 8px;
-        border-top: 0;    
-    }
-
-    .container-accordion {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .contador-open {
-        align-items: flex-start;
-
-        span:first-child {
-            padding-top: 3%;
-        }   
-        
-        span {
-            padding-top: 5%;
-        }
-    }
-
-    
-
-   
-    .contador {
-        margin-right: 15px;
-        counter-increment: section ;
-        margin: 0px;
-        margin-top: 0px;
-        margin-bottom: 4%;
-       
-        align-items: center;
-        position: relative;
-        display: block;
-    }
-
-    .contador:nth-child(even) {
-        margin-right: 30px;
-        padding-right: 0px;
-        margin-top: -5px;
-        margin-left: 18px;
-    }
-
-    .contador:nth-child(odd) {
-        margin-right: 30px;
-        padding-right: 0px;
-        margin-top: -5px;
-        margin-left: 18px;
-    }
-
-    .formacao-equipe {
-        margin: 35px auto;
-        padding: 15px;
-
-        counter-reset: section;
-    }
-
-    .formacao-equipe .contador::before {
-        content: counter(section, lower-alpha);
-
-        margin-left: -18px;
-        position: absolute;
-        border-radius: 50%;
-
-        margin-right: 15px;
-
         text-align: center;
-        line-height: 32px;
-        font-weight: bold;
-        height: 34px;
-        width: 34px;
-        color: rgb(255, 255, 255);
-        font-size: 20px;
-        background-color: rgb(255, 152, 0);
-    }
-
-    .mapeamento-problema {
-        margin: 35px auto;
-        padding: 15px;
-
-        counter-reset: section;
-    }
-
-    .mapeamento-problema  .contador::before {
-        content: counter(section, lower-alpha);
-
-        margin-left: -18px;
-        position: absolute;
-        border-radius: 50%;
-
-        margin-right: 15px;
-
-        text-align: center;
-        line-height: 32px;
-        font-weight: bold;
-        height: 34px;
-        width: 34px;
-        color: rgb(255, 255, 255);
-        font-size: 20px;
-        background-color: rgb(255, 152, 0);
-    }
-
-    .mentoria {
-        margin: 35px auto;
-        padding: 15px;
-
-        counter-reset: section;
-    }
-
-    .mentoria .contador::before {
-        content: counter(section, lower-alpha);
-
-        margin-left: -18px;
-        position: absolute;
-        border-radius: 50%;
-
-        margin-right: 15px;
-
-        text-align: center;
-        line-height: 32px;
-        font-weight: bold;
-        height: 34px;
-        width: 34px;
-        color: rgb(255, 255, 255);
-        font-size: 20px;
-        background-color: rgb(255, 152, 0);
-    }
-
-    .validacao-problema {
-        margin: 35px auto;
-        padding: 15px;
-
-        counter-reset: section;
-    }
-
-    .validacao-problema .contador::before {
-        content: counter(section, lower-alpha);
-
-        margin-left: -18px;
-        position: absolute;
-        border-radius: 50%;
-
-        margin-right: 15px;
-
-        text-align: center;
-        line-height: 32px;
-        font-weight: bold;
-        height: 34px;
-        width: 34px;
-        color: rgb(255, 255, 255);
-        font-size: 20px;
-        background-color: rgb(255, 152, 0);
-    }
-
-    .revisao-processo {
-        margin: 35px auto;
-        padding: 15px;
-
-        counter-reset: section;
-    }
-
-    .revisao-processo .contador::before {
-        content: counter(section, lower-alpha);
-
-        margin-left: -18px;
-        position: absolute;
-        border-radius: 50%;
-
-        margin-right: 15px;
-
-        text-align: center;
-        line-height: 32px;
-        font-weight: bold;
-        height: 34px;
-        width: 34px;
-        color: rgb(255, 255, 255);
-        font-size: 20px;
-        background-color: rgb(255, 152, 0);
-    }
-
-    .metodos-avaliacao {
-        margin: 35px auto;
-        padding: 15px;
-    }
-
-    .text-title-etapa {
-        margin-bottom: 15px;
     }
 
     .text-subtitle {
@@ -306,16 +54,6 @@ export const Container = styled.div`
         line-height: 22px;
     }   
 
-    .box-accordion {
-        margin: 25px 0;
-        border: 2px solid #f39601;
-
-        svg {
-            fill: #f39601;
-            stroke: #f39601;
-        }
-    }
-        
     .timer-box {
         display: flex;
         align-items: center;
@@ -324,6 +62,14 @@ export const Container = styled.div`
         margin-right: 5px;
     }
 
+    .mobile-timer {
+        display: block;
+    }
+
+    .destkop-timer {
+        display: none;
+    }
+    
     .content-timer {
         background-color: #2BCCDE;
         border: 3px solid #0EA7B9;
@@ -338,72 +84,11 @@ export const Container = styled.div`
         margin-bottom: 10px;
     }
 
-    .atv-container {
-        padding: 35px;
-        text-align: justify;
-    }
-
-    .atv-containerOnly {
-        padding: 10px;
-        text-align: justify;
-    }
-
-    .box-atv {
-        margin-top: 15px;
-    }
-
-    .text-title-inside {
-        margin: 5px 0;
-        font-size: 16px;
-        font-weight: 700;
-    }
-
-    .iniciar-atv {
-        p {
-            margin-bottom: 15px;
-        }
-    }
-
-    .btn-atv {
-        width: 150px;
-        height: 25px;
-        border-radius: 15px;
-        border: 1px solid green;
-        background-color: green;
-        color: #FFFFFF;
-        font-weight: bold;
-        font-size: 14px;
-        cursor: pointer;
-
-        margin-right: 5px;
-    }
-
-    .btn-atv:hover {
-        background-color: #FFFFFF;
-        color: green;
-    }
-
-    .selected {
-        background-color: gray;
-        color: #FFFFFF;
-        border: 1px solid gray;
-        cursor: auto;
-    }
-
-    .selected:hover {
-        background-color: gray;
-        color: #FFFFFF;
-        border: 1px solid gray;
-    }
-
-    .papeis-etapa {
-        width: 100%;
-    }
-
     .papeis{
         width: 100%;
 
         margin: 25px 0;
+        margin-bottom: 0;
     }
 
     .text-papel {
@@ -413,31 +98,6 @@ export const Container = styled.div`
         font-size: 14px;
         font-weight: 700;
     }
-
-    .btn-Box {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .btn-proxAtv {
-        width: 230px;
-        height: 25px;
-        border-radius: 15px;
-        border: 1px solid #f39601;
-        background-color: #f39601;
-        color: #FFFFFF;
-        font-weight: 500;
-        font-size: 14px;
-        cursor: pointer;
-
-        margin-top: 15px;
-    }
-
-    .btn-proxAtv:hover {
-        background-color: #FFFFFF;
-        color: #f39601;
-    } 
 
     .btn-formulario {
         margin-top: 15px;
@@ -458,116 +118,23 @@ export const Container = styled.div`
         color: #f39601;
     }
 
-    .aberto {
-        background-color: #FFFFFF;
-    }
-
-    .disabled {
-        background-color: gray;
-        color: #FFFFFF;
-        border: 1px solid gray;
-        cursor: auto;
-    }
-
-    .disabled:hover {
-        background-color: gray;
-        color: #FFFFFF;
-        border: 1px solid gray;
-    }
-
-    .finalizada {
-        background-color: #88c425;
-        color:  #FFFFFF;
-        font-weight: bold;
-    }
-
-    .finalizarAtv {
-        margin: 10px;
-        label {
-            font-weight: 700;
-        }
-        input {
-            margin-left: 10px;
-        }
-    }
-
-    .finalizar-etapa {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        margin: 70px 0;
-    }
-
-    .btn-finalEtapa {
-        width: 250px;
-        height: 50px;
-        border-radius: 10px;
-        background-color: #0a8005;
-        border: 1px solid #0a8005;
-
-        color: #FFFFFF;
-        font-weight: 700;
-        cursor: pointer;
-        display: none;
-    }
-
-    .finalizada-etapa {
-        display: block;
-    }
-
-    .btn-finalEtapa:hover {
-        background-color: #FFFFFF;
-        border: 1px solid #0a8005;
-        transition: all .5s;
-
-        color: #0a8005;
-    }
-
     .video-box {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 30px 0;
+        margin: 0px 30px;
     }
 
     .video {
         width: calc(100%);
-        height: 409px;
+        height: 600px;
     }
 
-    .mobile {
-        display: none;
-    }
-
-    .center {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .counter {
-        width: 35px;
-        height: 30px;
-        background-color: #1565c0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        border-radius: 90%;
-    }
-
-    .counter-completed {
-        width: 40px;
-        background-color: green;
-    }
-
-    .icon-pop{
+    .icon-pop {
         width: 18px;
         position: absolute;
         margin-left: 78px;
-        margin-top: 11px;
+        margin-top: 12px;
         cursor: pointer;
     }
 
@@ -575,7 +142,7 @@ export const Container = styled.div`
         width: 18px;
         position: absolute;
         margin-left: 70px;
-        margin-top: 102px;
+        margin-top: 106px;
         cursor: pointer;
     }
 
@@ -583,7 +150,7 @@ export const Container = styled.div`
         width: 18px;
         position: absolute;
         margin-left: 86px;
-        margin-top: 195px;
+        margin-top: 202px;
         cursor: pointer;
     }
 
@@ -591,7 +158,7 @@ export const Container = styled.div`
         width: 18px;
         position: absolute;
         margin-left: 102px;
-        margin-top: 286px;
+        margin-top: 297px;
         cursor: pointer;
     }
 
@@ -599,7 +166,7 @@ export const Container = styled.div`
         width: 18px;
         position: absolute;
         margin-left: 102px;
-        margin-top: 378px;
+        margin-top: 392px;
         cursor: pointer;
     }
 
@@ -617,93 +184,19 @@ export const Container = styled.div`
         border-radius: 8px;
     }
 
-
-    @media screen and (max-width: 1440px){
-        
-        .content-page {
-            margin: 0 62px;
-        }
-    }
-
-    @media screen and (max-width: 1024px){
-        .tab-etapas {
-            padding: 5px;
-        }
-    }
-
-    @media screen and (max-width: 975px){
-        
-        .tab-etapas {
-            width: 20%;
-        }
-    }
-
     @media screen and (max-width: 768px){
-        
-        
-        .content-page {
-            margin: 42px;
-        }
-
-        .box-step {
-            padding: 10px;
-        }
-       
-        .tab-box {
-            width: 100%;
-            display: flex;
-            justify-content: start;
-            align-items: center;
-
-            flex-wrap: wrap;
-        }
-       
-        .tab-etapas {
-            width: 20%;
-        }
-
         .video {
             width: calc(100%);
             height: 409px;
+        }
+
+        .info-seConhecem {
+            margin: 65px 25px;
         }
     }
 
     @media screen and (max-width: 425px){
-        
-        .content-page {
-            margin: 0px;
-        }
-
-        .content-info {
-            margin: 0px 35px;
-        }
-
-         
-        .atividades-box {
-            margin: 0px 35px;
-            padding: 15px;
-            width: 85%;
-        }
-
         .timer-box {
-            justify-content: center;
-        }
-
-        .tab-box {
-            width: 100%;
-            display: flex;
-        }
-        .atv-container {
-            padding: 20px;
-        }
-
-        .tab-etapas {
-            width: 100%;
-            border-radius: 0;
-        }
-
-
-        .btn-Box {
             justify-content: center;
         }
 
@@ -711,41 +204,11 @@ export const Container = styled.div`
             width: calc(100%);
             height: 409px;
         }
-
-
-    }
-
-    @media screen and (max-width: 375px){
-          
-        .atividades-box {
-            width: 80%;
-        }
-
-        .contador {
-            display: none;
-        }
     }
 
     @media screen and (max-width: 320px){
-    
-        .atv-container {
-            padding: 15px;
-        }
-
-        .btn-atv {
-            width: 100%;
-        }
-
-        .atividades-box {
-            margin: 0px 25px;
-        }
-
         .btn-formulario {
             font-size: 12px;
-        }
-
-        .btn-proxAtv {
-            height: 40px;
         }
     }
 

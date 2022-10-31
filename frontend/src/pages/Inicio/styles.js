@@ -34,7 +34,7 @@ export const Container = styled.div`
         justify-content: flex-start;
 
         border-radius: 8px;
-        border: 3px solid #f39601;
+        border: 3px solid #127899;
 
         padding: 10px 50px;
 
@@ -84,8 +84,8 @@ export const Container = styled.div`
         margin-top: 15px;
         height: 25px;
         border-radius: 15px;
-        border: 1px solid #f39601;
-        background-color: #f39601;
+        border: 1px solid #127899;
+        background-color: #127899;
         color: #FFFFFF;
         font-weight: bold;
         font-size: 14px;
@@ -97,7 +97,8 @@ export const Container = styled.div`
 
     .btn-formulario:hover {
         background-color: #FFFFFF;
-        color: #f39601;
+        color: #127899;
+        transition: all .5s;
     }
 
     .equipeExiste {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container } from './styles'
 
 
-export const  Timer = ({ setIsActive, min, setHasFinised, isActive }) => {
+export const  Timer = ({ setIsActive, min, setHasFinised, isActive, setTempoAtvAtual }) => {
     
     const [time, setTime] = useState(0 * 60);
     
@@ -23,9 +23,11 @@ export const  Timer = ({ setIsActive, min, setHasFinised, isActive }) => {
                 setTime(time-1);
                 
             }, 1000)
+            setTempoAtvAtual(time)
         } else if(isActive && time === 0){
             setHasFinised(true);
             setIsActive(false);
+            
         }
 
     }, [isActive, time])

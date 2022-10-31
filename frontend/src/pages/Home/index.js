@@ -1,5 +1,10 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext }  from "react";
+import { useNavigate } from 'react-router-dom'
+
+import { AuthContext } from "..//../contexts/Auth/AuthContext";
+
+import { Header } from '../../shared/components/Header'
+import { MenuLateral } from '../../shared/components/MenuLateral'
 
 import { 
     Container,
@@ -29,14 +34,19 @@ export const Home = () => {
 
     const navigate = useNavigate()
 
+    const auth = useContext(AuthContext)
+
     const handleIniciarSprint = () => {
+        auth.logoutUser()
         navigate('/etapa1', { replace: true })
     }
 
     const youtubeIDApresentacaoPlataforma = '32n6EF1tOJE'
 
+    const etapas = ['Inicio', 'Etapa 1', 'Etapa 2', 'Etapa 3', 'Etapa 4']
+
     return (
-            <Container>            
+            <Container>
                 <ContainerInside>
                     <Hero>
                         <Container03>
@@ -141,5 +151,8 @@ export const Home = () => {
                 </Features>
 
             </Container>
+            
+            
+        
         )
 }

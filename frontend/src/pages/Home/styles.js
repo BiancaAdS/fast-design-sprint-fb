@@ -13,21 +13,15 @@ export const Container = styled.div`
         justify-content: center;
         align-items: center;
         margin: 0 0;
+        width: 85%;        
+        height: 550px;
+
     }
 
     .video {
-        width: 727px;
-        height: 409px;
+        width: 100%;
+        height: 100%;
     }
-
-  @media screen and (max-width: 425px){
-      
-    .video {
-      width: calc(100%);
-      height: 409px;
-    }
-
-  }
 
 `
   
@@ -98,7 +92,7 @@ export const Heading2 = styled.h1`
   };
 
   @media(max-width: 479px) {
-    text-align: left;
+    text-align: center;
     padding: 0;
     padding-left: 30px;
     padding-right: 20px;
@@ -144,8 +138,8 @@ export const Steps = styled.div`
   @media(max-width: 768px) {
     padding: 0;
     padding-top: 25px;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
         
   };
 
@@ -336,6 +330,10 @@ export const Features = styled.div`
 
   @media screen and (max-width: 1440px) {
     max-width: 1100px;
+  }
+
+  @media screen and (max-width: 768) {
+    padding: 0px 25px 32px;
   }
 
   @media(max-width: 479px) {

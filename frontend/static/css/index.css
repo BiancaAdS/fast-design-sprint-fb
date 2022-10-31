@@ -8,7 +8,7 @@
   font-family: 'Montserrat', sans-serif;
 
   scrollbar-width: thin;
-  scrollbar-color: #2BCCDE #0EA7B9;
+  scrollbar-color: gray gray;
 }
 
 *::-webkit-scrollbar {
@@ -21,15 +21,15 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #2BCCDE;
+  background-color: gray;
   border-radius: 20px;
-  border: 1px solid #0EA7B9;
+  border: 1px solid gray;
   width: 6px;
   height: 6px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color:#0EA7B9;
+  background-color: #AEAEAE;
 }
 
 html, body {

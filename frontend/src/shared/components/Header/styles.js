@@ -5,6 +5,10 @@ export const Container = styled.div`
     display: block;
   }
 
+  .desktop {
+    width: 30%;
+  }
+
   .linkPages {
     text-decoration: none;
     margin: 0 10px;
@@ -33,6 +37,7 @@ export const Container = styled.div`
 
   .linkPagesMob:hover {
     background-color: white;
+    color: black;
     transition: all 0.5s;
   }
 `;
