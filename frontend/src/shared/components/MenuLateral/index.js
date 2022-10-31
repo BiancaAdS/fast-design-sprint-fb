@@ -317,7 +317,7 @@ export const MenuLateral = (props) => {
                         </IconButton>
                         {props.home ? '' : 
                         <Typography variant="h6" noWrap component="div" className='profile-menu'>
-                            {auth.user ? auth.user.username : ''} | <button type='button' className='btn-sair' onClick={handleFinalizar}>Sair</button>
+                            {props.nomeEquipe ? props.nomeEquipe : ''} | <button type='button' className='btn-sair' onClick={handleFinalizar}>Sair</button>
                         </Typography>}
                     </Toolbar>
 
