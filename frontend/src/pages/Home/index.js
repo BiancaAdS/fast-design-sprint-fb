@@ -3,9 +3,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { AuthContext } from "..//../contexts/Auth/AuthContext";
 
-import { Header } from '../../shared/components/Header'
-import { MenuLateral } from '../../shared/components/MenuLateral'
-
 import { 
     Container,
     ContainerInside,
@@ -26,7 +23,6 @@ import {
     Features,
     HeadingContainer,
     TextP,
-    Text37
 } from "./styles"; 
 
 
@@ -41,9 +37,7 @@ export const Home = () => {
         navigate('/etapa1', { replace: true })
     }
 
-    const youtubeIDApresentacaoPlataforma = '32n6EF1tOJE'
-
-    const etapas = ['Inicio', 'Etapa 1', 'Etapa 2', 'Etapa 3', 'Etapa 4']
+    const youtubeIDApresentacaoPlataforma = 'c54fMF924Yo'
 
     return (
             <Container>
@@ -147,12 +141,8 @@ export const Home = () => {
 
                     </div>
 
-                    
                 </Features>
 
             </Container>
-            
-            
-        
-        )
+    )
 }

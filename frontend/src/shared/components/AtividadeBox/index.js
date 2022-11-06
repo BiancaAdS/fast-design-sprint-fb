@@ -17,7 +17,7 @@ export const AtividadeBox = (props) => {
             <div className={`${props.activeStep === props.i ? 'atvAtualBox' : ''}`}>
 
                 <h5 className={`${props.activeStep === props.i ? 'atvAtual' : 'atvAnt'}`} style={{ textAlign: 'center' }}>{props.item.title}</h5>
-                <div className={`bloco-atv ${props.activeStep === props.i ? 'atvAtual' : 'atvAnt'}`}>
+                <div className={`bloco-atv ${props.activeStep === props.i ? 'atvAtual' : 'atvAnt'} ${props.activeStep === 0 ? 'bloco-atv-video' : ''} `}>
                     <Chip label={props.item.tipo} className="chipAtv" />
                 
                     <Typography paragraph >

@@ -63,8 +63,9 @@ export const Etapa1 = (props) => {
         retrospectiva: false
     })
 
-    const [youtubeIDSeparacaoEquipe] = useState('wq3MnTvRV-Y')
-    const [youtubeIDAquecimentoEquipe] = useState('sM7BrKIMNk4')
+    const [youtubeIDSeparacaoEquipe] = useState('me73nXuSIJI')
+    const [youtubeIDAquecimentoEquipe] = useState('I0Oq3saF_JU')
+
     const [youtubeIDDefinicaoPapeis] = useState('6xAvGshgwjI')
 
     const [atvCompleta1, setAtvCompleta1] = useState(false)
@@ -404,13 +405,6 @@ export const Etapa1 = (props) => {
             titleAtv: 'Video de Apresentação',
             tipo: 'Grupo',
             descr: <>
-            
-            <h4 className="text-subtitle">
-                Nesta etapa vocês irão realizar atividades que tem como objetivo iniciar a formação/aproximação de sua equipe.
-                Contendo atividades que visam, aproximar vocês e definir seus papéis na equipes. <br /> <strong>Lembrem-se</strong>, cada atividade
-                possui um tempo estimado para serem realizadas. O tempo é disponibilizado em cada atividade e para acompanhar esse tempo
-                lembre sempre de olhar para o relógio.
-            </h4>
                 <div className={` ${activeStep === 0 ? 'atvAtual' : 'atvAnt'}`} style={{ margin: '25px' }}>
                     <Typography paragraph >
 
@@ -869,7 +863,7 @@ export const Etapa1 = (props) => {
 
     return (
         <Container>
-            <MenuLateral pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={atvsTitle} completedAtv={completedSteps} atividades={atvsTitle} geral={geral} nomeEquipe={nomeDaEquipe}>
+            <MenuLateral isActive={isActive} etapaAtual={'1'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={atvsTitle} completedAtv={completedSteps} atividades={atvsTitle} geral={geral} nomeEquipe={nomeDaEquipe}>
                 <div style={{ height: '100%', marginBottom: '85px' }}>
 
                     {atvs.map((item, i) => (
@@ -890,7 +884,7 @@ export const Etapa1 = (props) => {
                             </AtividadeBox>
                         </>
                     ))}
-                    {acabouAtv ?
+                    {acabouAtv && (activeStep === Object.keys(completed).length) ?
                         <div className='bloco-atvFinalizada'>
                             <Typography sx={{ mt: 2, mb: 1 }}>
                                 Todas as atividades foram completadas. Vocês podem seguir para a próxima etapa ou recomeçar as atividades.

@@ -346,7 +346,7 @@ export const Etapa4 = (props) => {
 
     return (
             <Container>
-                <MenuLateral pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={atvsTitle} completedAtv={completedSteps} atividades={atvsTitle} geral={geral} nomeEquipe={auth.user.username}>
+                <MenuLateral isActive={isActive} etapaAtual={'4'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={atvsTitle} completedAtv={completedSteps} atividades={atvsTitle} geral={geral} nomeEquipe={auth.user.username}>
                     <div style={{ height: '100%', marginBottom: '85px' }}>
                         {atvs.map((item, i) => (
                             <AtividadeBox isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
@@ -357,7 +357,7 @@ export const Etapa4 = (props) => {
                                 </div>
                             </AtividadeBox>
                         ))}
-                        {acabouAtv ?
+                        {acabouAtv && (activeStep === Object.keys(completed).length) ?
                             <div className='bloco-atvFinalizada'>
                                 <Typography sx={{ mt: 2, mb: 1 }}>
                                     Todas as atividades foram completadas. Vocês terminaram todas as etapas :).

@@ -131,35 +131,12 @@ export const MenuLateral = (props) => {
 
 
             </List>
-            <Divider light={true} />
-            <List>
-            {props.geral ? <ListItemButton onClick={handleClick} className='title-macro'>
-
-                    <Typography variant='h6' className='title-macro'>Visão Geral</Typography>
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton> : null}
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        {props.geral && props.geral.map((text) => (
-                            <ListItem key={text}>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <TaskIcon sx={{ color: 'gray' }} />
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-                                    
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Collapse>
-            </List>
             {props.home ? '' : <Divider light={true} /> }
                        
             <List>
                 {props.atividades ? <ListItemButton onClick={handleClickAtv} className='title-macro'>
 
-                    <Typography variant='h6' className='title-macro'>Atividades da Etapa</Typography>
+                    <Typography variant='h6' className='title-macro'>Atividades da Etapa {props.etapaAtual}</Typography>
                     {openAtv ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton> : null}
                 <Collapse in={openAtv} timeout="auto" unmountOnExit style={{ textAlign: 'center' }}>
@@ -167,7 +144,7 @@ export const MenuLateral = (props) => {
                     {props.atividades && props.atividades.map((text,i) => (
                     <ListItem key={text} className={`${props.activeStep === i ? 'btnAtvAtual' : ''}`} >
                         <ListItemButton style={{ textAlign: 'center', justifyContent: 'center' }}>
-                            <button type='button' className={`btn-sair`} style={{ textAlign: 'center' }} onClick={() => handleLinkAtv(i)}>{text}</button>
+                            <button disabled={props.isActive} type='button' className={`btn-sair`} style={{ textAlign: 'center' }} onClick={() => handleLinkAtv(i)}>{text}</button>
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -190,7 +167,7 @@ export const MenuLateral = (props) => {
         linkHomeMob: { color: 'white', textDecoration: 'none' },
         btnSairMob: { background: 'transparent', border: '0', color: 'white', margin: '0 5px', cursor: 'pointer', textAlign: 'center' },
         timeRestMob: { display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', h6: { fontSize: '16px' , marginBottom: '10px'} },
-        btnAtvAtual: { backgroundColor: '#c1c1c1', button: { color: 'black', fontWeight: '600', textAlign: 'center' } },
+        btnAtvAtual: { backgroundColor: '#c1c1c1', justifyContent: 'center', button: { color: 'black', fontWeight: '600', textAlign: 'center', justifyContent: 'center' } },
         etapaAtual: { backgroundColor: '#c1c1c1', a: { color: 'black', fontWeight: '600' } }
     }
 
@@ -236,39 +213,12 @@ export const MenuLateral = (props) => {
                         ))}
                     </List>
                 </Collapse>
-
-
             </List>
-            <Divider light={true}/>
-            <List>
-            {props.geral ? <ListItemButton onClick={handleClick} className='title-macro'>
-
-                   <Typography variant='h6' className='title-macro'>Visão Geral</Typography>
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton> : ''}
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        {props.geral && props.geral.map((text) => (
-                            <ListItem key={text}>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <TaskIcon sx={{ color: 'gray' }} />
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Collapse>
-
-
-            </List>
-            
             {props.home ? '' : <Divider light={true}/>}
             <List>
             {props.atividades ? <ListItemButton onClick={handleClickAtv} className='title-macro'>
 
-                    <Typography variant='h6' className='title-macro'>Atividades da Etapa</Typography>
+                    <Typography variant='h6' className='title-macro'>Atividades da Etapa {props.etapaAtual}</Typography>
                     {openAtv ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>: ''}
                 <Collapse in={openAtv} timeout="auto" unmountOnExit>
@@ -276,17 +226,12 @@ export const MenuLateral = (props) => {
                     {props.atividades && props.atividades.map((text, i) => (
                     <ListItem key={text} className={`${props.activeStep === i ? stylesMob.btnAtvAtual : ''}`} >
                         <ListItemButton>
-                            <ListItemIcon>
-                                <AssignmentTurnedInIcon sx={{ color: 'gray' }} />
-                            </ListItemIcon>
-                            <button type='button' className='btn-sair' style={stylesMob.btnSairMob } onClick={() => handleLinkAtv(i)}>{text}</button>
+                            <button disabled={props.isActive} type='button' className='btn-sair' style={stylesMob.btnSairMob } onClick={() => handleLinkAtv(i)}>{text}</button>
                         </ListItemButton>
                     </ListItem>
                 ))}
                     </List>
                 </Collapse>
-
-
             </List>
         </div>
     );
