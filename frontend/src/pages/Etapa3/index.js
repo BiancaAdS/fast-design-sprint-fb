@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
+import { atividadesEtapa as instance } from '../../services/api';
+
 import { useNavigate } from 'react-router-dom'
 
 import { AuthContext } from "../../contexts/Auth/AuthContext";
@@ -61,7 +63,7 @@ export const Etapa3 = (props) => {
     }, [boxState])
 
     const totalSteps = () => {
-        return atvsTitle.length;
+        return titleAtividadesEtapa.length;
     };
 
     const completedSteps = () => {
@@ -80,7 +82,7 @@ export const Etapa3 = (props) => {
         const newActiveStep =
             isLastStep() && !allStepsCompleted()
                 ?
-                atvsTitle.findIndex((step, i) => !(i in completed))
+                titleAtividadesEtapa.findIndex((step, i) => !(i in completed))
                 : activeStep + 1;
         setActiveStep(newActiveStep);
     };
@@ -500,14 +502,44 @@ export const Etapa3 = (props) => {
         setPathName(pathName)
     }, [])
 
+    const [atividadesEtapa, setAtividadesEtapa] = useState([])
+    const [titleAtividadesEtapa, setTitleAtividadesEtapa] = useState([])
+
+    useEffect(() => {
+
+        const loadAtividades = async () => {
+            const { data } = await instance.get('/etapa3/?ordering=create_at')
+
+            setAtividadesEtapa(data)
+        }
+
+        loadAtividades()
+        
+    }, [])
+
+    useEffect(() => {
+
+        let lst = []
+        const handleTitleAtividadesApi = () => {
+
+            atividadesEtapa.forEach(atividade => {
+                if(atividade.titleAtv !== '') {
+                    lst.push(atividade.titleAtv)
+                } else {
+                    lst.push(atividade.title)
+                }
+            })
+        }
+        handleTitleAtividadesApi()
+        setTitleAtividadesEtapa(lst)
+    }, [atividadesEtapa])
 
     return (
             <Container>
-
-                <MenuLateral isActive={isActive} etapaAtual={'3'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={atvsTitle} completedAtv={completedSteps} atividades={atvsTitle} geral={geral} nomeEquipe={auth.user.username}>
+                <MenuLateral isActive={isActive} etapaAtual={'3'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={titleAtividadesEtapa} completedAtv={completedSteps} atividades={titleAtividadesEtapa} geral={geral} nomeEquipe={auth.user.username}>
                     <div style={{ height: '100%', marginBottom: '85px' }}>
-                        {atvs.map((item, i) => (
-                            <AtividadeBox isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
+                        {atividadesEtapa.map((item, i) => (
+                            <AtividadeBox setLinkRetrospectiva={setLinkRetrospectiva} etapaAtual={'3'} atvCompleta={atvCompleta} linkRetrospectiva={linkRetrospectiva} infoRetrospectivaPreenchida={infoRetrospectivaPreenchida} handleInformacaoEquipe={handleInformacaoEquipe}  isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
                                 <div className={`timer-box ${width < 600 ? 'mobile-timer' : 'destkop-timer'}`}>
                                     <div className="content-timer">
                                         <Timer setTempoAtvAtual={setTempoAtvAtual} min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />
@@ -515,7 +547,7 @@ export const Etapa3 = (props) => {
                                 </div>
                             </AtividadeBox>
                         ))}
-                        {acabouAtv && (activeStep === Object.keys(completed).length)  ?
+                        {allStepsCompleted() ?
                             <div className='bloco-atvFinalizada'>
                                 <Typography sx={{ mt: 2, mb: 1 }}>
                                     Todas as atividades foram completadas. Vocês podem seguir para a próxima etapa ou recomeçar as atividades.
@@ -524,7 +556,7 @@ export const Etapa3 = (props) => {
                         }
                     </div>
                 </MenuLateral>
-                <FooterAtv setAcabouAtv={setAcabouAtv} allStepsCompleted={allStepsCompleted} handleNextEtapa={handleNextEtapa} handleReset={handleReset} completedSteps={completedSteps} totalSteps={totalSteps} width={width} activeStep={activeStep} isActive={isActive} handleBack={handleBack} handleNext={handleNext} steps={atvsTitle} completed={completed} handleComplete={handleComplete} disabled={isActive}></FooterAtv>
+                <FooterAtv setAcabouAtv={setAcabouAtv} allStepsCompleted={allStepsCompleted} handleNextEtapa={handleNextEtapa} handleReset={handleReset} completedSteps={completedSteps} totalSteps={totalSteps} width={width} activeStep={activeStep} isActive={isActive} handleBack={handleBack} handleNext={handleNext} steps={titleAtividadesEtapa} completed={completed} handleComplete={handleComplete} disabled={isActive}></FooterAtv>
             </Container>
         )
 }

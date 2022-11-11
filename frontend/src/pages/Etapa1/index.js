@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
+import { atividadesEtapa as instance } from '../../services/api';
+
 import { useNavigate } from 'react-router-dom'
 
 import { AuthContext } from "../../contexts/Auth/AuthContext";
@@ -11,6 +13,8 @@ import { AtividadeBox } from '../../shared/components/AtividadeBox';
 
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -184,7 +188,7 @@ export const Etapa1 = (props) => {
     }, [boxState])
 
     const totalSteps = () => {
-        return atvsTitle.length;
+        return titleAtividadesEtapa.length;
     };
 
     const completedSteps = () => {
@@ -203,7 +207,7 @@ export const Etapa1 = (props) => {
         const newActiveStep =
             isLastStep() && !allStepsCompleted()
                 ?
-                atvsTitle.findIndex((step, i) => !(i in completed))
+                titleAtividadesEtapa.findIndex((step, i) => !(i in completed))
                 : activeStep + 1;
         setActiveStep(newActiveStep);
     };
@@ -396,8 +400,6 @@ export const Etapa1 = (props) => {
         handleInfoPreenchida()
 
     }, [carregar])
-
-    const geral = ['Formação da Equipe', 'Mapeamento', 'Mentoria', 'Validação', 'Revisão', 'Avaliação']
 
     const atvs = [
         {
@@ -860,13 +862,44 @@ export const Etapa1 = (props) => {
         setPathName(pathName)
     }, [])
 
+    const [atividadesEtapa, setAtividadesEtapa] = useState([])
+    const [titleAtividadesEtapa, setTitleAtividadesEtapa] = useState([])
+
+    useEffect(() => {
+
+        const loadAtividades = async () => {
+            const { data } = await instance.get('/etapa1/?ordering=create_at')
+
+            setAtividadesEtapa(data)
+        }
+
+        loadAtividades()
+        
+    }, [])
+
+    useEffect(() => {
+
+        let lst = []
+        const handleTitleAtividadesApi = () => {
+
+            atividadesEtapa.forEach(atividade => {
+                if(atividade.titleAtv !== '') {
+                    lst.push(atividade.titleAtv)
+                } else {
+                    lst.push(atividade.title)
+                }
+            })
+        }
+        handleTitleAtividadesApi()
+        setTitleAtividadesEtapa(lst)
+    }, [atividadesEtapa])
+
 
     return (
         <Container>
-            <MenuLateral isActive={isActive} etapaAtual={'1'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={atvsTitle} completedAtv={completedSteps} atividades={atvsTitle} geral={geral} nomeEquipe={nomeDaEquipe}>
+            <MenuLateral isActive={isActive} etapaAtual={'1'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={titleAtividadesEtapa} completedAtv={completedSteps} atividades={titleAtividadesEtapa} nomeEquipe={nomeDaEquipe}>
                 <div style={{ height: '100%', marginBottom: '85px' }}>
-
-                    {atvs.map((item, i) => (
+                    {atividadesEtapa.map((item, i) => (
                         <>
                             {
                                 (item.titleAtv === 'Video de Aquecimento' || item.titleAtv === 'Preenchimento Canvas de Aquecimento' || item.titleAtv === 'Apresentação do Canvas para a equipe') && item.macro === 'Aquecimento da Equipe' && seConhecem ?
@@ -875,16 +908,19 @@ export const Etapa1 = (props) => {
                                         Vocês podem ir para as próximas atividades.
                                     </div> : ''
                             }
-                            <AtividadeBox isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
+                            
+                            <AtividadeBox setLinkRetrospectiva={setLinkRetrospectiva} setQuantidadeIntegrantes={setQuantidadeIntegrantes} setNomeDaEquipe={setNomeDaEquipe} atvCompleta1={atvCompleta1} quantidadeIntegrantes={quantidadeIntegrantes} setEquipeExiste={setEquipeExiste} equipeExiste={equipeExiste} nomeDaEquipe={nomeDaEquipe} infoPrincipalPreenchida={infoPrincipalPreenchida} handleNomeEquipe={handleNomeEquipe} setScrumMaster={setScrumMaster} setEntrevistador={setEntrevistador} setObservador={setObservador} setDefinidor={setDefinidor} setFacilitador={setFacilitador} infoPapeisPreenchida={infoPapeisPreenchida} facilitador={facilitador} definidor={definidor} observador={observador} entrevistador={entrevistador} scrumMaster={scrumMaster} atvCompleta2={atvCompleta2} etapaAtual={'1'} atvCompleta3={atvCompleta3} linkRetrospectiva={linkRetrospectiva} infoRetrospectivaPreenchida={infoRetrospectivaPreenchida} handleInformacaoEquipe={handleInformacaoEquipe}  isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
                                 <div className={`timer-box ${width < 600 ? 'mobile-timer' : 'destkop-timer'}`}>
                                     <div className="content-timer">
                                         <Timer setTempoAtvAtual={setTempoAtvAtual} min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />
                                     </div>
                                 </div>
+                                {!item ? <CircularProgress /> : ''}
+
                             </AtividadeBox>
                         </>
                     ))}
-                    {acabouAtv && (activeStep === Object.keys(completed).length) ?
+                    {allStepsCompleted() ?
                         <div className='bloco-atvFinalizada'>
                             <Typography sx={{ mt: 2, mb: 1 }}>
                                 Todas as atividades foram completadas. Vocês podem seguir para a próxima etapa ou recomeçar as atividades.
@@ -893,7 +929,7 @@ export const Etapa1 = (props) => {
                     }
                 </div>
             </MenuLateral>
-            <FooterAtv setAcabouAtv={setAcabouAtv} allStepsCompleted={allStepsCompleted} handleNextEtapa={handleNextEtapa} handleReset={handleReset} completedSteps={completedSteps} totalSteps={totalSteps} width={width} activeStep={activeStep} isActive={isActive} handleBack={handleBack} handleNext={handleNext} steps={atvsTitle} completed={completed} handleComplete={handleComplete} disabled={isActive}></FooterAtv>
+            <FooterAtv setAcabouAtv={setAcabouAtv} allStepsCompleted={allStepsCompleted} handleNextEtapa={handleNextEtapa} handleReset={handleReset} completedSteps={completedSteps} totalSteps={totalSteps} width={width} activeStep={activeStep} isActive={isActive} handleBack={handleBack} handleNext={handleNext} steps={titleAtividadesEtapa} completed={completed} handleComplete={handleComplete} disabled={isActive}></FooterAtv>
         </Container>
     )
 }
