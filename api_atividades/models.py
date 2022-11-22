@@ -23,7 +23,7 @@ class AtividadesEtapa(models.Model):
     tempoEstimado = models.IntegerField(default=0, blank=True)
     proxima = models.OneToOneField('self', null=True, on_delete=models.CASCADE, related_name='proximaAtividade', default="")
     etapaPertencente = models.ForeignKey(Etapa, on_delete=models.CASCADE, related_name='etapaPertencente')
-    criado_em = models.DateTimeField(auto_now_add=True)
+    criadoEm = models.DateTimeField(auto_now_add=True)
     
 class HistoricoAtividades(models.Model):
     id_atividade = models.ForeignKey(AtividadesEtapa, on_delete=models.CASCADE)
