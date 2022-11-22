@@ -13,12 +13,12 @@ export const Container = styled.div`
     }
 
     .bloco-atv {
-        margin: 25px;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 25px;
         border-radius: 8px;
+        margin: 0 25px;
+        padding: 0px 25px;
     }
 
     .bloco-atv-video {

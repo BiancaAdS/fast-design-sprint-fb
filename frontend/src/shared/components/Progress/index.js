@@ -34,23 +34,25 @@ LinearProgressWithLabel.propTypes = {
 
 export default function LinearWithValueLabel(props) {
   const [progress, setProgress] = React.useState(0);
-
+  
   let tamCompletos = props.atvsCompleted();
   const valor = (100 * 1) / props.atvsTitle.length;
 
   React.useEffect(() => {
-    const handlçeAtividadesCompletas = () => {
-
-      setProgress((prevProgress) =>
-        prevProgress === 100 ? 100 : prevProgress + valor
-      );
+    const handleAtividadesCompletas = () => {
+      let progressValor = tamCompletos * valor
+      setProgress(progressValor);
     };
+
     if (tamCompletos !== 0) {
-      handlçeAtividadesCompletas();
+      if(props.atvsTitle.length !== 0) {
+        handleAtividadesCompletas();
+      }
+      
     } else {
       setProgress(0);
     }
-  }, [tamCompletos]);
+  }, [tamCompletos, props.atvsTitle.length]);
 
   return (
     <Box sx={{ width: "100%" }}>

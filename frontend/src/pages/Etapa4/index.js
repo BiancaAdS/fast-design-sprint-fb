@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { FormControl, TextField } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { Container } from './styles'
 
@@ -82,11 +83,16 @@ export const Etapa4 = (props) => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleComplete = () => {
+    const handleDictCompleted = (indice=activeStep) => {
         const newCompleted = completed;
-        newCompleted[activeStep] = true;
+        newCompleted[indice] = true;
         setCompleted(newCompleted);
+    }
+
+    const handleComplete = (tituloAtividade, informacaoExtra="") => {
+        handleDictCompleted(activeStep)
         handleNext();
+        handleConclusaoAtividades(auth.user.username, tituloAtividade)
     };
 
     const handleReset = () => {
@@ -125,10 +131,10 @@ export const Etapa4 = (props) => {
                 observador: data.observador,
                 entrevistador: data.entrevistador,
                 scrumMaster: data.scrumMaster,
-                linkRetrospectiva1: data.linkRetrospectiva1,
-                linkRetrospectiva2: data.linkRetrospectiva2,
-                linkRetrospectiva3: data.linkRetrospectiva3,
-                linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : linkRetrospectiva,
+                // linkRetrospectiva1: data.linkRetrospectiva1,
+                // linkRetrospectiva2: data.linkRetrospectiva2,
+                // linkRetrospectiva3: data.linkRetrospectiva3,
+                // linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : linkRetrospectiva,
                 etapaFinalizada: "etapa4"
             })
         } 
@@ -187,146 +193,199 @@ export const Etapa4 = (props) => {
 
         const handleInfoPreenchida = async () => {
             if(auth.user) {
+                const etapaAtualAt = 4
+                const id_atividade = 58
                 const { data } = await axios.get(`/api/equipes/${auth.user.username}`)
+                const infoExtra = await instance.get(`/historicoAtividades/?id_equipe=${data.id}&etapaAtividade=${etapaAtualAt}&id_atividade=${id_atividade}`)
                  
                 if(JSON.parse(localStorage.getItem('novaSprint')) !== true) {
-                    setLinkRetrospectiva(data.linkRetrospectiva4)
-
-                    if(data.linkRetrospectiva4.length !== 0 ) {
-                        setInfoRetrospectivaPreenchida(true)
+                    if(infoExtra.data.length !== 0) {
+                        setLinkRetrospectiva(infoExtra.data[0].informacaoExtra)
+                        if(infoExtra.data[0].informacaoExtra) {
+                            if (infoExtra.data[0].informacaoExtra.length !== 0) {
+                                setInfoRetrospectivaPreenchida(true)
+                            }
+                        }
                     }
+                    
                 }
             }
         }
         handleInfoPreenchida()
     }, [atvCompleta])
 
-    const geral = ['Aprimoramento da Solução', 'Apresentação da Solução', 'Revisão', 'Avaliação']
+    const [atividadeCompleted, setAtividadeCompleted] = useState([])
+    const [listaAtividadeCompleted, setListaAtividadeCompleted] = useState([])
+
+    const [atividadesFoiFinalizada, setAtividadesFoiFinalizada] = useState(false)
+
+    const etapaAtividadePertence = 4
+    const handleAtividadesConcluidas = async (nomeEquipe) => {
+
+        const infoEquipe = await axios.get(`api/equipes/${nomeEquipe}`)
+        const historicoAtiv = await instance.get(`historicoAtividades/?id_equipe=${infoEquipe.data.id}&etapaAtividade=${etapaAtividadePertence}`)
+        setAtividadeCompleted(historicoAtiv.data)
+        setListaAtividadeCompleted(infoEquipe.data.atividades)
+        setAtividadesFoiFinalizada(true)
+    }
+
+    
+    useEffect(() => {
+        const handleAtividadesPertenceEtapa = async () => {
+            let lstAtividadePertencente = []
+            for(var i = 0; i < atividadeCompleted.length; i ++) {
+                const infoAtividade = await instance.get(`/atividades/${atividadeCompleted[i].id_atividade}/`)
+                if(infoAtividade.data.etapaPertencente === 4) {
+                    lstAtividadePertencente.push(atividadeCompleted[i])
+                }
+            }
+        }
+        handleAtividadesPertenceEtapa()
+        atividadeCompleted.sort(function(a, b){return a - b}).forEach((atividadeConcluida, i) => {
+            handleDictCompleted(i)
+            setActiveStep(i+1)
+        })
+        
+    }, [atividadesFoiFinalizada])
+
+    const [atividadesAntesLogin, setAtividadesAntesLogin] = useState([])
+
+    const handleConclusaoAtividades = async (nomeEquipe, tituloAtividade, informacaoExtra=linkRetrospectiva) => {
+
+        const infoEquipe = await axios.get(`api/equipes/${nomeEquipe}`)
+        const etapa = 4
+        const infoAtividade = await instance.get(`atividades/?etapaPertencente=${etapa}&tituloAtividade=${tituloAtividade}`)
+
+        let idEquipe = infoEquipe.data.id
+        let idAtividade = infoAtividade.data[0].id_atividade
+        
+        instance.post('historicoAtividades/', {
+            id_atividade: idAtividade,
+            id_equipe: idEquipe,
+            informacaoExtra: informacaoExtra,
+            etapaAtividade: 4,
+        }).catch((err) => console.log(err.response.data.non_field_errors[0], idAtividade))
+    }
+
+    useEffect(() => {
+        const handleAtividadesConcluidasAntesLogin = async () => {
+            if(auth.user) {
+                if(atividadesAntesLogin.length !== 0) {
+                    for(var i = 0; i < atividadesAntesLogin.length; i++) {
+
+                        const infoEquipe = await axios.get(`api/equipes/${auth.user.username}`)
+                        const infoAtividade = await instance.get(`atividades/?tituloAtividade=${atividadesAntesLogin[i].id_atividade}`)
+            
+                        let idEquipe = infoEquipe.data.id
+                        let idAtividade = infoAtividade.data[0].id_atividade
+                        
+                        if(listaAtividadeCompleted.includes(idAtividade)) {
+                            atividadesAntesLogin.splice(i,1)
+                        } else {
+                            instance.post('historicoAtividades/', {
+                                id_atividade: idAtividade,
+                                id_equipe: idEquipe,
+                                informacaoExtra: linkRetrospectiva,
+                                etapaAtividade: 4,
+                            }).catch((err) => console.log(err.response.data.non_field_errors[0], idAtividade))
+                        }
+                        
+                        
+                    }
+                }
+            }
+        }
+       
+        handleAtividadesConcluidasAntesLogin()
+        
+    }, [auth.user, atividadesAntesLogin])
+
+    useEffect(() => {
+        if(auth.user) {
+            handleAtividadesConcluidas(auth.user.username)
+        }
+    }, [])
+
 
     const atvs = [
         {
             title: 'REFORMULAÇÃO DO PROTÓTIPO',
             titleAtv: 'Reformulação do protótipo com base nas respostas de pesquisas',
             tipo: 'Grupo',
-            descr: <>O grupo deve realizar a reformulação do protótipo com base nos 
-            pontos obtidos das pesquisas aplicadas na etapa três, realizando a análise se é viável ou não aplicar as melhorias que foram 
-            apontadas nos resultados das análises.
-            <br /></>,
+            descr: <div>O grupo deve realizar a reformulação do protótipo com base nos pontos obtidos das pesquisas aplicadas na etapa três, realizando a análise se é viável ou não aplicar as melhorias que foram apontadas nos resultados das análises.<br /></div>,
             link: '',
             descrLink: '',
-            descrTemp: <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>15 minutos</strong> para finalizar a mesma.</p> ,
             tempo: 15,
-            macro: 'Aprimoramento da solução ou protótipo'
         },
         {
             title: 'REVISÃO DA SOLUÇÃO',
             titleAtv: 'Revisão da solução ou protótipo',
             tipo: 'Grupo',
-            descr: <>O grupo deve realizar a revisão da solução/protótipo com base na 
-            reformulação feita na atividade anterior, podendo levar em conta a análise feita, os comentários obtidos do mentor e novas ideias 
-            que podem vim a surgir dos integrantes após essa rodada de validação.
-            <br /></>,
+            descr: <div>O grupo deve realizar a revisão da solução/protótipo com base na reformulação feita na atividade anterior, podendo levar em conta a análise feita, os comentários obtidos do mentor e novas ideias que podem vim a surgir dos integrantes após essa rodada de validação.<br /></div>,
             link: '',
             descrLink: '',
-            descrTemp: <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p>,
             tempo: 10,
-            macro: 'Aprimoramento da solução ou protótipo'
         },
 
         {
             title: 'APRESENTAÇÃO PARA O MENTOR',
             titleAtv: 'Apresentação da equipe e do problema/ideia escolhido para o mentor',
             tipo: 'Grupo',
-            descr: <>O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, 
-                seus integrantes e como a solução foi finalizada) para o mentor. A apresentação pode ser rápida, 
-                apenas para que o mentor saiba como ficou o desenvolvimento completo da solução escolhida pela equipe.
-                Deixando tempo para possíveis considerações do mentor acerca da solução implementada pela equipe.
-                <br /></>,
+            descr: <div>O grupo deve realizar a apresentação do seu grupo (informando o nome da equipe, seus integrantes e como a solução foi finalizada) para o mentor. A apresentação pode ser rápida, apenas para que o mentor saiba como ficou o desenvolvimento completo da solução escolhida pela equipe. Deixando tempo para possíveis considerações do mentor acerca da solução implementada pela equipe.<br /></div>,
             link: '',
             descrLink: '',
-            descrTemp: <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> ,
             tempo: 5,
-            macro: 'Mentoria'
         },
         {
             title: 'RETORNO DA EQUIPE',
             titleAtv: 'Retorno da equipe',
             tipo: 'Grupo',
-            descr: <>Após a apresentação da solução definida para o mentor, 
-            o grupo terá um tempo para se preparar para a próxima apresentação, que será feita para a turma. 
-            <br /></>,
+            descr: <div>Após a apresentação da solução definida para o mentor, o grupo terá um tempo para se preparar para a próxima apresentação, que será feita para a turma.<br /></div>,
             link: '',
             descrLink: '',
-            descrTemp: <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>5 minutos</strong> para finalizar a mesma.</p> ,
             tempo: 5,
-            macro: 'Mentoria'
         },
         {
             title: 'APRESENTAÇÃO PARA A TURMA',
             titleAtv: 'Apresentação da equipe e do problema/ideia escolhido para a turma',
             tipo: 'Grupo',
-            descr: <>O grupo deve realizar uma rápida apresentação do seu grupo (informando o nome da equipe, 
-                seus integrantes e como a solução foi finalizada)para a turma. A apresentação pode ser rápida, 
-                apenas para que a turma saiba como ficou o desenvolvimento completo da solução escolhida pela equipe.                
-                <br /></>,
+            descr: <div>O grupo deve realizar uma rápida apresentação do seu grupo (informando o nome da equipe, seus integrantes e como a solução foi finalizada)para a turma. A apresentação pode ser rápida, apenas para que a turma saiba como ficou o desenvolvimento completo da solução escolhida pela equipe.<br /></div>,
             link: '',
             descrLink: '',
-            descrTemp: <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>3 minutos</strong> para finalizar a mesma.</p>,
             tempo: 3,
-            macro: 'Mentoria'
         },
 
         {
             title: 'RETROSPECTIVA DA SPRINT',
             titleAtv: 'Retrospectiva da Sprint',
             tipo: 'Grupo',
-            descr: <>O grupo deve realizar uma retrospectiva, ponderando e pensando sobre todas as atividades
-            realizadas no dia e responder algumas questões, como: <strong> <em>O que tem funcionado?, O que não funcionou?, O que pode ser melhorado?</em> </strong>, sobre tudo que for realizado,
-            em individual e em grupo, para que nas próximas etapas os pontos encontrados nessa retrospectiva sejam aplicados ou evitados nas atividades a seguir. 
-            Para realizar essa atividade, é necessário clicar no link abaixo, vocês irão para uma plataforma especifica que contém essa perguntas, 
-            o facilitador deverá ser responsável por guiar todos da equipe, na realização da tarefa. Tanto na plataforma terá um relógio para que a equipe 
-            acompanhe o tempo.
-            <br />
-                <form onSubmit={handleInformacaoEquipe}>
-
-                <FormControl fullWidth>
-                    <label className="text-papel">Link da Retrospectiva preenchida</label>
-                    <TextField disabled={infoRetrospectivaPreenchida} value={linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
-                    <Button disabled={atvCompleta || infoRetrospectivaPreenchida} type="submit" className="btn-formulario">Enviar Informações</Button>
-                </FormControl>
-
-            </form><br /><br />
-            O modelo da Retrospectiva está disponível no link: <br /></>,
+            descr: <div>O grupo deve realizar uma retrospectiva, ponderando e pensando sobre todas as atividades realizadas no dia e responder algumas questões, como: <strong> <em>O que tem funcionado?, O que não funcionou?, O que pode ser melhorado?</em> </strong>, sobre tudo que for realizado, em individual e em grupo, para que nas próximas etapas os pontos encontrados nessa retrospectiva sejam aplicados ou evitados nas atividades a seguir. Para realizar essa atividade, é necessário clicar no link abaixo, vocês irão para uma plataforma especifica que contém essa perguntas, o facilitador deverá ser responsável por guiar todos da equipe, na realização da tarefa. Tanto na plataforma terá um relógio para que a equipe acompanhe o tempo.<br /><form onSubmit={handleInformacaoEquipe}><FormControl fullWidth><label className="text-papel">Link da Retrospectiva preenchida</label><TextField disabled={infoRetrospectivaPreenchida} value={linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && linkRetrospectiva !== '' ? linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" /><Button disabled={atvCompleta || infoRetrospectivaPreenchida} type="submit" className="btn-formulario">Enviar Informações</Button></FormControl></form><br /><br />O modelo da Retrospectiva está disponível no link: <br /></div>,
             link: 'https://docs.google.com/drawings/d/1WWcMllAeZOwbzd_1VsRnoZHcBBUxnOYdbUMSq7UvPWQ/edit?usp=sharing',
             descrLink: 'Clique aqui para abrir o modelo',
-            descrTemp: <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>10 minutos</strong> para finalizar a mesma.</p>,
             tempo: 10,
-            macro: 'Retrospectiva do Processo'
         },
 
         {
             title: 'AVALIAÇÃO DO PROCESSO',
             titleAtv: 'Avaliação do processo',
             tipo: 'Individual',
-            descr: <>Nesta etapa vocês irão realizar a avaliação das atividades realizadas. Esta etapa possui um link para uma avaliação
-            que deve ser respondida de forma individual. Lembre-se o questionário não é obrigatório, contudo sua resposta pode ajudar a
-            melhorar as etapas, as atividades realizadas e até a aplicação. <br /><br /></>,
+            descr: <div>Nesta etapa vocês irão realizar a avaliação das atividades realizadas. Esta etapa possui um link para uma avaliação que deve ser respondida de forma individual. Lembre-se o questionário não é obrigatório, contudo sua resposta pode ajudar a melhorar as etapas, as atividades realizadas e até a aplicação. <br /><br /></div>,
             link: 'https://forms.gle/awyN4q8yUKmS6r6i6',
             descrLink: 'Clique aqui para realizar a avaliação',
             descrTemp: '',
             tempo: 0,
-            macro: 'Avaliação do Processo'
-        }
-    ]
+        },
 
-    const atvsTitle = [
-        'Reformulação do protótipo com base nas respostas de pesquisas',
-        'Revisão da solução ou protótipo',
-        'Apresentação da equipe e do problema/ideia escolhido para o mentor',
-        'Retorno da equipe',
-        'Apresentação da equipe e do problema/ideia escolhido para a turma',
-        'Retrospectiva da Sprint',
-        'Avaliação do processo',
+        {
+            title: 'AVALIAÇÃO DA PLATAFORMA',
+            titleAtv: 'Avaliação da plataforma',
+            tipo: 'Individual',
+            descr: <div>Nesta etapa vocês irão realizar a avaliação da plataforma utilizada. Esta etapa possui um link para uma avaliação que deve ser respondida de forma individual. Lembre-se o questionário não é obrigatório, contudo sua resposta pode ajudar a melhorar a aplicação. <br /><br /></div>,
+            link: 'https://forms.gle/HZgaSgGTKL1RFGnc7',
+            descrLink: 'Clique aqui para realizar a avaliação',
+            descrTemp: '',
+            tempo: 0,
+        }
     ]
 
     const [acabouAtv, setAcabouAtv] = useState(false)
@@ -348,18 +407,19 @@ export const Etapa4 = (props) => {
     const [atividadesEtapa, setAtividadesEtapa] = useState([])
     const [titleAtividadesEtapa, setTitleAtividadesEtapa] = useState([])
 
+    const sequenciaEtapa = 3
     useEffect(() => {
 
         const loadAtividades = async () => {
-            const { data } = await instance.get('/etapa4/?ordering=create_at')
+            const { data: etapaAtualAtv } = await instance.get(`etapas/?ordering=proxima`)
+            const idEtapaAtual = etapaAtualAtv[sequenciaEtapa].id_etapa
 
+            const { data } = await instance.get(`/atividades/?ordering=proxima&etapaPertencente=${idEtapaAtual}`)
             setAtividadesEtapa(data)
         }
 
         loadAtividades()
-        
     }, [])
-
 
     useEffect(() => {
 
@@ -367,11 +427,14 @@ export const Etapa4 = (props) => {
         const handleTitleAtividadesApi = () => {
 
             atividadesEtapa.forEach(atividade => {
-                if(atividade.titleAtv !== '') {
-                    lst.push(atividade.titleAtv)
+                
+                if(atividade.tituloAtividade !== '') {
+                    lst.push(atividade.tituloAtividade)
                 } else {
-                    lst.push(atividade.title)
+                    lst.push(atividade.titulo)
                 }
+                  
+                
             })
         }
         handleTitleAtividadesApi()
@@ -379,10 +442,9 @@ export const Etapa4 = (props) => {
     }, [atividadesEtapa])
 
 
-
     return (
             <Container>
-                <MenuLateral isActive={isActive} etapaAtual={'4'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={titleAtividadesEtapa} completedAtv={completedSteps} atividades={titleAtividadesEtapa} geral={geral} nomeEquipe={auth.user.username}>
+                <MenuLateral completed={completed} isActive={isActive} etapaAtual={'4'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={titleAtividadesEtapa} completedAtv={completedSteps} atividades={titleAtividadesEtapa} nomeEquipe={auth.user.username}>
                     <div style={{ height: '100%', marginBottom: '85px' }}>
                         {atividadesEtapa.map((item, i) => (
                             <AtividadeBox etapaAtual={'4'} atvCompleta={atvCompleta} setLinkRetrospectiva={setLinkRetrospectiva} linkRetrospectiva={linkRetrospectiva} handleInformacaoEquipe={handleInformacaoEquipe} infoRetrospectivaPreenchida={infoRetrospectivaPreenchida} isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
@@ -395,9 +457,10 @@ export const Etapa4 = (props) => {
                         ))}
                         {allStepsCompleted() ?
                             <div className='bloco-atvFinalizada'>
-                                <Typography sx={{ mt: 2, mb: 1 }}>
+                                {atividadesEtapa.length !== 0 ? 
+                                <Typography sx={{ mt: 2, mb: 1, fontWeight: 700  }}>
                                     Todas as atividades foram completadas. Vocês terminaram todas as etapas :).
-                                </Typography>
+                                </Typography> : <CircularProgress></CircularProgress> }
                             </div> : null
                         }
                     </div>

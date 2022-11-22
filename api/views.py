@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 
 from .serializers import EquipesSerializer, CreateEquipesSerializer
 from .models import Equipes
+from api_atividades.models import AtividadesEtapa
 
 from django.contrib.auth import authenticate, login
 
@@ -79,6 +80,18 @@ class EquipeDetailAPIView(APIView):
         else:
             return Response({})
 
+class EquipeAtividadesView(APIView):
+    
+    def get(self, request, nomeDaEquipe):
+        equipe= Equipes.objects.filter(nomeDaEquipe=nomeDaEquipe)
+        if(equipe.exists()):
+            serializer= EquipesSerializer(equipe[0])
+            
+            return Response(serializer.data['atividades'], status=status.HTTP_200_OK)
+        else:
+            return Response({})
+        
+
 
 class CreateEquipesView(APIView):
     serializer_class = CreateEquipesSerializer
@@ -91,44 +104,35 @@ class CreateEquipesView(APIView):
         if(serializer.is_valid()):
             nomeDaEquipe = serializer.data.get('nomeDaEquipe')
             quantidadeIntegrantes =  serializer.data.get('quantidadeIntegrantes')
-            seConhecem = serializer.data.get('seConhecem')
             definidor = serializer.data.get('definidor')
             facilitador = serializer.data.get('facilitador')
             observador = serializer.data.get('observador')    
             entrevistador = serializer.data.get('entrevistador')    
             scrumMaster = serializer.data.get('scrumMaster') 
             etapaFinalizada = serializer.data.get('etapaFinalizada')
-            linkRetrospectiva1 = serializer.data.get('linkRetrospectiva1')
-            linkRetrospectiva2 = serializer.data.get('linkRetrospectiva2')
-            linkRetrospectiva3 = serializer.data.get('linkRetrospectiva3')
-            linkRetrospectiva4 = serializer.data.get('linkRetrospectiva4')
             equipeAtual = self.request.session.session_key
-                
+                            
             queryset = Equipes.objects.filter(nomeDaEquipe=nomeDaEquipe)
             if(queryset.exists()):
                 equipe = queryset[0]
                 equipe.nomeDaEquipe = nomeDaEquipe
                 equipe.quantidadeIntegrantes =  quantidadeIntegrantes
                 equipe.etapaFinalizada = etapaFinalizada
-                equipe.seConhecem = seConhecem
                 equipe.definidor = definidor
                 equipe.facilitador = facilitador
                 equipe.observador = observador
                 equipe.entrevistador = entrevistador
                 equipe.scrumMaster = scrumMaster
-                equipe.linkRetrospectiva1 = linkRetrospectiva1
-                equipe.linkRetrospectiva2 = linkRetrospectiva2
-                equipe.linkRetrospectiva3 = linkRetrospectiva3
-                equipe.linkRetrospectiva4 = linkRetrospectiva4
                 equipeAtual = self.request.session.session_key
              
-                equipe.save(update_fields=['equipeAtual','nomeDaEquipe', 'quantidadeIntegrantes', 'etapaFinalizada','seConhecem', 'definidor', 'facilitador', 'observador', 'entrevistador', 'scrumMaster','linkRetrospectiva1', 'linkRetrospectiva2', 'linkRetrospectiva3', 'linkRetrospectiva4'])
+                equipe.save(update_fields=['equipeAtual','nomeDaEquipe', 'quantidadeIntegrantes', 'etapaFinalizada','definidor', 'facilitador', 'observador', 'entrevistador', 'scrumMaster'])
                 return Response(EquipesSerializer(equipe).data, status=status.HTTP_200_OK)
             else:
                 user = User.objects.create_user(username=nomeDaEquipe, first_name=nomeDaEquipe, password=nomeDaEquipe)
                 user.save()
-                equipe = Equipes(equipeAtual=equipeAtual, nomeDaEquipe=nomeDaEquipe, quantidadeIntegrantes=quantidadeIntegrantes, seConhecem=seConhecem, definidor=definidor, facilitador=facilitador, observador=observador, entrevistador=entrevistador, scrumMaster=scrumMaster,etapaFinalizada=etapaFinalizada, linkRetrospectiva1=linkRetrospectiva1, linkRetrospectiva2=linkRetrospectiva2, linkRetrospectiva3=linkRetrospectiva3, linkRetrospectiva4=linkRetrospectiva4)
+                equipe = Equipes(equipeAtual=equipeAtual, nomeDaEquipe=nomeDaEquipe, quantidadeIntegrantes=quantidadeIntegrantes, definidor=definidor, facilitador=facilitador, observador=observador, entrevistador=entrevistador, scrumMaster=scrumMaster,etapaFinalizada=etapaFinalizada)
                 equipe.save()
+                serializer = CreateEquipesSerializer(equipe)
                 return Response(EquipesSerializer(equipe).data, status=status.HTTP_201_CREATED)
             
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)

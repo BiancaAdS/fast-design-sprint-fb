@@ -67,7 +67,7 @@ export const FooterAtv = (props) => {
                                             </>
                                             
                                         ) : (
-                                        <Button className="btn-handleAtvs" onClick={props.handleComplete} disabled={props.isActive}>
+                                        <Button className="btn-handleAtvs" onClick={() => props.handleComplete(props.steps[props.activeStep])} disabled={props.isActive}>
                                             {props.completedSteps() === props.totalSteps() - 1
                                             ? 'Finalizar Etapa'
                                             : 'Próxima Atividade'}

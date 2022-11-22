@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
+EQUIPES_DIR = BASE_DIR.resolve().parent / 'equipes'
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,8 +36,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'drf_yasg',
+    'django_filters',
     
-    'frontend.apps.FrontendConfig'
+    'frontend.apps.FrontendConfig',
+    'api_atividades.apps.ApiAtividadesConfig',
 ]
 
 REST_FRAMEWORK = {
@@ -87,6 +92,22 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    "https://fast-design-sprint.vercel.app"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'https://fast-design-sprint.vercel.app'
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
 ROOT_URLCONF = 'fast_design_sprint.urls'
 

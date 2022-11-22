@@ -142,7 +142,7 @@ export const MenuLateral = (props) => {
                 <Collapse in={openAtv} timeout="auto" unmountOnExit style={{ textAlign: 'center' }}>
                     <List component="div" disablePadding style={{ textAlign: 'center' }}>
                     {props.atividades && props.atividades.map((text,i) => (
-                    <ListItem key={text} className={`${props.activeStep === i ? 'btnAtvAtual' : ''}`} >
+                    <ListItem key={text} className={`${props.activeStep === i ? 'btnAtvAtual' : ''} ${props.completed[i] ? 'atv-completed' : ''}`} >
                         <ListItemButton style={{ textAlign: 'center', justifyContent: 'center' }}>
                             <button disabled={props.isActive} type='button' className={`btn-sair`} style={{ textAlign: 'center' }} onClick={() => handleLinkAtv(i)}>{text}</button>
                         </ListItemButton>
@@ -168,7 +168,8 @@ export const MenuLateral = (props) => {
         btnSairMob: { background: 'transparent', border: '0', color: 'white', margin: '0 5px', cursor: 'pointer', textAlign: 'center' },
         timeRestMob: { display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', h6: { fontSize: '16px' , marginBottom: '10px'} },
         btnAtvAtual: { backgroundColor: '#c1c1c1', justifyContent: 'center', button: { color: 'black', fontWeight: '600', textAlign: 'center', justifyContent: 'center' } },
-        etapaAtual: { backgroundColor: '#c1c1c1', a: { color: 'black', fontWeight: '600' } }
+        etapaAtual: { backgroundColor: '#c1c1c1', a: { color: 'black', fontWeight: '600' } },
+        atvCompleted: { color: '#FFFFFF', backgroundColor: 'green' }
     }
 
     const drawerMob = (
@@ -217,16 +218,16 @@ export const MenuLateral = (props) => {
             {props.home ? '' : <Divider light={true}/>}
             <List>
             {props.atividades ? <ListItemButton onClick={handleClickAtv} className='title-macro'>
-
+                                    
                     <Typography variant='h6' className='title-macro'>Atividades da Etapa {props.etapaAtual}</Typography>
                     {openAtv ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>: ''}
                 <Collapse in={openAtv} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                     {props.atividades && props.atividades.map((text, i) => (
-                    <ListItem key={text} className={`${props.activeStep === i ? stylesMob.btnAtvAtual : ''}`} >
+                    <ListItem key={text} style={props.activeStep === i ? stylesMob.btnAtvAtual : props.completed[i] ? stylesMob.atvCompleted : {} } >
                         <ListItemButton>
-                            <button disabled={props.isActive} type='button' className='btn-sair' style={stylesMob.btnSairMob } onClick={() => handleLinkAtv(i)}>{text}</button>
+                            <button disabled={props.isActive} type='button' className='btn-sair' style={stylesMob.btnSairMob} onClick={() => handleLinkAtv(i)}>{text}</button>
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -286,7 +287,7 @@ export const MenuLateral = (props) => {
                             hr: { borderColor: ' #c1c1c1' }
                         }}
                     >
-                        {drawerMob}
+                        {mobileOpen ? drawerMob : ''}
                     </Drawer>
                     <Drawer
                         variant="permanent"
@@ -296,7 +297,7 @@ export const MenuLateral = (props) => {
                         }}
                         open
                     >
-                        {drawer}
+                        {!mobileOpen ? drawer : ''}
                     </Drawer>
                 </Box>
                 <Box

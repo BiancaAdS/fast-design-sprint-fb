@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 0;
   padding: 0;
 
   main {
@@ -16,6 +16,7 @@ export const Container = styled.div`
     margin: 0 5px;
     cursor: pointer;
   }
+  
 
   .btnAtvAtual {
     background-color: #c1c1c1;
@@ -110,6 +111,12 @@ export const Container = styled.div`
     justify-content: space-between;
     font-size: 18px;
     font-weight: 700;
+  }
+
+  
+  .atv-completed {
+      color: #FFFFFF;
+      background-color: green;
   }
 
   @media screen and (max-width: 425px) {

@@ -93,7 +93,7 @@ export const AtividadeBox = (props) => {
                 if(props.etapaAtual === '1' && titleAtv.includes('Retrospectiva')) {
                     if (name === 'form' ) {
                         return (
-                            <form onSubmit={props.handleInformacaoEquipe}>
+                            <form onSubmit={(e) => e.preventDefault()}>
                                 <FormControl fullWidth>
                                     <label className="text-papel">Link da Retrospectiva preenchida</label>
                                     <TextField disabled={props.infoRetrospectivaPreenchida} value={props.linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && props.linkRetrospectiva !== '' ? props.linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => props.setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
@@ -107,7 +107,7 @@ export const AtividadeBox = (props) => {
                 if(props.etapaAtual === '2' && titleAtv.includes('Retrospectiva')) {
                     if (name === 'form' ) {
                         return (
-                            <form onSubmit={props.handleInformacaoEquipe}>
+                            <form onSubmit={(e) => e.preventDefault()}>
                                 <FormControl fullWidth>
                                     <label className="text-papel">Link da Retrospectiva preenchida</label>
                                     <TextField disabled={props.infoRetrospectivaPreenchida} value={props.linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && props.linkRetrospectiva !== '' ? props.linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => props.setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
@@ -121,7 +121,7 @@ export const AtividadeBox = (props) => {
                 if(props.etapaAtual === '3' && titleAtv.includes('Retrospectiva')) {
                     if (name === 'form' ) {
                         return (
-                            <form onSubmit={props.handleInformacaoEquipe}>
+                            <form onSubmit={(e) => e.preventDefault()}>
                                 <FormControl fullWidth>
                                     <label className="text-papel">Link da Retrospectiva preenchida</label>
                                     <TextField disabled={props.infoRetrospectivaPreenchida} value={props.linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && props.linkRetrospectiva !== '' ? props.linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => props.setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
@@ -135,7 +135,7 @@ export const AtividadeBox = (props) => {
                 if(props.etapaAtual === '4' && titleAtv.includes('Retrospectiva')) {
                     if (name === 'form' ) {
                         return (
-                            <form onSubmit={props.handleInformacaoEquipe}>
+                            <form onSubmit={(e) => e.preventDefault()}>
                                 <FormControl fullWidth>
                                     <label className="text-papel">Link da Retrospectiva preenchida</label>
                                     <TextField disabled={props.infoRetrospectivaPreenchida} value={props.linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && props.linkRetrospectiva !== '' ? props.linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => props.setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
@@ -156,6 +156,22 @@ export const AtividadeBox = (props) => {
         return tags
     }
 
+   
+
+    const handleTempoAtividade = (tempo) => {
+        //recebe tempo e verifica se eh minutos ou horas
+        let inteira = Math.floor(tempo / 60);
+        let resto = tempo % 60;
+        if(tempo < 60) {
+            return tempo + ' minutos';
+        } else {
+            if(tempo === 60) {
+                return inteira + " hora"
+            } else {
+                return `${inteira} hora e ${resto} minutos`
+            }
+        }
+    }
 
     return (
 
@@ -170,20 +186,20 @@ export const AtividadeBox = (props) => {
                     <Typography paragraph >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column' }}>
                             
-                            <h4 className="text-title-inside"> {props.item.titleAtv} </h4>
+                            <h4 className="text-title-inside"> {props.item.tituloAtividade} </h4>
                             
                            {props.children}
                         </div>
                         
                         <div className="box-atv">
-                            {stringToHTML(props.item.descr, props.item.titleAtv)}
-                            <a rel='noreferrer' href={`${props.item.link}`} target="_blank">{props.item.descrLink}</a>
+                            {stringToHTML(props.item.descricao, props.item.tituloAtividade)}
+                            <a rel='noreferrer' href={`${props.item.link}`} target="_blank">{props.item.descricaoLink}</a>
                             <br />
                             <br />
-                            { props.item.tempo !== 0 ?   
+                            { props.item.tempoEstimado !== 0 ?   
                                 <div className="iniciar-atv">
-                                    {stringToHTML(props.item.descrTemp, props.item.titleAtv)}
-                                    <button className={`btn-atv ${props.isActive ? 'selected' : ''}`} onClick={() => props.handleTempoEstimado(props.item.tempo)} disabled={props.isActive || props.seConhecem}>Iniciar Atividade</button>
+                                    <p>Antes de inciar a atividade lembrem-se que vocês têm <strong>{handleTempoAtividade(props.item.tempoEstimado)}</strong> para finalizar a mesma.</p>
+                                    <button className={`btn-atv ${props.isActive ? 'selected' : ''}`} onClick={() => props.handleTempoEstimado(props.item.tempoEstimado)} disabled={props.isActive || props.seConhecem}>Iniciar Atividade</button>
                                 </div> : ''
                             }
 

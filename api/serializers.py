@@ -8,18 +8,14 @@ class EquipesSerializer(serializers.ModelSerializer):
         fields = ('id', 
                   'nomeDaEquipe', 
                   'quantidadeIntegrantes',
-                  'seConhecem', 
                   'etapaFinalizada', 
                   'definidor', 
                   'facilitador', 
                   'observador', 
                   'entrevistador',
                   'scrumMaster',
-                  'linkRetrospectiva1', 
-                  'linkRetrospectiva2', 
-                  'linkRetrospectiva3', 
-                  'linkRetrospectiva4', 
-                  'created_at'
+                  'atividades',
+                  'criado_em'
                 )
     
         
@@ -28,14 +24,9 @@ class CreateEquipesSerializer(serializers.ModelSerializer):
           model = Equipes
           fields = ('nomeDaEquipe', 
                     'quantidadeIntegrantes', 
-                    'seConhecem', 
                     'definidor', 
                     'facilitador', 
                     'observador', 
                     'entrevistador',
                     'scrumMaster',
-                    'etapaFinalizada',
-                    'linkRetrospectiva1', 
-                    'linkRetrospectiva2', 
-                    'linkRetrospectiva3', 
-                    'linkRetrospectiva4')
+                    'etapaFinalizada')
