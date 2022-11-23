@@ -131,10 +131,6 @@ export const Etapa4 = (props) => {
                 observador: data.observador,
                 entrevistador: data.entrevistador,
                 scrumMaster: data.scrumMaster,
-                // linkRetrospectiva1: data.linkRetrospectiva1,
-                // linkRetrospectiva2: data.linkRetrospectiva2,
-                // linkRetrospectiva3: data.linkRetrospectiva3,
-                // linkRetrospectiva4: data.linkRetrospectiva4 ? data.linkRetrospectiva4 : linkRetrospectiva,
                 etapaFinalizada: "etapa4"
             })
         } 
@@ -367,7 +363,7 @@ export const Etapa4 = (props) => {
                 <MenuLateral completed={completed} isActive={isActive} etapaAtual={'4'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={titleAtividadesEtapa} completedAtv={completedSteps} atividades={titleAtividadesEtapa} nomeEquipe={auth.user.username}>
                     <div style={{ height: '100%', marginBottom: '85px' }}>
                         {atividadesEtapa.map((item, i) => (
-                            <AtividadeBox etapaAtual={'4'} atvCompleta={atvCompleta} setLinkRetrospectiva={setLinkRetrospectiva} linkRetrospectiva={linkRetrospectiva} handleInformacaoEquipe={handleInformacaoEquipe} infoRetrospectivaPreenchida={infoRetrospectivaPreenchida} isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
+                            <AtividadeBox setInfoRetrospectivaPreenchida={setInfoRetrospectivaPreenchida} etapaAtual={'4'} atvCompleta={atvCompleta} setLinkRetrospectiva={setLinkRetrospectiva} linkRetrospectiva={linkRetrospectiva} handleInformacaoEquipe={handleInformacaoEquipe} infoRetrospectivaPreenchida={infoRetrospectivaPreenchida} isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
                                 <div className={`timer-box ${width < 600 ? 'mobile-timer' : 'destkop-timer'}`}>
                                     <div className="content-timer">
                                         <Timer setTempoAtvAtual={setTempoAtvAtual} min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />

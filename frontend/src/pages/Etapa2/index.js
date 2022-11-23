@@ -263,6 +263,10 @@ export const Etapa2 = (props) => {
         
     }, [atividadesFoiFinalizada])
 
+    useEffect(() => {
+        handleFinalizarAtividade()
+    }, [linkRetrospectiva])
+
     const [atividadesAntesLogin, setAtividadesAntesLogin] = useState([])
 
     const handleConclusaoAtividades = async (nomeEquipe, tituloAtividade, informacaoExtra=linkRetrospectiva) => {
@@ -280,6 +284,7 @@ export const Etapa2 = (props) => {
             informacaoExtra: informacaoExtra,
             etapaAtividade: 2,
         }).catch((err) => console.log(err.response.data.non_field_errors[0], idAtividade))
+        
     }
 
     useEffect(() => {
@@ -294,16 +299,17 @@ export const Etapa2 = (props) => {
                         let idEquipe = infoEquipe.data.id
                         let idAtividade = infoAtividade.data[0].id_atividade
                         
-                        if(listaAtividadeCompleted.includes(idAtividade)) {
-                            atividadesAntesLogin.splice(i,1)
-                        } else {
+                        // if(listaAtividadeCompleted.includes(idAtividade)) {
+                        //     atividadesAntesLogin.splice(i,1)
+                        // } else {
                             instance.post('historicoAtividades/', {
                                 id_atividade: idAtividade,
                                 id_equipe: idEquipe,
                                 informacaoExtra: linkRetrospectiva,
                                 etapaAtividade: 2,
                             }).catch((err) => console.log(err.response.data.non_field_errors[0], idAtividade))
-                        }
+                            atividadesAntesLogin.splice(i,1)
+                        // }
                         
                         
                     }
@@ -381,7 +387,7 @@ export const Etapa2 = (props) => {
                 <MenuLateral completed={completed} isActive={isActive} etapaAtual={'2'} pathname={pathName} activeStep={activeStep} setActiveStep={setActiveStep} tempoEstimado={tempoAtvAtualEstimado} tempoRestante={tempoAtvAtual} atvsTotais={titleAtividadesEtapa} completedAtv={completedSteps} atividades={titleAtividadesEtapa} nomeEquipe={auth.user.username}>
                     <div style={{ height: '100%', marginBottom: '85px' }}>
                         {atividadesEtapa.map((item, i) => (
-                            <AtividadeBox setLinkRetrospectiva={setLinkRetrospectiva} etapaAtual={'2'} atvCompleta={atvCompleta} linkRetrospectiva={linkRetrospectiva} infoRetrospectivaPreenchida={infoRetrospectivaPreenchida} handleInformacaoEquipe={handleInformacaoEquipe} isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
+                            <AtividadeBox setInfoRetrospectivaPreenchida={setInfoRetrospectivaPreenchida} setLinkRetrospectiva={setLinkRetrospectiva} etapaAtual={'2'} atvCompleta={atvCompleta} linkRetrospectiva={linkRetrospectiva} infoRetrospectivaPreenchida={infoRetrospectivaPreenchida} handleInformacaoEquipe={handleInformacaoEquipe} isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
                                 <div className={`timer-box ${width < 600 ? 'mobile-timer' : 'destkop-timer'}`}>
                                     <div className="content-timer">
                                         <Timer setTempoAtvAtual={setTempoAtvAtual} min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />

@@ -28,7 +28,6 @@ export const FooterAtv = (props) => {
                                 {props.setAcabouAtv(true)}
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                 <Box sx={{ flex: '1 1 auto' }} />
-                                <Button className="btn-handleAtvs" onClick={handleResetAtvFinalizadas}>Recomeçar Atividades</Button>
                                 { props.handleNextEtapa ? 
                                     <Button className="btn-handleAtvs" onClick={props.handleNextEtapa}>Próxima etapa</Button> :
                                     <Typography variant="h6" sx={{ color: 'black' }}>

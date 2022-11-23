@@ -400,24 +400,29 @@ export const Etapa1 = (props) => {
                 if(atividadesAntesLogin.length !== 0) {
                     const etapa = 1
                     for(var i = 0; i < atividadesAntesLogin.length; i++) {
-
-                        const infoEquipe = await axios.get(`api/equipes/${auth.user.username}`)
                         
+                        const infoEquipe = await axios.get(`api/equipes/${auth.user.username}`)
+
                         const infoAtividade = await instance.get(`atividades/?etapaPertencente=${etapa}&tituloAtividade=${atividadesAntesLogin[i].id_atividade}`)
 
                         
                         let idEquipe = infoEquipe.data.id
                         let idAtividade = infoAtividade.data[0].id_atividade
-                        if(listaAtividadeCompleted.includes(idAtividade)) {
-                            atividadesAntesLogin.splice(i,1)
-                        } else {
+                        // if(listaAtividadeCompleted.includes(idAtividade)) {
+                        //     atividadesAntesLogin.splice(i,1)
+                        // } else {
                             instance.post('historicoAtividades/', {
                                 id_atividade: idAtividade,
                                 id_equipe: idEquipe,
                                 informacaoExtra: linkRetrospectiva,
                                 etapaAtividade: 1,
                             }).catch((err) => console.log(err.response.data.non_field_errors[0], idAtividade))
-                        }
+                            handleFinalizarAtividade3()
+                            atividadesAntesLogin.splice(i,1)
+
+                        // }
+
+                        
                     }
                 }
             }
@@ -543,7 +548,7 @@ export const Etapa1 = (props) => {
                 <div style={{ height: '100%', marginBottom: '85px' }}>
                     {atividadesEtapa.map((item, i) => (
                         <>
-                            <AtividadeBox setLinkRetrospectiva={setLinkRetrospectiva} setQuantidadeIntegrantes={setQuantidadeIntegrantes} setNomeDaEquipe={setNomeDaEquipe} atvCompleta1={atvCompleta1} quantidadeIntegrantes={quantidadeIntegrantes} setEquipeExiste={setEquipeExiste} equipeExiste={equipeExiste} nomeDaEquipe={nomeDaEquipe} infoPrincipalPreenchida={infoPrincipalPreenchida} handleNomeEquipe={handleNomeEquipe} setScrumMaster={setScrumMaster} setEntrevistador={setEntrevistador} setObservador={setObservador} setDefinidor={setDefinidor} setFacilitador={setFacilitador} infoPapeisPreenchida={infoPapeisPreenchida} facilitador={facilitador} definidor={definidor} observador={observador} entrevistador={entrevistador} scrumMaster={scrumMaster} atvCompleta2={atvCompleta2} etapaAtual={'1'} atvCompleta3={atvCompleta3} linkRetrospectiva={linkRetrospectiva} infoRetrospectivaPreenchida={infoRetrospectivaPreenchida} handleInformacaoEquipe={handleInformacaoEquipe}  isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
+                            <AtividadeBox setInfoRetrospectivaPreenchida={setInfoRetrospectivaPreenchida} setLinkRetrospectiva={setLinkRetrospectiva} setQuantidadeIntegrantes={setQuantidadeIntegrantes} setNomeDaEquipe={setNomeDaEquipe} atvCompleta1={atvCompleta1} quantidadeIntegrantes={quantidadeIntegrantes} setEquipeExiste={setEquipeExiste} equipeExiste={equipeExiste} nomeDaEquipe={nomeDaEquipe} infoPrincipalPreenchida={infoPrincipalPreenchida} handleNomeEquipe={handleNomeEquipe} setScrumMaster={setScrumMaster} setEntrevistador={setEntrevistador} setObservador={setObservador} setDefinidor={setDefinidor} setFacilitador={setFacilitador} infoPapeisPreenchida={infoPapeisPreenchida} facilitador={facilitador} definidor={definidor} observador={observador} entrevistador={entrevistador} scrumMaster={scrumMaster} atvCompleta2={atvCompleta2} etapaAtual={'1'} atvCompleta3={atvCompleta3} linkRetrospectiva={linkRetrospectiva} infoRetrospectivaPreenchida={infoRetrospectivaPreenchida} handleInformacaoEquipe={handleInformacaoEquipe}  isActive={isActive} activeStep={activeStep} item={item} i={i} handleTempoEstimado={handleTempoEstimado}>
                                 <div className={`timer-box ${width < 600 ? 'mobile-timer' : 'destkop-timer'}`}>
                                     <div className="content-timer">
                                         <Timer setTempoAtvAtual={setTempoAtvAtual} min={timeClock} isActive={isActive} setIsActive={setIsActive} setHasFinised={setHasFinised} />

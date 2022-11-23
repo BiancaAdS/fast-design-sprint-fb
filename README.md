@@ -74,3 +74,8 @@ O seguinte comando deve ser executado no diretório *\frontend*:
 `npm run dev `
 
 Para acessar a aplicação acesse: ` http://127.0.0.1:8000/ ` 
+
+Caso queira acessar o SWAGGER da aplicação ATIVIDADES e ETAPA acesse o link: `[SWAGGER](https://fast-design-sprint.vercel.app/api-atividades/swagger/)"`
+
+
+Caso queira acessar a aplicação Fast Design Sprint acesse o link: `[FDS](https://fast-design-sprint.vercel.app/)"`

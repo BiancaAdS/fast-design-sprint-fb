@@ -93,7 +93,8 @@ export const AtividadeBox = (props) => {
                 if(props.etapaAtual === '1' && titleAtv.includes('Retrospectiva')) {
                     if (name === 'form' ) {
                         return (
-                            <form onSubmit={(e) => e.preventDefault()}>
+        
+                            <form onSubmit={(e) => {e.preventDefault(); props.setInfoRetrospectivaPreenchida(true)}}>
                                 <FormControl fullWidth>
                                     <label className="text-papel">Link da Retrospectiva preenchida</label>
                                     <TextField disabled={props.infoRetrospectivaPreenchida} value={props.linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && props.linkRetrospectiva !== '' ? props.linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => props.setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
@@ -107,7 +108,7 @@ export const AtividadeBox = (props) => {
                 if(props.etapaAtual === '2' && titleAtv.includes('Retrospectiva')) {
                     if (name === 'form' ) {
                         return (
-                            <form onSubmit={(e) => e.preventDefault()}>
+                            <form onSubmit={(e) => {e.preventDefault(); props.setInfoRetrospectivaPreenchida(true)}}>
                                 <FormControl fullWidth>
                                     <label className="text-papel">Link da Retrospectiva preenchida</label>
                                     <TextField disabled={props.infoRetrospectivaPreenchida} value={props.linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && props.linkRetrospectiva !== '' ? props.linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => props.setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
@@ -121,7 +122,7 @@ export const AtividadeBox = (props) => {
                 if(props.etapaAtual === '3' && titleAtv.includes('Retrospectiva')) {
                     if (name === 'form' ) {
                         return (
-                            <form onSubmit={(e) => e.preventDefault()}>
+                            <form onSubmit={(e) => {e.preventDefault(); props.setInfoRetrospectivaPreenchida(true)}}>
                                 <FormControl fullWidth>
                                     <label className="text-papel">Link da Retrospectiva preenchida</label>
                                     <TextField disabled={props.infoRetrospectivaPreenchida} value={props.linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && props.linkRetrospectiva !== '' ? props.linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => props.setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
@@ -135,7 +136,7 @@ export const AtividadeBox = (props) => {
                 if(props.etapaAtual === '4' && titleAtv.includes('Retrospectiva')) {
                     if (name === 'form' ) {
                         return (
-                            <form onSubmit={(e) => e.preventDefault()}>
+                            <form onSubmit={(e) => {e.preventDefault(); props.setInfoRetrospectivaPreenchida(true)}}>
                                 <FormControl fullWidth>
                                     <label className="text-papel">Link da Retrospectiva preenchida</label>
                                     <TextField disabled={props.infoRetrospectivaPreenchida} value={props.linkRetrospectiva} defaultValue={`${JSON.parse(localStorage.getItem('novaSprint')) !== true && props.linkRetrospectiva !== '' ? props.linkRetrospectiva : ''}`} required type={'text'} onChange={(e) => props.setLinkRetrospectiva(e.target.value)} fullWidth  margin="normal" size="small" placeholder="Informe o link da retrospectiva" variant="outlined" className="input-text" />
