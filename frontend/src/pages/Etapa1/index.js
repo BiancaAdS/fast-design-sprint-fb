@@ -461,7 +461,7 @@ export const Etapa1 = (props) => {
                     if (data.definidor.length !== 0 && data.facilitador.length !== 0 && data.observador.length !== 0 && data.entrevistador.length !== 0 && data.scrumMaster.length !== 0) {
                         setInfoPapeisPreenchida(true)
                     }
-                    
+
                     if(infoExtra.data.length !== 0) {
                         if(infoExtra.data[0].informacaoExtra) {
                             if (infoExtra.data[0].informacaoExtra.length !== 0) {
