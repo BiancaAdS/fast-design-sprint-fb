@@ -402,6 +402,7 @@ export const Etapa1 = (props) => {
                     for(var i = 0; i < atividadesAntesLogin.length; i++) {
 
                         const infoEquipe = await axios.get(`api/equipes/${auth.user.username}`)
+                        
                         const infoAtividade = await instance.get(`atividades/?etapaPertencente=${etapa}&tituloAtividade=${atividadesAntesLogin[i].id_atividade}`)
 
                         

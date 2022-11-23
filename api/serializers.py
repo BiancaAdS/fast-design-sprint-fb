@@ -15,8 +15,7 @@ class EquipesSerializer(serializers.ModelSerializer):
                   'entrevistador',
                   'scrumMaster',
                   'atividades',
-                  'criadoEm'
-                )
+                  'criadoEm')
     
         
 class CreateEquipesSerializer(serializers.ModelSerializer):

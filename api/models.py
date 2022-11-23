@@ -16,3 +16,4 @@ class Equipes(models.Model):
     atividades = models.ManyToManyField(AtividadesEtapa, related_name='atividades', default="", through=HistoricoAtividades, blank=True)
      
     criadoEm = models.DateTimeField(auto_now_add=True)
+    
