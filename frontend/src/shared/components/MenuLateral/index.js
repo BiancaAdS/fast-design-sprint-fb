@@ -90,7 +90,7 @@ export const MenuLateral = (props) => {
                 <div className='box-home'>
                     <a className='link-home' href='/home'><HomeIcon /></a>
 
-                    {props.home ? '' :  <Typography variant='h6'>FDS</Typography>}
+                    {props.home ? '' :  <h6>FDS</h6>}
 
                    
                 </div>
@@ -180,7 +180,7 @@ export const MenuLateral = (props) => {
                 <div style={stylesMob.homeMob}>
                     <a style={stylesMob.linkHomeMob} className='link-home' href='/home'><HomeIcon /></a>
 
-                   {props.home ? '' : <Typography variant='h6' style={stylesMob.h6Mob}>FDS</Typography>}
+                   {props.home ? '' : <h6 style={stylesMob.h6Mob}>FDS</h6>}
 
                 </div>
                 <Divider />
