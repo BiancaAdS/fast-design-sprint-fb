@@ -408,9 +408,9 @@ export const Etapa1 = (props) => {
                         
                         let idEquipe = infoEquipe.data.id
                         let idAtividade = infoAtividade.data[0].id_atividade
-                        // if(listaAtividadeCompleted.includes(idAtividade)) {
-                        //     atividadesAntesLogin.splice(i,1)
-                        // } else {
+                        if(listaAtividadeCompleted.includes(idAtividade)) {
+                            atividadesAntesLogin.splice(i,1)
+                        } else {
                             instance.post('historicoAtividades/', {
                                 id_atividade: idAtividade,
                                 id_equipe: idEquipe,
@@ -418,11 +418,7 @@ export const Etapa1 = (props) => {
                                 etapaAtividade: 1,
                             }).catch((err) => console.log(err.response.data.non_field_errors[0], idAtividade))
                             handleFinalizarAtividade3()
-                            atividadesAntesLogin.splice(i,1)
-
-                        // }
-
-                        
+                        } 
                     }
                 }
             }
