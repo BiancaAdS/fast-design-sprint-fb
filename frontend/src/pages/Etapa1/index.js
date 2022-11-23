@@ -403,7 +403,7 @@ export const Etapa1 = (props) => {
 
                         const infoEquipe = await axios.get(`api/equipes/${auth.user.username}`)
                         
-                        const infoAtividade = await instance.get(`atividades/?etapaPertencente=${etapa}tituloAtividade=${atividadesAntesLogin[i].id_atividade}`)
+                        const infoAtividade = await instance.get(`atividades/?etapaPertencente=${etapa}&tituloAtividade=${atividadesAntesLogin[i].id_atividade}`)
                         let idEquipe = infoEquipe.data.id
                         let idAtividade = infoAtividade.data[0].id_atividade
                         if(listaAtividadeCompleted.includes(idAtividade)) {
