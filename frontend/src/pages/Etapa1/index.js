@@ -450,16 +450,23 @@ export const Etapa1 = (props) => {
                     setObservador(data.observador)
                     setEntrevistador(data.entrevistador)
                     setScrumMaster(data.scrumMaster)
-                    setLinkRetrospectiva(infoExtra.data[0].informacaoExtra)
+                    if(infoExtra.data.length !== 0) {
+                        setLinkRetrospectiva(infoExtra.data[0].informacaoExtra)
+                    } else {
+                        setLinkRetrospectiva("")
+                    }
                     setQuantidadeIntegrantes(data.quantidadeIntegrantes)
                     setNomeDaEquipe(data.nomeDaEquipe)
 
                     if (data.definidor.length !== 0 && data.facilitador.length !== 0 && data.observador.length !== 0 && data.entrevistador.length !== 0 && data.scrumMaster.length !== 0) {
                         setInfoPapeisPreenchida(true)
                     }
-                    if(infoExtra.data[0].informacaoExtra) {
-                        if (infoExtra.data[0].informacaoExtra.length !== 0) {
-                            setInfoRetrospectivaPreenchida(true)
+                    
+                    if(infoExtra.data.length !== 0) {
+                        if(infoExtra.data[0].informacaoExtra) {
+                            if (infoExtra.data[0].informacaoExtra.length !== 0) {
+                                setInfoRetrospectivaPreenchida(true)
+                            }
                         }
                     }
                    
